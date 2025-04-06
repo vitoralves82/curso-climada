@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precificação de Riscos Climáticos com CLIMADA: Curso Completo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .bg-climate {
+            background: linear-gradient(135deg, #1a5276 0%, #2980b9 100%);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .module-card {
+            transition: transform 0.3s ease;
+        }
+        .module-card:hover {
+            transform: translateY(-5px);
+        }
+        .banner {
+            background-image: url('https://images.unsplash.com/photo-1584267385494-9fdd9a71ad75?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation Bar -->
+    <nav class="bg-climate text-white p-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <i class="fas fa-cloud-sun-rain text-2xl"></i>
+                <span class="font-bold text-xl">CLIMADA Course</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#modules" class="hover:text-yellow-300 transition duration-300">Módulos</a>
+                <a href="#navigation" class="hover:text-yellow-300 transition duration-300">Navegação Rápida</a>
+                <a href="#resources" class="hover:text-yellow-300 transition duration-300">Recursos</a>
+                <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="hover:text-yellow-300 transition duration-300">GitHub</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-toggle" class="focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <div class="container mx-auto py-3 space-y-3">
+                <a href="#modules" class="block hover:text-yellow-300">Módulos</a>
+                <a href="#navigation" class="block hover:text-yellow-300">Navegação Rápida</a>
+                <a href="#resources" class="block hover:text-yellow-300">Recursos</a>
+                <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="block hover:text-yellow-300">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="banner relative">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="container mx-auto px-4 py-20 relative z-10">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 text-shadow">Precificação de Riscos Climáticos em Ativos Corporativos com CLIMADA</h1>
+                <p class="text-xl mb-8 text-shadow">Do Básico ao Avançado</p>
+                <p class="mb-8 text-lg">Um curso completo sobre como quantificar e precificar riscos climáticos para ativos corporativos, com foco em embarcações offshore, utilizando a plataforma open-source CLIMADA.</p>
+                <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-full inline-block transition duration-300 transform hover:scale-105">
+                    Comece o Curso Agora
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Course Description -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Sobre Este Curso</h2>
+                <div class="bg-blue-50 rounded-lg p-6 shadow-lg">
+                    <p class="mb-4 text-gray-700">Este curso oferece uma jornada completa pelo processo de avaliação e precificação de riscos climáticos para ativos corporativos, com foco especial em embarcações offshore, utilizando a plataforma CLIMADA.</p>
+                    
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Objetivos de Aprendizado:</h3>
+                    <ul class="list-disc pl-6 mb-4 text-gray-700 space-y-1">
+                        <li>Compreender os conceitos fundamentais de risco climático</li>
+                        <li>Instalar e configurar o ambiente CLIMADA</li>
+                        <li>Manipular dados de perigos climáticos, exposição e vulnerabilidade</li>
+                        <li>Executar simulações de risco climático para calcular métricas financeiras</li>
+                        <li>Interpretar resultados no contexto de decisões corporativas</li>
+                        <li>Aplicar o CLIMADA em estudos de caso práticos focados em riscos para embarcações offshore</li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-semibold mb-2 text-gray-800">Público-Alvo:</h3>
+                    <p class="text-gray-700">Profissionais e estudantes das áreas de finanças, gestão de risco, sustentabilidade, engenharia, geociências e ciência de dados que desejam aprender a quantificar e precificar os riscos físicos das mudanças climáticas em ativos de empresas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How to Navigate Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-6 text-center text-gray-800">Como Navegar Este Curso</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="text-4xl text-blue-500 mb-4 text-center">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">Conteúdo do Módulo</h3>
+                        <p class="text-gray-600 text-center">Estude o material teórico organizado em unidades progressivas, com conceitos, explicações e exemplos.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="text-4xl text-green-500 mb-4 text-center">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">Práticas</h3>
+                        <p class="text-gray-600 text-center">Aplique o conhecimento em exercícios práticos com código Python e instruções passo a passo.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <div class="text-4xl text-purple-500 mb-4 text-center">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">Avaliação e Recursos</h3>
+                        <p class="text-gray-600 text-center">Teste seu conhecimento com quizzes e acesse materiais complementares para aprofundamento.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Estrutura de cada Módulo:</h3>
+                    <ul class="space-y-2 text-gray-700">
+                        <li><span class="font-medium text-blue-600">1. Conteúdo do Módulo:</span> Material teórico dividido em unidades</li>
+                        <li><span class="font-medium text-green-600">2. Prática:</span> Exercícios de aplicação prática com código</li>
+                        <li><span class="font-medium text-red-600">3. Quiz de Avaliação:</span> Verificação da compreensão dos conceitos</li>
+                        <li><span class="font-medium text-purple-600">4. Recursos Complementares:</span> Material adicional para aprofundamento</li>
+                    </ul>
+                    
+                    <div class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                        <p class="text-gray-700 flex items-start">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-3 mt-1"></i>
+                            <span>Recomendamos seguir a sequência sugerida, mas você pode navegar diretamente para tópicos específicos através da seção de "Navegação Rápida" abaixo.</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Navigation Section -->
+    <section id="navigation" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-10 text-center text-gray-800">Navegação Rápida</h2>
+                
+                <div class="bg-gray-50 rounded-lg shadow-lg p-6">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">Módulo 1: Fundamentos do Risco Climático e Introdução ao CLIMADA</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mb-4">
+                        <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html" class="flex items-center p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition">
+                            <i class="fas fa-book text-blue-500 mr-3"></i>
+                            <span>Conteúdo do Módulo 1</span>
+                        </a>
+                        <a href="https://page.genspark.site/page/toolu_01Fbpk5xSEBG53WqFNqhfB5H/climada_practice1_complete.html" class="flex items-center p-3 bg-green-50 hover:bg-green-100 rounded-lg transition">
+                            <i class="fas fa-laptop-code text-green-500 mr-3"></i>
+                            <span>Prática 1</span>
+                        </a>
+                        <a href="https://page.genspark.site/page/toolu_01GN3nGCXD2N6Sn2T2HdECJh/climada_module1_quiz.html" class="flex items-center p-3 bg-red-50 hover:bg-red-100 rounded-lg transition">
+                            <i class="fas fa-question-circle text-red-500 mr-3"></i>
+                            <span>Quiz do Módulo 1</span>
+                        </a>
+                        <a href="https://page.genspark.site/page/toolu_011fQnCxxSAFMNuTzvym6LMD/climada_module1_resources.html" class="flex items-center p-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition">
+                            <i class="fas fa-external-link-alt text-purple-500 mr-3"></i>
+                            <span>Recursos Complementares</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h4 class="font-medium text-gray-700 mb-2">Acesso Direto às Unidades:</h4>
+                        <div class="grid md:grid-cols-3 gap-2">
+                            <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html#unit1-1" class="text-sm p-2 bg-gray-100 hover:bg-gray-200 rounded transition">1.1: Conceitos de Risco Climático</a>
+                            <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html#unit1-2" class="text-sm p-2 bg-gray-100 hover:bg-gray-200 rounded transition">1.2: Introdução ao CLIMADA</a>
+                            <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html#unit1-3" class="text-sm p-2 bg-gray-100 hover:bg-gray-200 rounded transition">1.3: Configuração do Ambiente</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 bg-gray-50 rounded-lg shadow-lg p-6 opacity-70">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-600 border-b pb-2">Próximos Módulos (Em breve)</h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="p-3 bg-gray-100 rounded-lg">
+                            <span class="text-gray-500">Módulo 2: Modelagem de Perigos Climáticos</span>
+                        </div>
+                        <div class="p-3 bg-gray-100 rounded-lg">
+                            <span class="text-gray-500">Módulo 3: Modelagem de Exposição</span>
+                        </div>
+                        <div class="p-3 bg-gray-100 rounded-lg">
+                            <span class="text-gray-500">Módulo 4: Funções de Impacto</span>
+                        </div>
+                        <div class="p-3 bg-gray-100 rounded-lg">
+                            <span class="text-gray-500">Módulo 5: Cálculo e Análise de Impacto</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Module 1 Details Section -->
+    <section id="modules" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-10 text-center text-gray-800">Módulos Disponíveis</h2>
+                
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden module-card mb-10">
+                    <div class="bg-climate text-white p-6">
+                        <h3 class="text-2xl font-bold">Módulo 1: Fundamentos do Risco Climático e Introdução ao CLIMADA</h3>
+                    </div>
+                    
+                    <div class="p-6">
+                        <p class="text-gray-700 mb-6">Este módulo introduz os conceitos fundamentais de risco climático e apresenta a plataforma CLIMADA, preparando o ambiente para os módulos mais avançados.</p>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <h4 class="font-medium text-gray-800">1.1: Conceitos Fundamentais de Risco Climático</h4>
+                                <p class="text-sm text-gray-600">Definições, tipos de perigos, riscos físicos vs. riscos de transição</p>
+                            </div>
+                            
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <h4 class="font-medium text-gray-800">1.2: Introdução à Plataforma CLIMADA</h4>
+                                <p class="text-sm text-gray-600">História, componentes principais, arquitetura e fluxo de trabalho</p>
+                            </div>
+                            
+                            <div class="border-l-4 border-blue-500 pl-4 py-2">
+                                <h4 class="font-medium text-gray-800">1.3: Configuração do Ambiente de Trabalho</h4>
+                                <p class="text-sm text-gray-600">Instalação, configuração do Python, Jupyter Notebook e testes</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html" class="bg-blue-500 hover:bg-blue-600 text-white text-center py-3 px-4 rounded-lg transition">
+                                Iniciar Módulo 1
+                            </a>
+                            <a href="https://page.genspark.site/page/toolu_01Fbpk5xSEBG53WqFNqhfB5H/climada_practice1_complete.html" class="bg-green-500 hover:bg-green-600 text-white text-center py-3 px-4 rounded-lg transition">
+                                Ir para Prática 1
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-lg p-6 opacity-70 module-card">
+                        <h3 class="text-xl font-bold mb-4 text-gray-600">Módulo 2: Modelagem de Perigos Climáticos</h3>
+                        <p class="text-gray-500 mb-4">Em breve</p>
+                        <div class="bg-gray-100 text-gray-400 text-center py-2 px-4 rounded cursor-not-allowed">
+                            Ainda não disponível
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-6 opacity-70 module-card">
+                        <h3 class="text-xl font-bold mb-4 text-gray-600">Módulo 3: Modelagem de Exposição</h3>
+                        <p class="text-gray-500 mb-4">Em breve</p>
+                        <div class="bg-gray-100 text-gray-400 text-center py-2 px-4 rounded cursor-not-allowed">
+                            Ainda não disponível
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Recursos do Curso</h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <a href="https://page.genspark.site/page/toolu_01GN3nGCXD2N6Sn2T2HdECJh/climada_module1_quiz.html" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition module-card">
+                        <div class="text-4xl text-red-500 mb-4 text-center">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">Quiz de Avaliação</h3>
+                        <p class="text-gray-600 text-center">Teste seus conhecimentos com perguntas interativas sobre o conteúdo do Módulo 1.</p>
+                    </a>
+                    
+                    <a href="https://page.genspark.site/page/toolu_011fQnCxxSAFMNuTzvym6LMD/climada_module1_resources.html" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition module-card">
+                        <div class="text-4xl text-purple-500 mb-4 text-center">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">Recursos Complementares</h3>
+                        <p class="text-gray-600 text-center">Acesse artigos, vídeos e fontes adicionais para aprofundar seu conhecimento.</p>
+                    </a>
+                    
+                    <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition module-card">
+                        <div class="text-4xl text-gray-700 mb-4 text-center">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-center text-gray-800">GitHub do CLIMADA</h3>
+                        <p class="text-gray-600 text-center">Acesse o repositório oficial do CLIMADA para consultar o código-fonte e documentação.</p>
+                    </a>
+                </div>
+                
+                <div class="mt-10 p-6 bg-blue-50 rounded-lg border border-blue-100">
+                    <div class="flex items-start">
+                        <div class="text-3xl text-blue-500 mr-4">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-2 text-gray-800">Dica para Aprendizado Efetivo</h3>
+                            <p class="text-gray-700">Este curso foi projetado para uma aprendizagem progressiva. Para melhor aproveitamento, recomendamos seguir a sequência proposta: Conteúdo do Módulo → Prática → Quiz → Recursos Complementares.</p>
+                            <p class="mt-2 text-gray-700">Nenhum curso substitui a prática. Dedique tempo aos exercícios práticos e experimente modificar os exemplos para consolidar seu aprendizado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-climate">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center text-white">
+                <h2 class="text-3xl font-bold mb-6">Pronto para começar sua jornada?</h2>
+                <p class="text-xl mb-8">Aprenda a quantificar e precificar riscos climáticos com uma das ferramentas mais poderosas disponíveis.</p>
+                <a href="https://page.genspark.site/page/toolu_01TQDENcGUUKkz3tyekzj624/climada_module1_complete.html" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-8 rounded-full inline-block transition duration-300 transform hover:scale-105">
+                    Comece o Curso Agora
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Sobre o Curso</h3>
+                        <p class="text-gray-300">Curso desenvolvido para ensinar os fundamentos e aplicações avançadas da plataforma CLIMADA para precificação de riscos climáticos em ativos corporativos, com foco especial em embarcações offshore.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Links Úteis</h3>
+                        <ul class="space-y-2">
+                            <li><a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-gray-300 hover:text-white transition">GitHub do CLIMADA</a></li>
+                            <li><a href="https://climada-python.readthedocs.io/" target="_blank" class="text-gray-300 hover:text-white transition">Documentação Oficial</a></li>
+                            <li><a href="#navigation" class="text-gray-300 hover:text-white transition">Navegação Rápida</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Contato</h3>
+                        <p class="text-gray-300 mb-2">Tem dúvidas ou sugestões? Entre em contato:</p>
+                        <a href="#" class="flex items-center text-gray-300 hover:text-white transition mb-2">
+                            <i class="fas fa-envelope mr-2"></i>
+                            <span>contato@climadacurso.com</span>
+                        </a>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="#" class="text-gray-300 hover:text-white transition">
+                                <i class="fab fa-github text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-white transition">
+                                <i class="fab fa-linkedin text-xl"></i>
+                            </a>
+                            <a href="#" class="text-gray-300 hover:text-white transition">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-700 mt-10 pt-6 text-center text-gray-400">
+                    <p>© 2023 CLIMADA Course. Todo o conteúdo é baseado na plataforma open-source <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-gray-300 hover:text-white">CLIMADA</a>.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+            } else {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
