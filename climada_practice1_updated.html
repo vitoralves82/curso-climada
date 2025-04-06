@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prática 1: Instalação e Primeiros Passos com CLIMADA | Curso CLIMADA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a5276;
+            --secondary: #2874A6;
+            --accent: #3498DB;
+            --light: #EBF5FB;
+            --dark: #1C2833;
+            --success: #27AE60;
+            --warning: #F39C12;
+            --danger: #E74C3C;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .sidebar {
+            background-color: white;
+            border-right: 1px solid #e0e0e0;
+            height: calc(100vh - 64px);
+            position: sticky;
+            top: 64px;
+            overflow-y: auto;
+        }
+        
+        .sidebar-link {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: var(--light);
+            border-left-color: var(--accent);
+            color: var(--primary);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--success);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary);
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .section-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1rem 1.5rem;
+            background-color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section-header h2 {
+            margin: 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .section-content {
+            padding: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s ease;
+        }
+        
+        .section-content.active {
+            padding: 1.5rem;
+            max-height: 5000px;
+            transition: max-height 1s ease-in, padding 0.3s ease;
+        }
+        
+        .code-block {
+            background-color: #f8f9fa;
+            border-radius: 0.25rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            position: relative;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: var(--light);
+            color: var(--primary);
+            border: none;
+            border-radius: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+        }
+        
+        .alert-info {
+            background-color: var(--light);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .alert-warning {
+            background-color: #FEF9E7;
+            border-left: 4px solid var(--warning);
+        }
+        
+        .alert-success {
+            background-color: #E9F7EF;
+            border-left: 4px solid var(--success);
+        }
+        
+        .alert-danger {
+            background-color: #FDEDEC;
+            border-left: 4px solid var(--danger);
+        }
+        
+        .table-of-contents {
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .table-of-contents h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--dark);
+            text-decoration: none;
+            border-bottom: 1px solid #e0e0e0;
+            transition: all 0.2s;
+        }
+        
+        .toc-link:hover {
+            color: var(--accent);
+            padding-left: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* Additional styles for the exercises and checkboxes */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        
+        .code-output {
+            background-color: #1C2833;
+            color: #EAECEE;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        
+        /* Styling for progress tracking */
+        .progress-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .progress-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Hide scrollbar for sidebar on smaller screens */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: static;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+                margin-bottom: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar fixed w-full z-10">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="logo flex items-center">
+                    <i class="fas fa-cloud-bolt mr-2"></i>
+                    <span>Curso CLIMADA</span>
+                </a>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#" class="text-white hover:text-gray-300">Homepage</a>
+                    <a href="#" class="text-white hover:text-gray-300">Módulos</a>
+                    <a href="#" class="text-white hover:text-gray-300">Práticas</a>
+                    <a href="#" class="text-white hover:text-gray-300">Recursos</a>
+                </div>
+                <div class="flex items-center">
+                    <button class="text-white bg-secondary px-3 py-1 rounded">
+                        <i class="fas fa-search mr-1"></i> Buscar
+                    </button>
+                    <button class="ml-4 text-white md:hidden">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 pt-20">
+        <div class="flex flex-col md:flex-row">
+            <!-- Sidebar -->
+            <aside class="md:w-1/4 sidebar p-4">
+                <div class="progress-section">
+                    <div class="progress-title">
+                        <span class="font-medium">Seu Progresso</span>
+                        <span>25%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%"></div>
+                    </div>
+                </div>
+                
+                <h3 class="font-semibold text-lg mb-3">Navegação Rápida</h3>
+                <a href="#instalacao" class="sidebar-link">1. Instalação do CLIMADA</a>
+                <a href="#jupyter" class="sidebar-link">2. Configuração Jupyter</a>
+                <a href="#api" class="sidebar-link">3. Primeiro Contato com API</a>
+                <a href="#exercicios" class="sidebar-link">4. Exercícios Práticos</a>
+                
+                <h3 class="font-semibold text-lg mt-6 mb-3">Recursos Relacionados</h3>
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-book mr-2"></i> Documentação CLIMADA
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-video mr-2"></i> Vídeo Tutorial Instalação
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-question-circle mr-2"></i> FAQ de Instalação
+                </a>
+                <a href="#" class="sidebar-link">
+                    <i class="fas fa-github mr-2"></i> Repositório CLIMADA
+                </a>
+            </aside>
+
+            <!-- Main content -->
+            <main class="md:w-3/4 p-4">
+                <a href="#" class="btn btn-outline mb-6">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar ao Módulo 1
+                </a>
+                
+                <h1 class="text-3xl font-bold text-primary mb-4">Prática 1: Instalação e Primeiros Passos com CLIMADA</h1>
+                
+                <p class="text-lg mb-6">
+                    Nesta prática, você irá configurar seu ambiente de trabalho para utilizar o CLIMADA,
+                    realizar os primeiros testes e explorar a API básica da plataforma. Ao final desta
+                    prática, você terá um ambiente funcional e estará familiarizado com os componentes
+                    principais do CLIMADA.
+                </p>
+                
+                <!-- Table of Contents -->
+                <div class="table-of-contents">
+                    <h3 class="text-xl font-semibold mb-4">Conteúdo da Prática</h3>
+                    <a href="#instalacao" class="toc-link">1. Instalação do Ambiente CLIMADA</a>
+                    <a href="#jupyter" class="toc-link">2. Configuração do Jupyter Notebook</a>
+                    <a href="#api" class="toc-link">3. Primeiro Contato com a API CLIMADA</a>
+                    <a href="#exercicios" class="toc-link">4. Exercícios Práticos</a>
+                </div>
+                
+                <!-- Pre-requisites -->
+                <div class="alert alert-info mb-6">
+                    <h3 class="font-semibold">Pré-requisitos</h3>
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>Conhecimentos básicos de linha de comando</li>
+                        <li>Familiaridade com Python (variáveis, funções, importações)</li>
+                        <li>Computador com acesso à internet e pelo menos 8GB de RAM</li>
+                    </ul>
+                </div>
+                
+                <!-- Section 1: Installation -->
+                <section id="instalacao" class="section-card">
+                    <div class="section-header" onclick="toggleSection('instalacao-content')">
+                        <h2 class="text-xl">1. Instalação do Ambiente CLIMADA</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="instalacao-content" class="section-content">
+                        <p class="mb-4">
+                            O CLIMADA é distribuído como um pacote Python e pode ser instalado usando o gerenciador de pacotes conda ou mamba.
+                            Recomendamos fortemente o uso do mamba, que é mais rápido e eficiente na resolução de dependências.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">1.1. Instalação do Conda/Mamba</h3>
+                        
+                        <p class="mb-4">
+                            Se você ainda não tem o Anaconda ou Miniconda instalado, você pode baixá-lo e instalá-lo seguindo as instruções em
+                            <a href="https://docs.anaconda.com/anaconda/install/" class="text-blue-600 hover:underline" target="_blank">docs.anaconda.com/anaconda/install/</a>.
+                        </p>
+                        
+                        <p class="mb-4">
+                            Após instalar o Conda, instale o Mamba, que é uma reimplementação mais rápida do Conda:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code1')">Copiar</button>
+                            <pre id="code1">conda install -c conda-forge mamba</pre>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">1.2. Criação de um Ambiente Virtual para o CLIMADA</h3>
+                        
+                        <p class="mb-4">
+                            É altamente recomendável criar um ambiente virtual dedicado para o CLIMADA, a fim de evitar conflitos com outras bibliotecas:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code2')">Copiar</button>
+                            <pre id="code2">mamba create -n climada_env python=3.9 -c conda-forge</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Após a criação, ative o ambiente:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code3')">Copiar</button>
+                            <pre id="code3"># No Windows:
+activate climada_env
+
+# No macOS e Linux:
+source activate climada_env</pre>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">1.3. Instalação do CLIMADA</h3>
+                        
+                        <p class="mb-4">
+                            Agora, instale o CLIMADA usando o mamba:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code4')">Copiar</button>
+                            <pre id="code4">mamba install -c conda-forge climada</pre>
+                        </div>
+                        
+                        <div class="alert alert-warning">
+                            <p><strong>Atenção:</strong> A instalação pode levar alguns minutos, pois o CLIMADA tem várias dependências.
+                            Se ocorrerem erros de resolução de dependências, tente o seguinte comando:</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode('code5')">Copiar</button>
+                                <pre id="code5">mamba install -c conda-forge climada --strict-channel-priority</pre>
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">1.4. Verificação da Instalação</h3>
+                        
+                        <p class="mb-4">
+                            Para verificar se o CLIMADA foi instalado corretamente, execute o seguinte comando no terminal:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code6')">Copiar</button>
+                            <pre id="code6">python -c "import climada; print(climada.__version__)"</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Você deve ver a versão do CLIMADA, indicando que a instalação foi bem-sucedida.
+                        </p>
+                        
+                        <div class="alert alert-success">
+                            <p><strong>Dica:</strong> Se você planeja trabalhar com funções avançadas, como modelagem de perigos específicos não incluídos no core,
+                            você também pode instalar o pacote climada_petals:</p>
+                            <div class="code-block mt-2">
+                                <button class="copy-btn" onclick="copyCode('code7')">Copiar</button>
+                                <pre id="code7">mamba install -c conda-forge climada_petals</pre>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end mt-6">
+                            <a href="#jupyter" class="btn btn-primary">
+                                Próxima Seção <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 2: Jupyter Notebook -->
+                <section id="jupyter" class="section-card">
+                    <div class="section-header" onclick="toggleSection('jupyter-content')">
+                        <h2 class="text-xl">2. Configuração do Jupyter Notebook</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="jupyter-content" class="section-content">
+                        <p class="mb-4">
+                            O Jupyter Notebook é uma ferramenta excelente para trabalhar com o CLIMADA, pois permite combinar
+                            código, visualizações e explicações em um único documento interativo.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">2.1. Instalação do Jupyter Notebook</h3>
+                        
+                        <p class="mb-4">
+                            Se você ainda não tem o Jupyter Notebook instalado no seu ambiente CLIMADA, instale-o usando:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code8')">Copiar</button>
+                            <pre id="code8">mamba install -c conda-forge jupyter notebook</pre>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">2.2. Iniciar o Jupyter Notebook</h3>
+                        
+                        <p class="mb-4">
+                            Com o ambiente climada_env ativado, inicie o Jupyter Notebook:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code9')">Copiar</button>
+                            <pre id="code9">jupyter notebook</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Isso abrirá uma nova janela ou guia no seu navegador com a interface do Jupyter Notebook.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">2.3. Criar um Novo Notebook</h3>
+                        
+                        <p class="mb-4">
+                            Na interface do Jupyter, clique em "New" e selecione "Python 3" para criar um novo notebook.
+                            Renomeie o notebook para "CLIMADA_Teste_Inicial.ipynb" clicando no título "Untitled" e digitando o novo nome.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">2.4. Verificar se o CLIMADA está Acessível</h3>
+                        
+                        <p class="mb-4">
+                            Na primeira célula do notebook, digite e execute o seguinte código para verificar se o CLIMADA está acessível:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code10')">Copiar</button>
+                            <pre id="code10">import climada
+print(f"CLIMADA versão: {climada.__version__}")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            A saída deve mostrar a versão do CLIMADA, confirmando que tudo está configurado corretamente.
+                        </p>
+                        
+                        <div class="alert alert-info">
+                            <p><strong>Dica:</strong> Jupyter Notebook tem muitos atalhos de teclado úteis. Pressione <code>Shift+Enter</code> para executar a célula atual e avançar para a próxima,
+                            ou <code>Ctrl+Enter</code> para executar a célula atual sem avançar.</p>
+                        </div>
+                        
+                        <div class="flex justify-end mt-6">
+                            <a href="#api" class="btn btn-primary">
+                                Próxima Seção <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 3: First Contact with API -->
+                <section id="api" class="section-card">
+                    <div class="section-header" onclick="toggleSection('api-content')">
+                        <h2 class="text-xl">3. Primeiro Contato com a API CLIMADA</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="api-content" class="section-content">
+                        <p class="mb-4">
+                            Nesta seção, vamos explorar os principais componentes da API do CLIMADA: Hazard, Exposures, Impact Functions e Engine.
+                            Você aprenderá como importar e utilizar cada um desses componentes.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.1. Importação dos Componentes Principais</h3>
+                        
+                        <p class="mb-4">
+                            Comece importando os principais módulos do CLIMADA:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code11')">Copiar</button>
+                            <pre id="code11"># Importação dos principais componentes do CLIMADA
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Módulos do CLIMADA
+from climada.hazard import Hazard, TCTracks, TropCyclone, Centroids
+from climada.entity import Exposures, Entity, ImpactFuncSet
+from climada.entity.impact_funcs import ImpfTropCyclone
+from climada.engine import ImpactCalc
+
+# Configuração para visualização de gráficos inline no notebook
+%matplotlib inline</pre>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.2. Explorando a Classe Centroids</h3>
+                        
+                        <p class="mb-4">
+                            Vamos criar um objeto Centroids simples para entender como funciona:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code12')">Copiar</button>
+                            <pre id="code12"># Criando um conjunto de centroids para uma área específica
+min_lat, max_lat = 17.5, 19.0  # Exemplo para Porto Rico
+min_lon, max_lon = -68.0, -65.0
+resolution = 0.1  # resolução em graus (aproximadamente 10km no equador)
+
+# Criação dos centroids
+cent = Centroids.from_pnt_bounds((min_lon, min_lat, max_lon, max_lat), res=resolution)
+
+# Verificação dos centroids
+cent.check()
+
+# Visualização dos centroids
+plt.figure(figsize=(10, 6))
+cent.plot()
+plt.title('Centroids para Porto Rico')
+plt.show()</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Este código cria uma grade de pontos (centroids) que cobrem Porto Rico. Os centroids são pontos geográficos onde o impacto do perigo será calculado.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.3. Explorando a Classe TCTracks</h3>
+                        
+                        <p class="mb-4">
+                            Agora, vamos explorar como carregar dados de ciclones tropicais:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code13')">Copiar</button>
+                            <pre id="code13"># Carregando um evento histórico específico - Furacão Irma de 2017
+# Este código fará o download dos dados do IBTrACS a primeira vez que for executado
+try:
+    print("Baixando dados do IBTrACS para o Furacão Irma (2017)...")
+    tr_irma = TCTracks.from_ibtracs_netcdf(provider='usa', storm_id='2017242N16333')
+    
+    # Visualização da trajetória
+    plt.figure(figsize=(12, 8))
+    ax = tr_irma.plot()
+    ax.set_title('Trajetória do Furacão Irma (2017)')
+    plt.show()
+    
+    # Exibindo as informações básicas do track
+    track = tr_irma.data[0]
+    print(f"Nome do Evento: {track.attrs['name']}")
+    print(f"Categoria Máxima: {track.attrs['category']}")
+    print(f"Data de Início: {track.time.values[0]}")
+    print(f"Data de Término: {track.time.values[-1]}")
+except Exception as e:
+    print(f"Erro ao carregar os dados: {e}")
+    print("Você pode precisar baixar manualmente o arquivo IBTrACS.ALL.v04r00.nc")
+    print("Visite: https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r00/access/netcdf/")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Este código baixa e visualiza a trajetória do Furacão Irma de 2017. O CLIMADA usa estes dados de trajetória para modelar os campos de vento associados ao ciclone.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.4. Explorando a Classe TropCyclone</h3>
+                        
+                        <p class="mb-4">
+                            Vamos criar um objeto TropCyclone usando a trajetória do Irma:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code14')">Copiar</button>
+                            <pre id="code14"># Criando um objeto TropCyclone a partir da trajetória do Irma
+try:
+    # Primeiro, vamos adicionar passos de tempo mais frequentes para uma melhor resolução
+    tr_irma.equal_timestep(time_step_h=0.5)
+    
+    # Criando o objeto TropCyclone com os centroids definidos anteriormente
+    tc_hazard = TropCyclone.from_tracks(tr_irma, centroids=cent)
+    
+    # Verificação do objeto hazard
+    tc_hazard.check()
+    
+    # Visualização da intensidade do ciclone
+    plt.figure(figsize=(12, 8))
+    tc_hazard.plot_intensity(event='2017242N16333')
+    plt.title('Intensidade do Furacão Irma (2017)')
+    plt.show()
+except Exception as e:
+    print(f"Erro ao processar o ciclone: {e}")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Este código cria um objeto TropCyclone que modela o campo de vento do Furacão Irma nos centroids que definimos para Porto Rico.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.5. Explorando a Classe Exposures</h3>
+                        
+                        <p class="mb-4">
+                            Agora, vamos criar uma exposição simples para Porto Rico usando o módulo LitPop:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code15')">Copiar</button>
+                            <pre id="code15"># Importando o módulo LitPop para criar exposições econômicas
+from climada.entity.exposures import LitPop
+
+try:
+    # Criando uma exposição para Porto Rico
+    print("Gerando exposição para Porto Rico...")
+    exp_pr = LitPop.from_countries('Puerto Rico', res_arcsec=120)
+    
+    # Configurando a função de impacto a ser usada para ciclones tropicais
+    exp_pr.gdf['impf_TC'] = 1
+    
+    # Visualização da exposição
+    plt.figure(figsize=(12, 8))
+    exp_pr.plot_hexbin(pop_name=True)
+    plt.title('Exposição Econômica em Porto Rico')
+    plt.show()
+except Exception as e:
+    print(f"Erro ao criar exposição: {e}")
+    print("Nota: Pode ser necessário baixar dados adicionais. Siga as instruções no console.")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            O código acima cria uma exposição econômica para Porto Rico usando o módulo LitPop, que combina dados de luzes noturnas e população para estimar valores econômicos expostos.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.6. Explorando as Funções de Impacto</h3>
+                        
+                        <p class="mb-4">
+                            Vamos criar uma função de impacto para ciclones tropicais:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code16')">Copiar</button>
+                            <pre id="code16"># Criando uma função de impacto para ciclones tropicais
+imp_func = ImpfTropCyclone.from_emanuel_usa()
+
+# Criando um conjunto de funções de impacto
+impact_funcs = ImpactFuncSet([imp_func])
+
+# Visualizando a função de impacto
+plt.figure(figsize=(10, 6))
+imp_func.plot()
+plt.title('Função de Impacto para Ciclones Tropicais (Emanuel)')
+plt.show()
+
+# Exibindo informações sobre a função de impacto
+print(f"ID da Função: {imp_func.id}")
+print(f"Nome: {imp_func.name}")
+print(f"Tipo de Perigo: {imp_func.haz_type}")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Este código cria uma função de impacto baseada no modelo de Emanuel para ciclones tropicais, que relaciona a velocidade do vento ao dano esperado em estruturas.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">3.7. Calculando o Impacto</h3>
+                        
+                        <p class="mb-4">
+                            Finalmente, vamos calcular o impacto combinando o perigo, a exposição e a função de impacto:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code17')">Copiar</button>
+                            <pre id="code17">try:
+    # Calculando o impacto
+    impact = ImpactCalc(exp_pr, impact_funcs, tc_hazard).impact()
+    
+    # Verificando o impacto total
+    print(f"Impacto Total: {impact.aai_agg:.2f} USD")
+    
+    # Visualizando a curva de frequência de impacto
+    plt.figure(figsize=(10, 6))
+    impact.calc_freq_curve().plot()
+    plt.title('Curva de Frequência de Excedência de Impacto')
+    plt.xlabel('Impacto (USD)')
+    plt.ylabel('Frequência (1/ano)')
+    plt.show()
+    
+    # Visualizando o impacto espacial
+    plt.figure(figsize=(12, 8))
+    impact.plot_basemap_eai_exposure(buffer=0.1)
+    plt.title('Impacto Anual Esperado por Exposição')
+    plt.show()
+except Exception as e:
+    print(f"Erro ao calcular impacto: {e}")</pre>
+                        </div>
+                        
+                        <p class="mb-4">
+                            Este código calcula e visualiza o impacto do Furacão Irma em Porto Rico, combinando o perigo modelado, a exposição econômica e a função de impacto.
+                        </p>
+                        
+                        <div class="alert alert-info">
+                            <p><strong>Nota:</strong> O cálculo de impacto pode levar algum tempo, dependendo da resolução dos centroids e da extensão da área de estudo.</p>
+                        </div>
+                        
+                        <div class="flex justify-end mt-6">
+                            <a href="#exercicios" class="btn btn-primary">
+                                Próxima Seção <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Section 4: Practical Exercises -->
+                <section id="exercicios" class="section-card">
+                    <div class="section-header" onclick="toggleSection('exercicios-content')">
+                        <h2 class="text-xl">4. Exercícios Práticos</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div id="exercicios-content" class="section-content">
+                        <p class="mb-4">
+                            Agora que você já conhece os componentes básicos do CLIMADA, vamos praticar com alguns exercícios.
+                            Complete os exercícios a seguir para consolidar seu conhecimento.
+                        </p>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">Exercício 1: Modificando Parâmetros</h3>
+                        
+                        <p class="mb-4">
+                            Modifique o exercício anterior para analisar um ciclone tropical diferente e uma região diferente.
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code18')">Copiar</button>
+                            <pre id="code18"># EXERCÍCIO 1: Analise o Furacão Maria (2017) na mesma região de Porto Rico
+# ID do Furacão Maria: '2017272N16333'
+
+# Seu código aqui:
+# 1. Carregue os dados do Furacão Maria
+# 2. Crie os centroids para a mesma região
+# 3. Gere o objeto TropCyclone
+# 4. Visualize a intensidade do furacão
+
+# Dica: você pode usar o mesmo código dos exemplos anteriores, modificando apenas o ID do ciclone
+</pre>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4 mb-6">
+                            <h4 class="font-semibold">Dica</h4>
+                            <p>
+                                O Furacão Maria atingiu Porto Rico em setembro de 2017 e causou danos catastróficos.
+                                Compare os resultados com o Furacão Irma. Que diferenças você observa na intensidade e padrão espacial?
+                            </p>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">Exercício 2: Explorando Cenários de Mudanças Climáticas</h3>
+                        
+                        <p class="mb-4">
+                            O CLIMADA permite simular os efeitos das mudanças climáticas nos ciclones tropicais. Vamos explorar essa funcionalidade:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code19')">Copiar</button>
+                            <pre id="code19"># EXERCÍCIO 2: Aplicar um cenário de mudança climática ao Furacão Irma
+
+# Seu código aqui:
+# 1. Carregue novamente os dados do Furacão Irma
+# 2. Crie o objeto TropCyclone
+# 3. Aplique um cenário de mudança climática para 2050 usando o método apply_climate_scenario_knu
+# 4. Compare a intensidade do ciclone no cenário atual e futuro
+
+# Dica: Use o método apply_climate_scenario_knu com os parâmetros ref_year e rcp_scenario
+# Exemplo: tc_hazard_future = tc_hazard.apply_climate_scenario_knu(ref_year=2050, rcp_scenario=85)
+</pre>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4 mb-6">
+                            <h4 class="font-semibold">Sobre a função apply_climate_scenario_knu</h4>
+                            <p>
+                                Esta função implementa mudanças na intensidade e frequência dos ciclones tropicais com base no estudo
+                                "Global projections of intense tropical cyclone activity for the late twenty-first century from dynamical
+                                downscaling of CMIP5/RCP4.5 scenarios" de Knutson et al. (2015).
+                            </p>
+                            <p class="mt-2">
+                                Parâmetros principais:
+                            </p>
+                            <ul class="list-disc pl-5 mt-1">
+                                <li><code>ref_year</code>: ano de referência para as projeções (ex: 2050)</li>
+                                <li><code>rcp_scenario</code>: cenário de emissões (45 para RCP 4.5 ou 85 para RCP 8.5)</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">Exercício 3: Criando uma Função de Impacto Personalizada</h3>
+                        
+                        <p class="mb-4">
+                            Crie uma função de impacto personalizada para representar a vulnerabilidade de embarcações offshore:
+                        </p>
+                        
+                        <div class="code-block">
+                            <button class="copy-btn" onclick="copyCode('code20')">Copiar</button>
+                            <pre id="code20"># EXERCÍCIO 3: Criar uma função de impacto personalizada para embarcações offshore
+
+from climada.entity.impact_funcs import ImpactFunc
+
+# Seu código aqui:
+# 1. Crie um objeto ImpactFunc para o tipo de perigo 'TC'
+# 2. Defina a intensidade (velocidade do vento) e os valores de MDD e PAA para embarcações offshore
+# 3. Visualize a função de impacto
+# 4. Compare com a função de Emanuel
+
+# Dica: Embarcações offshore geralmente começam a sofrer danos com ventos mais fortes,
+# mas a curva de dano pode ser mais íngreme após um certo limiar.
+
+# Exemplo de como iniciar:
+impact_func_offshore = ImpactFunc()
+impact_func_offshore.id = 2
+impact_func_offshore.name = "Embarcações Offshore"
+impact_func_offshore.haz_type = "TC"
+</pre>
+                        </div>
+                        
+                        <div class="alert alert-info mt-4 mb-6">
+                            <h4 class="font-semibold">Sobre a função de impacto para embarcações offshore</h4>
+                            <p>
+                                Ao criar uma função de impacto para embarcações offshore, considere:
+                            </p>
+                            <ul class="list-disc pl-5 mt-1">
+                                <li>Embarcações são projetadas para resistir a condições marinhas adversas</li>
+                                <li>Diferentes tipos de embarcações têm diferentes limiares de resistência</li>
+                                <li>Muitas embarcações podem se deslocar para evitar o pior de uma tempestade</li>
+                                <li>Os danos podem ser tanto estruturais quanto operacionais (interrupção de operações)</li>
+                            </ul>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mt-6 mb-2">Verificação de Conclusão</h3>
+                        
+                        <p class="mb-4">
+                            Marque as tarefas que você completou:
+                        </p>
+                        
+                        <div class="mx-4">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check1" class="h-5 w-5">
+                                <label for="check1" class="ml-2">Instalei o CLIMADA com sucesso</label>
+                            </div>
+                            
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check2" class="h-5 w-5">
+                                <label for="check2" class="ml-2">Configurei o Jupyter Notebook</label>
+                            </div>
+                            
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check3" class="h-5 w-5">
+                                <label for="check3" class="ml-2">Executei o exemplo básico de ciclone tropical</label>
+                            </div>
+                            
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check4" class="h-5 w-5">
+                                <label for="check4" class="ml-2">Completei o Exercício 1</label>
+                            </div>
+                            
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check5" class="h-5 w-5">
+                                <label for="check5" class="ml-2">Completei o Exercício 2</label>
+                            </div>
+                            
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="check6" class="h-5 w-5">
+                                <label for="check6" class="ml-2">Completei o Exercício 3</label>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-success mt-6">
+                            <h4 class="font-semibold">Próximos Passos</h4>
+                            <p>
+                                Após completar esta prática, você estará preparado para explorar funções mais avançadas do CLIMADA
+                                no Módulo 2, onde abordaremos a modelagem de perigos climáticos em maior profundidade.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Navigation buttons at the bottom -->
+                <div class="flex flex-wrap justify-between items-center mt-8">
+                    <a href="#" class="btn btn-outline mb-4 md:mb-0">
+                        <i class="fas fa-arrow-left mr-2"></i> Voltar ao Módulo 1
+                    </a>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-tasks mr-2"></i> Ir para o Quiz
+                        </a>
+                        <a href="#" class="btn btn-primary">
+                            <i class="fas fa-book mr-2"></i> Ver Recursos Complementares
+                        </a>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between">
+                <div class="mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">Curso CLIMADA</h3>
+                    <p class="text-gray-400 max-w-md">
+                        Precificação de Riscos Climáticos em Ativos Corporativos com CLIMADA: Do Básico ao Avançado
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3">Navegação</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Homepage</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Módulos</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Práticas</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Recursos</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3">Recursos</h4>
+                        <ul class="space-y-2">
+                            <li><a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-gray-400 hover:text-white">GitHub CLIMADA</a></li>
+                            <li><a href="https://climada-python.readthedocs.io/" target="_blank" class="text-gray-400 hover:text-white">Documentação</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Suporte</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3">Contato</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-400 hover:text-white">Email</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Comunidade</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white">Feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2023 Curso CLIMADA. Todos os direitos reservados.
+                </p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle section visibility
+        function toggleSection(sectionId) {
+            const sectionContent = document.getElementById(sectionId);
+            const header = sectionContent.previousElementSibling;
+            const icon = header.querySelector('i');
+            
+            if (sectionContent.classList.contains('active')) {
+                sectionContent.classList.remove('active');
+                icon.classList.remove('fa-chevron-up');
+                icon.classList.add('fa-chevron-down');
+            } else {
+                sectionContent.classList.add('active');
+                icon.classList.remove('fa-chevron-down');
+                icon.classList.add('fa-chevron-up');
+            }
+        }
+        
+        // Copy code to clipboard
+        function copyCode(codeId) {
+            const codeBlock = document.getElementById(codeId);
+            const textArea = document.createElement('textarea');
+            textArea.value = codeBlock.textContent;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            // Visual feedback
+            const button = codeBlock.previousElementSibling;
+            const originalText = button.textContent;
+            button.textContent = 'Copiado!';
+            button.style.backgroundColor = 'var(--success)';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.backgroundColor = '';
+                button.style.color = '';
+            }, 2000);
+        }
+        
+        // Set sidebar links active based on scroll position
+        function setActiveLink() {
+            const sections = document.querySelectorAll('section');
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 100) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize progress tracking
+        function initProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressFill = document.querySelector('.progress-fill');
+            
+            // Update progress when checkboxes change
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // Initial progress calculation
+            updateProgress();
+            
+            function updateProgress() {
+                const total = checkboxes.length;
+                let checked = 0;
+                
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.checked) checked++;
+                });
+                
+                const percentage = total > 0 ? (checked / total) * 100 : 0;
+                progressFill.style.width = percentage + '%';
+                
+                // Update text display
+                const progressText = document.querySelector('.progress-title span:last-child');
+                if (progressText) {
+                    progressText.textContent = Math.round(percentage) + '%';
+                }
+            }
+        }
+        
+        // Expand first section by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // Open first section
+            const firstSection = document.querySelector('.section-content');
+            if (firstSection) {
+                toggleSection(firstSection.id);
+            }
+            
+            // Initialize progress tracking
+            initProgress();
+            
+            // Set active link on scroll
+            window.addEventListener('scroll', setActiveLink);
+            setActiveLink();
+        });
+    </script>
+</body>
+</html>

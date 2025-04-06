@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Módulo 1 | Curso CLIMADA</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #4caf50;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --warning: #f39c12;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            padding-bottom: 2px;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .quiz-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary);
+            background-color: rgba(26, 115, 232, 0.05);
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(26, 115, 232, 0.1);
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background-color: rgba(46, 204, 113, 0.1);
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background-color: rgba(231, 76, 60, 0.1);
+        }
+        
+        .progress-indicator .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #6b7280;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-indicator .step.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .progress-indicator .step.completed {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .progress-indicator .step-connector {
+            height: 2px;
+            background-color: #e5e7eb;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-indicator .step-connector.completed {
+            background-color: var(--success);
+        }
+        
+        .feedback-box {
+            border-left: 4px solid;
+            padding-left: 1rem;
+        }
+        
+        .feedback-box.correct {
+            border-color: var(--success);
+        }
+        
+        .feedback-box.incorrect {
+            border-color: var(--danger);
+        }
+        
+        .result-card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center">
+                        <i class="fas fa-chart-line text-blue-600 text-2xl mr-2"></i>
+                        <span class="font-bold text-xl text-gray-800">CLIMADA</span>
+                    </a>
+                    <span class="mx-2 text-gray-400">|</span>
+                    <span class="text-sm text-gray-600">Precificação de Riscos Climáticos</span>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-blue-600">Início</a>
+                    <div class="relative group">
+                        <a href="#" class="nav-link text-gray-700 hover:text-blue-600 flex items-center">
+                            Módulos
+                            <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                            <a href="module1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Módulo 1: Fundamentos</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-500 cursor-not-allowed">Módulo 2: Modelagem de Perigos (Em breve)</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-500 cursor-not-allowed">Módulo 3: Modelagem de Exposição (Em breve)</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <a href="#" class="nav-link text-gray-700 hover:text-blue-600 flex items-center">
+                            Práticas
+                            <i class="fas fa-chevron-down text-xs ml-1"></i>
+                        </a>
+                        <div class="absolute left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                            <a href="practice1.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Prática 1: Instalação e Primeiro Contato</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-500 cursor-not-allowed">Prática 2 (Em breve)</a>
+                        </div>
+                    </div>
+                    <a href="resources.html" class="nav-link text-gray-700 hover:text-blue-600">Recursos</a>
+                    <a href="community.html" class="nav-link text-gray-700 hover:text-blue-600">Comunidade</a>
+                </div>
+                
+                <div class="flex items-center">
+                    <div class="relative mr-4">
+                        <input type="text" placeholder="Buscar..." class="py-1 pl-8 pr-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm w-40">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="md:hidden focus:outline-none">
+                        <i class="fas fa-bars text-gray-700 text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header with Navigation Button -->
+    <div class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2">Quiz - Módulo 1</h1>
+                    <p class="text-blue-100">Teste seu conhecimento sobre Fundamentos de Risco Climático e Introdução ao CLIMADA</p>
+                </div>
+                <a href="module1.html" class="bg-white text-blue-600 hover:bg-blue-50 py-2 px-4 rounded-lg shadow-md flex items-center btn">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Voltar ao Módulo 1
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Introduction Section -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Sobre este Quiz</h2>
+            <p class="mb-4 text-gray-700">Este quiz foi projetado para avaliar sua compreensão dos conceitos fundamentais apresentados no Módulo 1 do curso. Ele cobre os tópicos de riscos climáticos, a arquitetura do CLIMADA e a configuração do ambiente de trabalho.</p>
+            
+            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-bullseye text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-blue-800">Propósito</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm">Verificar sua compreensão dos conceitos-chave e identificar áreas que possam necessitar de revisão adicional.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-link text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-blue-800">Relação com o Módulo</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm">As questões estão diretamente relacionadas ao conteúdo das três unidades do Módulo 1, testando os conceitos essenciais de cada uma.</p>
+                </div>
+                
+                <div class="bg-blue-50 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                        <i class="fas fa-forward text-blue-500 mr-2"></i>
+                        <h3 class="font-semibold text-blue-800">Próximos Passos</h3>
+                    </div>
+                    <p class="text-gray-700 text-sm">Após completar o quiz, você receberá feedback personalizado e recomendações para prosseguir no curso.</p>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <div class="flex items-center text-sm text-gray-600">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    <p>O quiz consiste em 10 questões de múltipla escolha. Você receberá feedback imediato após cada resposta e uma análise completa ao final.</p>
+                </div>
+            </div>
+            
+            <button id="start-quiz" class="mt-6 bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg shadow-md font-semibold flex items-center justify-center w-full md:w-auto btn">
+                <i class="fas fa-play-circle mr-2"></i>
+                Iniciar o Quiz
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz Section -->
+    <div id="quiz-container" class="container mx-auto px-4 py-6 hidden">
+        <!-- Progress Indicator -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="mb-4">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-gray-800">Seu Progresso</h3>
+                    <span id="question-counter" class="text-sm font-medium bg-blue-100 text-blue-800 py-1 px-3 rounded-full">Questão 1/10</span>
+                </div>
+                
+                <div class="mt-4 progress-indicator flex items-center justify-between">
+                    <div class="step active" data-step="1">1</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="2">2</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="3">3</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="4">4</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="5">5</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="6">6</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="7">7</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="8">8</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="9">9</div>
+                    <div class="step-connector"></div>
+                    <div class="step" data-step="10">10</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Question Display -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 id="question-title" class="text-xl font-semibold mb-4 text-gray-800">Questão 1</h2>
+            <p id="question-text" class="mb-6 text-gray-700">O que constitui o risco climático, segundo a abordagem apresentada no curso?</p>
+            
+            <div id="options-container" class="space-y-3">
+                <!-- Options will be dynamically inserted here -->
+            </div>
+            
+            <div id="feedback-container" class="mt-6 hidden">
+                <div id="feedback-box" class="feedback-box p-4 bg-gray-50 rounded-md">
+                    <h4 id="feedback-title" class="font-semibold mb-2"></h4>
+                    <p id="feedback-text"></p>
+                </div>
+            </div>
+            
+            <div class="mt-8 flex justify-between">
+                <button id="prev-button" class="bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 px-4 rounded-lg font-medium flex items-center btn hidden">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Questão Anterior
+                </button>
+                
+                <button id="next-button" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium flex items-center btn ml-auto hidden">
+                    Próxima Questão
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+                
+                <button id="check-answer" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg font-medium flex items-center btn ml-auto">
+                    Verificar Resposta
+                    <i class="fas fa-check ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quiz Results Section -->
+    <div id="results-container" class="container mx-auto px-4 py-8 hidden">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <div class="text-center mb-6">
+                <div class="inline-block p-4 bg-blue-100 rounded-full mb-4">
+                    <i id="result-icon" class="fas fa-award text-4xl text-blue-600"></i>
+                </div>
+                <h2 class="text-2xl font-bold mb-2 text-gray-800">Quiz Concluído!</h2>
+                <p class="text-gray-600">Você completou o Quiz do Módulo 1</p>
+            </div>
+            
+            <div class="flex justify-center mb-6">
+                <div class="w-64 h-64 relative">
+                    <canvas id="score-chart" width="200" height="200"></canvas>
+                    <div class="absolute inset-0 flex items-center justify-center flex-col">
+                        <span id="score-value" class="text-4xl font-bold text-blue-600">0</span>
+                        <span class="text-gray-500 text-sm">de 10 pontos</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-4 text-gray-800">Desempenho por Área</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-medium mb-2 text-gray-700">Conceitos de Risco Climático</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="score-concepts" class="bg-blue-600 h-4 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between mt-1 text-sm text-gray-600">
+                            <span>0/4</span>
+                            <span id="percentage-concepts">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-medium mb-2 text-gray-700">Plataforma CLIMADA</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="score-platform" class="bg-blue-600 h-4 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between mt-1 text-sm text-gray-600">
+                            <span>0/3</span>
+                            <span id="percentage-platform">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 bg-gray-50 rounded-lg">
+                        <h4 class="font-medium mb-2 text-gray-700">Ambiente de Trabalho</h4>
+                        <div class="w-full bg-gray-200 rounded-full h-4">
+                            <div id="score-setup" class="bg-blue-600 h-4 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <div class="flex justify-between mt-1 text-sm text-gray-600">
+                            <span>0/3</span>
+                            <span id="percentage-setup">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="feedback-summary" class="mb-8">
+                <h3 class="text-lg font-semibold mb-4 text-gray-800">Feedback Personalizado</h3>
+                <div id="feedback-message" class="p-4 bg-blue-50 rounded-lg text-gray-700"></div>
+            </div>
+            
+            <div class="mb-8">
+                <h3 class="text-lg font-semibold mb-4 text-gray-800">Próximos Passos</h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="result-card bg-white border border-gray-200 p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-book text-blue-600"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Revisar Conceitos</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Volte ao Módulo 1 para revisar os conceitos que ainda precisam ser consolidados.</p>
+                        <a href="module1.html" class="text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center">
+                            Ir para o Módulo 1
+                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="result-card bg-white border border-gray-200 p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-laptop-code text-green-600"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Prática Hands-on</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Aplique os conhecimentos adquiridos em exercícios práticos de instalação e uso do CLIMADA.</p>
+                        <a href="practice1.html" class="text-green-600 hover:text-green-800 text-sm font-medium flex items-center">
+                            Ir para a Prática 1
+                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="result-card bg-white border border-gray-200 p-5">
+                        <div class="flex items-center mb-3">
+                            <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                                <i class="fas fa-layer-group text-purple-600"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Recursos Adicionais</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Explore materiais complementares para aprofundar seu conhecimento sobre os tópicos do Módulo 1.</p>
+                        <a href="resources.html" class="text-purple-600 hover:text-purple-800 text-sm font-medium flex items-center">
+                            Ver Recursos Complementares
+                            <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mt-8">
+                <a href="module1.html" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-lg shadow-md font-medium flex items-center btn">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Voltar ao Módulo 1
+                </a>
+                
+                <a href="practice1.html" class="bg-green-600 hover:bg-green-700 text-white py-2 px-6 rounded-lg shadow-md font-medium flex items-center btn">
+                    <i class="fas fa-laptop-code mr-2"></i>
+                    Ir para Prática 1
+                </a>
+                
+                <a href="resources.html" class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg shadow-md font-medium flex items-center btn">
+                    <i class="fas fa-book-open mr-2"></i>
+                    Ver Recursos Complementares
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-chart-line mr-2"></i>
+                        CLIMADA
+                    </h3>
+                    <p class="text-gray-400 text-sm">Plataforma open-source para análise e precificação de riscos climáticos em ativos corporativos.</p>
+                    <div class="mt-4 flex space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Navegação Rápida</h4>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white text-sm">Página Inicial</a></li>
+                        <li><a href="module1.html" class="text-gray-400 hover:text-white text-sm">Módulo 1: Fundamentos</a></li>
+                        <li><a href="practice1.html" class="text-gray-400 hover:text-white text-sm">Prática 1: Instalação</a></li>
+                        <li><a href="resources.html" class="text-gray-400 hover:text-white text-sm">Recursos Complementares</a></li>
+                        <li><a href="community.html" class="text-gray-400 hover:text-white text-sm">Comunidade</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Recursos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="https://climada-python.readthedocs.io/" target="_blank" class="text-gray-400 hover:text-white text-sm">Documentação Oficial</a></li>
+                        <li><a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-gray-400 hover:text-white text-sm">GitHub do CLIMADA</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">Tutoriais em Vídeo</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white text-sm">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contato</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-gray-400 mt-1 mr-2"></i>
+                            <a href="mailto:contato@climadacurso.com" class="text-gray-400 hover:text-white text-sm">contato@climadacurso.com</a>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-globe text-gray-400 mt-1 mr-2"></i>
+                            <a href="#" class="text-gray-400 hover:text-white text-sm">www.climadacurso.com</a>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-gray-400 mt-1 mr-2"></i>
+                            <span class="text-gray-400 text-sm">São Paulo, Brasil</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">&copy; 2025 Curso CLIMADA. Todos os direitos reservados.</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm mr-4">Termos de Uso</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script>
+        // Quiz questions data
+        const quizQuestions = [
+            {
+                id: 1,
+                title: "Questão 1",
+                text: "O que constitui o risco climático, segundo a abordagem apresentada no curso?",
+                options: [
+                    { id: "a", text: "Apenas os impactos físicos de eventos climáticos extremos" },
+                    { id: "b", text: "A interação entre perigo climático, exposição e vulnerabilidade", correct: true },
+                    { id: "c", text: "Somente os danos financeiros causados por mudanças climáticas" },
+                    { id: "d", text: "Apenas os riscos de transição para uma economia de baixo carbono" }
+                ],
+                feedback: {
+                    correct: "Correto! O risco climático é composto pela interação entre três elementos principais: o perigo climático (hazard), a exposição de ativos ou pessoas, e a vulnerabilidade desses elementos expostos.",
+                    incorrect: "Incorreto. O risco climático é definido como a interação entre perigo climático, exposição e vulnerabilidade. Esta é uma definição fundamental na análise de risco climático."
+                },
+                category: "concepts"
+            },
+            {
+                id: 2,
+                title: "Questão 2",
+                text: "Qual a diferença entre riscos físicos e riscos de transição?",
+                options: [
+                    { id: "a", text: "Riscos físicos afetam estruturas e riscos de transição afetam pessoas" },
+                    { id: "b", text: "Riscos físicos são imediatos e riscos de transição são de longo prazo" },
+                    { id: "c", text: "Riscos físicos resultam de eventos ou mudanças climáticas e riscos de transição decorrem do processo de ajuste para uma economia de baixo carbono", correct: true },
+                    { id: "d", text: "Riscos físicos são calculáveis e riscos de transição são imprevisíveis" }
+                ],
+                feedback: {
+                    correct: "Correto! Riscos físicos estão associados aos impactos diretos das mudanças climáticas (como eventos extremos e mudanças nos padrões climáticos), enquanto riscos de transição estão relacionados às mudanças políticas, tecnológicas e de mercado associadas à transição para uma economia de baixo carbono.",
+                    incorrect: "Incorreto. A distinção correta é que riscos físicos são aqueles que resultam diretamente de eventos climáticos ou mudanças nos padrões climáticos, enquanto riscos de transição decorrem do processo de ajuste para uma economia de baixo carbono."
+                },
+                category: "concepts"
+            },
+            {
+                id: 3,
+                title: "Questão 3",
+                text: "Por que a quantificação e precificação de riscos climáticos é importante para empresas com ativos offshore?",
+                options: [
+                    { id: "a", text: "Apenas para cumprir requisitos regulatórios" },
+                    { id: "b", text: "Somente para reduzir prêmios de seguro" },
+                    { id: "c", text: "Apenas para marketing e relações públicas" },
+                    { id: "d", text: "Para tomada de decisões informadas sobre investimentos, alocação de capital, planejamento estratégico e adaptação", correct: true }
+                ],
+                feedback: {
+                    correct: "Correto! A quantificação e precificação de riscos climáticos permite às empresas tomar decisões mais informadas sobre seus ativos offshore, otimizar a alocação de capital, desenvolver estratégias de adaptação eficazes e cumprir requisitos crescentes de divulgação de informações relacionadas ao clima.",
+                    incorrect: "Incorreto. A quantificação de riscos climáticos tem múltiplos propósitos para empresas com ativos offshore, principalmente permitir tomadas de decisão informadas sobre investimentos, alocação de capital, planejamento estratégico e implementação de medidas de adaptação."
+                },
+                category: "concepts"
+            },
+            {
+                id: 4,
+                title: "Questão 4",
+                text: "Quais são os principais perigos climáticos que afetam embarcações offshore?",
+                options: [
+                    { id: "a", text: "Apenas tsunamis e terremotos" },
+                    { id: "b", text: "Ciclones tropicais, ondas extremas, tempestades extratropicais e variações no nível do mar", correct: true },
+                    { id: "c", text: "Somente mudanças graduais na temperatura do oceano" },
+                    { id: "d", text: "Apenas ciclones tropicais e inundações costeiras" }
+                ],
+                feedback: {
+                    correct: "Correto! Embarcações offshore são principalmente afetadas por perigos climáticos como ciclones tropicais, ondas extremas, tempestades extratropicais e variações no nível do mar. Estes eventos podem causar danos estruturais significativos e interrupções operacionais.",
+                    incorrect: "Incorreto. Os principais perigos climáticos que afetam embarcações offshore incluem ciclones tropicais, ondas extremas, tempestades extratropicais e variações no nível do mar, que podem causar tanto danos estruturais quanto interrupções operacionais."
+                },
+                category: "concepts"
+            },
+            {
+                id: 5,
+                title: "Questão 5",
+                text: "Qual a principal diferença entre CLIMADA Core e CLIMADA Petals?",
+                options: [
+                    { id: "a", text: "O Core é pago e o Petals é gratuito" },
+                    { id: "b", text: "O Core contém os módulos básicos essenciais, enquanto o Petals contém extensões e módulos específicos para gerar dados", correct: true },
+                    { id: "c", text: "O Core é para análises qualitativas e o Petals para análises quantitativas" },
+                    { id: "d", text: "O Core é apenas para Windows e o Petals para Linux" }
+                ],
+                feedback: {
+                    correct: "Correto! O CLIMADA Core contém todos os módulos necessários para cálculos de impacto probabilístico, danos evitados, incerteza e previsões. Já o CLIMADA Petals contém módulos para geração de dados específicos (como TC_Surge, WildFire, OpenStreetMap) e depende do Core para funcionar.",
+                    incorrect: "Incorreto. A distinção entre CLIMADA Core e Petals é estrutural: o Core contém as funcionalidades essenciais para cálculos de impacto, enquanto o Petals contém extensões e módulos para geração de dados específicos, construídos sobre o Core."
+                },
+                category: "platform"
+            },
+            {
+                id: 6,
+                title: "Questão 6",
+                text: "Quais são os principais componentes do CLIMADA para análise de risco?",
+                options: [
+                    { id: "a", text: "Apenas Hazard e Exposures" },
+                    { id: "b", text: "Hazard, Exposures, Impact Functions e Engine", correct: true },
+                    { id: "c", text: "Somente Engine e Adaptação" },
+                    { id: "d", text: "Apenas Modelos Climáticos e Análise Financeira" }
+                ],
+                feedback: {
+                    correct: "Correto! Os principais componentes do CLIMADA são: Hazard (que caracteriza os perigos climáticos), Exposures (que representa os ativos expostos), Impact Functions (que descrevem a vulnerabilidade) e o Engine (que calcula os impactos combinando esses elementos).",
+                    incorrect: "Incorreto. Os principais componentes do CLIMADA para análise de risco são Hazard (perigos), Exposures (exposição), Impact Functions (vulnerabilidade) e o Engine (cálculo de impactos)."
+                },
+                category: "platform"
+            },
+            {
+                id: 7,
+                title: "Questão 7",
+                text: "Por que o CLIMADA utiliza uma abordagem de código aberto?",
+                options: [
+                    { id: "a", text: "Apenas para reduzir custos de desenvolvimento" },
+                    { id: "b", text: "Somente para fins educacionais" },
+                    { id: "c", text: "Para garantir transparência, auditabilidade e permitir contribuições da comunidade", correct: true },
+                    { id: "d", text: "Apenas para facilitar a comercialização do software" }
+                ],
+                feedback: {
+                    correct: "Correto! A abordagem de código aberto do CLIMADA promove transparência e auditabilidade, elementos essenciais em análises de risco climático, além de permitir que a comunidade científica contribua para seu desenvolvimento e melhoria contínua.",
+                    incorrect: "Incorreto. O CLIMADA utiliza uma abordagem de código aberto principalmente para garantir transparência e auditabilidade nas análises de risco climático, além de permitir contribuições da comunidade científica para seu desenvolvimento."
+                },
+                category: "platform"
+            },
+            {
+                id: 8,
+                title: "Questão 8",
+                text: "Qual é o método recomendado para instalar o CLIMADA?",
+                options: [
+                    { id: "a", text: "Via pip install sem ambiente virtual" },
+                    { id: "b", text: "Compilando manualmente a partir do código-fonte" },
+                    { id: "c", text: "Usando conda-forge em um ambiente Conda/Mamba dedicado", correct: true },
+                    { id: "d", text: "Através de um instalador executável (.exe)" }
+                ],
+                feedback: {
+                    correct: "Correto! A instalação recomendada do CLIMADA é através do conda-forge em um ambiente Conda/Mamba dedicado, usando o comando 'mamba install -c conda-forge climada'. Isso garante a correta resolução de dependências e isolamento do ambiente.",
+                    incorrect: "Incorreto. O método recomendado para instalar o CLIMADA é através do conda-forge em um ambiente Conda/Mamba dedicado, usando o comando 'mamba install -c conda-forge climada'."
+                },
+                category: "setup"
+            },
+            {
+                id: 9,
+                title: "Questão 9",
+                text: "Qual é a principal ferramenta de desenvolvimento e análise recomendada para uso com o CLIMADA?",
+                options: [
+                    { id: "a", text: "Excel com macros Python" },
+                    { id: "b", text: "Jupyter Notebook", correct: true },
+                    { id: "c", text: "Apenas terminal de linha de comando" },
+                    { id: "d", text: "Uma IDE proprietária específica" }
+                ],
+                feedback: {
+                    correct: "Correto! O Jupyter Notebook é a ferramenta recomendada para trabalhar com CLIMADA, pois permite combinar código, visualizações e explicações em um único documento interativo, facilitando a análise exploratória e a documentação do trabalho.",
+                    incorrect: "Incorreto. O Jupyter Notebook é a principal ferramenta recomendada para uso com CLIMADA, pois oferece um ambiente interativo que combina código, visualizações e documentação em um único lugar."
+                },
+                category: "setup"
+            },
+            {
+                id: 10,
+                title: "Questão 10",
+                text: "Qual comando deve ser usado para verificar se o CLIMADA foi instalado corretamente?",
+                options: [
+                    { id: "a", text: "python --version" },
+                    { id: "b", text: "conda list" },
+                    { id: "c", text: "import climada", correct: true },
+                    { id: "d", text: "pip freeze" }
+                ],
+                feedback: {
+                    correct: "Correto! Para verificar se o CLIMADA foi instalado corretamente, você deve importá-lo em um script ou notebook Python usando 'import climada'. Se não houver erros, a instalação está funcionando corretamente.",
+                    incorrect: "Incorreto. A verificação básica da instalação do CLIMADA é realizada importando-o em um script ou notebook Python usando 'import climada'."
+                },
+                category: "setup"
+            }
+        ];
+
+        // DOM Elements
+        const startButton = document.getElementById('start-quiz');
+        const quizContainer = document.getElementById('quiz-container');
+        const introContainer = document.querySelector('.container.mx-auto.px-4.py-8');
+        const resultsContainer = document.getElementById('results-container');
+        const questionTitle = document.getElementById('question-title');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackBox = document.getElementById('feedback-box');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const checkAnswerButton = document.getElementById('check-answer');
+        const nextButton = document.getElementById('next-button');
+        const prevButton = document.getElementById('prev-button');
+        const questionCounter = document.getElementById('question-counter');
+        const steps = document.querySelectorAll('.step');
+        const stepConnectors = document.querySelectorAll('.step-connector');
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let selectedOptionId = null;
+        let userAnswers = Array(quizQuestions.length).fill(null);
+        let answeredQuestions = Array(quizQuestions.length).fill(false);
+        let scores = {
+            total: 0,
+            concepts: 0,
+            platform: 0,
+            setup: 0
+        };
+        
+        // Start Quiz
+        startButton.addEventListener('click', () => {
+            introContainer.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion(0);
+        });
+        
+        // Load Question
+        function loadQuestion(index) {
+            const question = quizQuestions[index];
+            currentQuestionIndex = index;
+            
+            // Update question text
+            questionTitle.textContent = question.title;
+            questionText.textContent = question.text;
+            questionCounter.textContent = `Questão ${index + 1}/${quizQuestions.length}`;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            question.options.forEach(option => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('quiz-option', 'p-4', 'rounded-lg');
+                if (userAnswers[index] === option.id) {
+                    optionElement.classList.add('selected');
+                }
+                
+                optionElement.innerHTML = `
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-0.5">
+                            <div class="w-5 h-5 border border-gray-300 rounded-full flex items-center justify-center mr-3">
+                                ${userAnswers[index] === option.id ? '<div class="w-3 h-3 bg-blue-600 rounded-full"></div>' : ''}
+                            </div>
+                        </div>
+                        <div>
+                            <span class="font-medium text-gray-800">${option.id.toUpperCase()}.</span>
+                            <span class="text-gray-700">${option.text}</span>
+                        </div>
+                    </div>
+                `;
+                
+                optionElement.addEventListener('click', () => {
+                    // Only allow selection if feedback is not shown
+                    if (feedbackContainer.classList.contains('hidden')) {
+                        document.querySelectorAll('.quiz-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        optionElement.classList.add('selected');
+                        selectedOptionId = option.id;
+                    }
+                });
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Hide feedback
+            feedbackContainer.classList.add('hidden');
+            
+            // Update buttons visibility
+            checkAnswerButton.classList.remove('hidden');
+            nextButton.classList.add('hidden');
+            
+            // Update prev button visibility
+            if (index === 0) {
+                prevButton.classList.add('hidden');
+            } else {
+                prevButton.classList.remove('hidden');
+            }
+            
+            // Update progress indicators
+            updateProgressIndicators();
+        }
+        
+        // Check Answer
+        checkAnswerButton.addEventListener('click', () => {
+            if (selectedOptionId === null) {
+                alert('Por favor, selecione uma resposta antes de verificar.');
+                return;
+            }
+            
+            const question = quizQuestions[currentQuestionIndex];
+            const selectedOption = question.options.find(opt => opt.id === selectedOptionId);
+            const isCorrect = selectedOption.correct === true;
+            
+            // Store user's answer
+            userAnswers[currentQuestionIndex] = selectedOptionId;
+            answeredQuestions[currentQuestionIndex] = true;
+            
+            // Update scores if not already answered correctly
+            if (isCorrect && !scores.questionScored) {
+                scores.total++;
+                if (question.category === 'concepts') scores.concepts++;
+                if (question.category === 'platform') scores.platform++;
+                if (question.category === 'setup') scores.setup++;
+            }
+            
+            // Show feedback
+            feedbackContainer.classList.remove('hidden');
+            feedbackBox.className = `feedback-box p-4 bg-gray-50 rounded-md ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackTitle.textContent = isCorrect ? 'Resposta Correta!' : 'Resposta Incorreta!';
+            feedbackText.textContent = isCorrect ? question.feedback.correct : question.feedback.incorrect;
+            
+            // Update option styling
+            document.querySelectorAll('.quiz-option').forEach((opt, index) => {
+                if (opt.classList.contains('selected')) {
+                    opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+                
+                // If incorrect, show which one was correct
+                if (!isCorrect && question.options[index].correct) {
+                    opt.classList.add('correct');
+                }
+            });
+            
+            // Update buttons
+            checkAnswerButton.classList.add('hidden');
+            nextButton.classList.remove('hidden');
+            
+            // Update progress indicators
+            updateProgressIndicators();
+        });
+        
+        // Next Question
+        nextButton.addEventListener('click', () => {
+            selectedOptionId = null;
+            
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                loadQuestion(currentQuestionIndex + 1);
+            } else {
+                // Show results if this was the last question
+                showResults();
+            }
+        });
+        
+        // Previous Question
+        prevButton.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                selectedOptionId = userAnswers[currentQuestionIndex - 1];
+                loadQuestion(currentQuestionIndex - 1);
+            }
+        });
+        
+        // Update Progress Indicators
+        function updateProgressIndicators() {
+            // Update steps
+            steps.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                
+                if (index === currentQuestionIndex) {
+                    step.classList.add('active');
+                } else if (answeredQuestions[index]) {
+                    step.classList.add('completed');
+                }
+            });
+            
+            // Update connectors
+            stepConnectors.forEach((connector, index) => {
+                connector.classList.remove('completed');
+                if (answeredQuestions[index]) {
+                    connector.classList.add('completed');
+                }
+            });
+        }
+        
+        // Show Results
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultsContainer.classList.remove('hidden');
+            
+            // Update score value
+            document.getElementById('score-value').textContent = scores.total;
+            
+            // Calculate percentages
+            const conceptsPercentage = (scores.concepts / 4) * 100;
+            const platformPercentage = (scores.platform / 3) * 100;
+            const setupPercentage = (scores.setup / 3) * 100;
+            
+            // Update score bars
+            document.getElementById('score-concepts').style.width = `${conceptsPercentage}%`;
+            document.getElementById('score-platform').style.width = `${platformPercentage}%`;
+            document.getElementById('score-setup').style.width = `${setupPercentage}%`;
+            
+            // Update score texts
+            document.getElementById('percentage-concepts').textContent = `${Math.round(conceptsPercentage)}%`;
+            document.getElementById('percentage-platform').textContent = `${Math.round(platformPercentage)}%`;
+            document.getElementById('percentage-setup').textContent = `${Math.round(setupPercentage)}%`;
+            
+            // Update feedback message
+            const feedbackMessage = document.getElementById('feedback-message');
+            if (scores.total >= 8) {
+                feedbackMessage.innerHTML = `
+                    <p class="mb-2"><strong>Excelente trabalho!</strong> Você demonstrou um ótimo entendimento dos conceitos fundamentais de risco climático e da plataforma CLIMADA.</p>
+                    <p>Você está pronto para aplicar esses conhecimentos na prática e avançar para tópicos mais complexos.</p>
+                `;
+                document.getElementById('result-icon').className = 'fas fa-trophy text-4xl text-yellow-500';
+            } else if (scores.total >= 6) {
+                feedbackMessage.innerHTML = `
+                    <p class="mb-2"><strong>Bom trabalho!</strong> Você compreendeu a maioria dos conceitos fundamentais.</p>
+                    <p>Recomendamos revisar especificamente as áreas onde teve mais dificuldade antes de prosseguir para a prática.</p>
+                `;
+                document.getElementById('result-icon').className = 'fas fa-medal text-4xl text-blue-600';
+            } else {
+                feedbackMessage.innerHTML = `
+                    <p class="mb-2"><strong>Você está no caminho certo,</strong> mas recomendamos revisar novamente o conteúdo do Módulo 1.</p>
+                    <p>Preste atenção especial aos conceitos fundamentais de risco climático e à estrutura do CLIMADA antes de avançar para a parte prática.</p>
+                `;
+                document.getElementById('result-icon').className = 'fas fa-book-reader text-4xl text-blue-600';
+            }
+            
+            // Create doughnut chart
+            const ctx = document.getElementById('score-chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Corretas', 'Incorretas'],
+                    datasets: [{
+                        data: [scores.total, quizQuestions.length - scores.total],
+                        backgroundColor: ['#3b82f6', '#e5e7eb']
+                    }]
+                },
+                options: {
+                    cutout: '75%',
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            enabled: true
+                        }
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        }
+        
+        // Initialize first question when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Quiz starts hidden, waiting for user to click start button
+            selectedOptionId = null;
+        });
+    </script>
+</body>
+</html>
