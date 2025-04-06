@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Complementares - Módulo 1 | Curso CLIMADA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background-color: #f8fafc;
+        }
+        .resource-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .resource-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3182ce;
+        }
+        .resource-tag {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            display: inline-block;
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+        .search-container {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: rgba(248, 250, 252, 0.95);
+            backdrop-filter: blur(5px);
+        }
+        .section-nav {
+            position: sticky;
+            top: 70px;
+        }
+        .section-link.active {
+            border-left-color: #3182ce;
+            color: #3182ce;
+            font-weight: 600;
+        }
+        h2 {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+        details summary {
+            cursor: pointer;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-md py-4">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <div class="text-blue-600 mr-2">
+                        <i class="fas fa-globe-americas text-2xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800">Precificação de Riscos Climáticos com CLIMADA</h1>
+                        <p class="text-sm text-gray-600">Recursos Complementares - Módulo 1</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-home mr-1"></i> Início</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-book-open mr-1"></i> Módulos</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600"><i class="fas fa-users mr-1"></i> Comunidade</a>
+                    <a href="#" class="text-blue-600 font-medium"><i class="fas fa-bookmark mr-1"></i> Recursos</a>
+                </nav>
+                <button class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Pesquisa -->
+    <div class="search-container py-3 border-b border-gray-200">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between">
+                <div class="flex-1 mb-3 md:mb-0 md:mr-4">
+                    <div class="relative">
+                        <input type="text" id="resource-search" placeholder="Pesquisar recursos..." class="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button class="filter-btn px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50 active-filter" data-filter="all">
+                        Todos
+                    </button>
+                    <button class="filter-btn px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50" data-filter="iniciante">
+                        Iniciante
+                    </button>
+                    <button class="filter-btn px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50" data-filter="intermediario">
+                        Intermediário
+                    </button>
+                    <button class="filter-btn px-3 py-1.5 bg-white border border-gray-300 rounded-full text-sm font-medium hover:bg-gray-50" data-filter="avancado">
+                        Avançado
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main class="container mx-auto px-4 md:px-8 py-8">
+        <div class="flex flex-col md:flex-row">
+            <!-- Navegação Lateral em Desktop -->
+            <div class="hidden md:block w-64 pr-8">
+                <nav class="section-nav space-y-1">
+                    <a href="#introducao" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Introdução</a>
+                    <a href="#artigos" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Artigos Científicos</a>
+                    <a href="#documentacao" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Documentação Técnica</a>
+                    <a href="#videos" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Vídeos e Webinars</a>
+                    <a href="#ferramentas" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Ferramentas e Datasets</a>
+                    <a href="#estudos" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Estudos de Caso</a>
+                    <a href="#comunidade" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Comunidade e Suporte</a>
+                    <a href="#aprofundamento" class="section-link block pl-3 py-2 border-l-4 hover:bg-gray-100 hover:border-blue-400">Aprofundamento</a>
+                </nav>
+                
+                <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                    <h3 class="font-semibold text-blue-800 mb-2">Dica de Estudo</h3>
+                    <p class="text-sm text-blue-700">Recomendamos começar com os recursos marcados como "Iniciante" e progressivamente avançar para os materiais mais complexos conforme sua compreensão do CLIMADA evoluir.</p>
+                </div>
+            </div>
+
+            <!-- Conteúdo Principal -->
+            <div class="flex-1">
+                <!-- 1. Introdução -->
+                <section id="introducao" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">1. Introdução</h2>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Objetivo da Página de Recursos</h3>
+                        <p class="mb-4">Esta página de recursos complementares foi desenvolvida para enriquecer sua jornada de aprendizado no Módulo 1 do curso "Precificação de Riscos Climáticos em Ativos Corporativos com CLIMADA". Aqui você encontrará materiais adicionais cuidadosamente selecionados que aprofundam os conceitos apresentados no módulo, oferecendo perspectivas diversas e aplicações práticas.</p>
+                        
+                        <p>Os recursos estão organizados em categorias temáticas e classificados por nível de complexidade (iniciante, intermediário e avançado), permitindo que você construa seu conhecimento progressivamente, de acordo com seu ritmo e interesses específicos.</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-xl font-semibold mb-4">Como Utilizar os Materiais Complementares</h3>
+                        <p class="mb-4">Para aproveitar ao máximo esta página de recursos:</p>
+                        
+                        <ul class="list-disc pl-5 mb-4 space-y-2">
+                            <li><span class="font-medium">Explore por categorias</span>: Navegue pelas seções temáticas que correspondem aos seus interesses específicos ou às áreas que deseja aprofundar.</li>
+                            <li><span class="font-medium">Utilize os filtros</span>: Use a barra de pesquisa e os filtros por nível para encontrar rapidamente os recursos mais relevantes para você.</li>
+                            <li><span class="font-medium">Siga a progressão recomendada</span>: Para cada unidade do Módulo 1, sugerimos uma sequência de recursos que complementa o conteúdo do curso de forma estruturada.</li>
+                            <li><span class="font-medium">Crie seu percurso personalizado</span>: Adapte seu aprendizado combinando diferentes recursos de acordo com seus objetivos profissionais e áreas de interesse.</li>
+                        </ul>
+                        
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mt-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-lightbulb text-yellow-500"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm text-yellow-700">
+                                        <strong>Recomendação:</strong> Reserve um tempo específico para explorar estes recursos após completar cada unidade do Módulo 1. Esta prática ajudará a consolidar seu aprendizado e expandir sua compreensão dos conceitos fundamentais.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. Artigos Científicos e Publicações -->
+                <section id="artigos" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">2. Artigos Científicos e Publicações</h2>
+                    
+                    <div class="mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">CLIMADA v1: a global weather and climate risk assessment platform</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Aznar-Siguan, G. and Bresch, D. N. (2019)</p>
+                            <p class="mb-3">Este artigo fundamental apresenta a plataforma CLIMADA, sua arquitetura e funcionalidades principais. É uma excelente introdução aos conceitos fundamentais e à estrutura do modelo que usaremos ao longo do curso.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://gmd.copernicus.org/articles/12/3085/2019/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acessar artigo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Fundamentos</span>
+                                    <span class="resource-tag bg-purple-100 text-purple-800">Arquitetura</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">A framework for global river flood risk assessments</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Winsemius, H. C., et al. (2013)</p>
+                            <p class="mb-3">Uma abordagem metodológica para avaliação de risco de inundações em escala global. Este artigo demonstra conceitos fundamentais de modelagem de perigos climáticos que são aplicados no CLIMADA.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://hess.copernicus.org/articles/17/1871/2013/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acessar artigo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Perigos</span>
+                                    <span class="resource-tag bg-rose-100 text-rose-800">Modelagem</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Uncertainty and sensitivity analysis for probabilistic weather and climate risk modelling</h3>
+                                <span class="resource-tag bg-red-100 text-red-800">Avançado</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Eberenz, S., et al. (2022)</p>
+                            <p class="mb-3">Este artigo discute a implementação de métodos de análise de incerteza e sensibilidade no CLIMADA, essenciais para entender as limitações da modelagem de risco climático e para comunicar os resultados de forma transparente.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://gmd.copernicus.org/articles/15/7177/2022/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acessar artigo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-indigo-100 text-indigo-800">Incerteza</span>
+                                    <span class="resource-tag bg-rose-100 text-rose-800">Modelagem</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Asset exposure data for global physical risk assessment</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Eberenz, S., et al. (2020)</p>
+                            <p class="mb-3">Explica o desenvolvimento do LitPop, um método utilizado no CLIMADA para estimar a exposição econômica global. Fundamental para entender como são modelados os valores de ativos expostos a riscos climáticos.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://essd.copernicus.org/articles/12/817/2020/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acessar artigo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-emerald-100 text-emerald-800">Exposição</span>
+                                    <span class="resource-tag bg-amber-100 text-amber-800">LitPop</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">The impacts of climate hazards on offshore energy infrastructure: A review</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mb-2">Marshall, K. M., et al. (2021)</p>
+                            <p class="mb-3">Uma revisão abrangente sobre os impactos dos perigos climáticos em infraestruturas energéticas offshore. Especialmente relevante para o foco do curso em embarcações e estruturas offshore.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://www.sciencedirect.com/science/article/pii/S0029801821001396" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-external-link-alt mr-1"></i> Acessar artigo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Offshore</span>
+                                    <span class="resource-tag bg-orange-100 text-orange-800">Vulnerabilidade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button class="bg-white border border-blue-300 text-blue-600 rounded-full px-4 py-2 text-sm font-medium hover:bg-blue-50">
+                            <i class="fas fa-plus-circle mr-1"></i> Ver mais artigos científicos
+                        </button>
+                    </div>
+                </section>
+
+                <!-- 3. Documentação Técnica -->
+                <section id="documentacao" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">3. Documentação Técnica</h2>
+                    
+                    <div class="mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Documentação Oficial do CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">A documentação oficial e completa do CLIMADA, incluindo referência de API, tutoriais e guias de instalação. Este é um recurso essencial que você consultará frequentemente durante o curso.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://climada-python.readthedocs.io/en/stable/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-book mr-1"></i> Acessar documentação
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Referência</span>
+                                    <span class="resource-tag bg-teal-100 text-teal-800">Documentação</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Tutoriais do CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Uma coleção de tutoriais passo a passo que demonstram como usar as diferentes funcionalidades do CLIMADA, desde a manipulação básica de dados até análises avançadas.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://climada-python.readthedocs.io/en/stable/tutorial/1_main_climada.html" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-graduation-cap mr-1"></i> Acessar tutoriais
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-green-100 text-green-800">Tutoriais</span>
+                                    <span class="resource-tag bg-purple-100 text-purple-800">Exemplos</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Guia de Instalação CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Instruções detalhadas para instalação do CLIMADA em diferentes sistemas operacionais, com dicas para resolução de problemas comuns e configurações recomendadas.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://climada-python.readthedocs.io/en/stable/guide/install.html" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-download mr-1"></i> Acessar guia
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Instalação</span>
+                                    <span class="resource-tag bg-gray-100 text-gray-800">Configuração</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">API de Referência CLIMADA</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Documentação técnica completa da API do CLIMADA, descrevendo todas as classes, métodos e parâmetros disponíveis. Um recurso valioso para desenvolvedores e usuários avançados.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://climada-python.readthedocs.io/en/stable/climada.html" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-code mr-1"></i> Acessar API
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-indigo-100 text-indigo-800">API</span>
+                                    <span class="resource-tag bg-violet-100 text-violet-800">Referência</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Guia para Contribuidores CLIMADA</h3>
+                                <span class="resource-tag bg-red-100 text-red-800">Avançado</span>
+                            </div>
+                            <p class="mb-3">Instruções para desenvolvedores que desejam contribuir para o projeto CLIMADA, incluindo padrões de código, processo de pull request e boas práticas de desenvolvimento.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/CLIMADA-project/climada_python/blob/main/CONTRIBUTING.md" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-code-branch mr-1"></i> Acessar guia
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-gray-100 text-gray-800">Desenvolvimento</span>
+                                    <span class="resource-tag bg-amber-100 text-amber-800">Open Source</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. Vídeos e Webinars -->
+                <section id="videos" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">4. Vídeos e Webinars</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-100">
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-play-circle text-gray-400 text-5xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-lg font-semibold text-gray-800">Introdução ao CLIMADA</h3>
+                                    <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-2">ETH Zurich (2021) • 18 min</p>
+                                <p class="mb-3 text-sm">Visão geral da plataforma CLIMADA, seus principais componentes e funcionalidades. Ideal para iniciantes que querem entender a estrutura básica da ferramenta.</p>
+                                <div class="flex justify-between items-center">
+                                    <a href="https://www.youtube.com/watch?v=cHLCZJrKxLc" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fab fa-youtube mr-1"></i> Assistir vídeo
+                                    </a>
+                                    <div>
+                                        <span class="resource-tag bg-blue-100 text-blue-800">Fundamentos</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-100">
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-play-circle text-gray-400 text-5xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-lg font-semibold text-gray-800">Modelagem de Ciclones Tropicais no CLIMADA</h3>
+                                    <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-2">CLIMADA Workshop (2022) • 45 min</p>
+                                <p class="mb-3 text-sm">Tutorial detalhado sobre como modelar ciclones tropicais no CLIMADA, desde a importação de dados até a visualização de resultados. Especialmente relevante para riscos offshore.</p>
+                                <div class="flex justify-between items-center">
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-play-circle mr-1"></i> Assistir webinar
+                                    </a>
+                                    <div>
+                                        <span class="resource-tag bg-cyan-100 text-cyan-800">Tutorial</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-100">
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-play-circle text-gray-400 text-5xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-lg font-semibold text-gray-800">Precificação de Riscos Climáticos para Ativos Corporativos</h3>
+                                    <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-2">Climate Finance Conference (2023) • 60 min</p>
+                                <p class="mb-3 text-sm">Apresentação sobre metodologias para precificação de riscos climáticos em ativos corporativos, com foco na integração de análises físicas e financeiras.</p>
+                                <div class="flex justify-between items-center">
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-play-circle mr-1"></i> Assistir apresentação
+                                    </a>
+                                    <div>
+                                        <span class="resource-tag bg-emerald-100 text-emerald-800">Finanças</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm overflow-hidden">
+                            <div class="aspect-w-16 aspect-h-9 bg-gray-100">
+                                <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                                    <i class="fas fa-play-circle text-gray-400 text-5xl"></i>
+                                </div>
+                            </div>
+                            <div class="p-4">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="text-lg font-semibold text-gray-800">Análise de Incerteza em Modelos de Risco Climático</h3>
+                                    <span class="resource-tag bg-red-100 text-red-800">Avançado</span>
+                                </div>
+                                <p class="text-sm text-gray-500 mb-2">Research Seminar Series (2022) • 90 min</p>
+                                <p class="mb-3 text-sm">Seminário técnico sobre métodos para quantificação e comunicação de incertezas em modelos de risco climático, usando o módulo Unsequa do CLIMADA.</p>
+                                <div class="flex justify-between items-center">
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-play-circle mr-1"></i> Assistir seminário
+                                    </a>
+                                    <div>
+                                        <span class="resource-tag bg-rose-100 text-rose-800">Técnico</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button class="bg-white border border-blue-300 text-blue-600 rounded-full px-4 py-2 text-sm font-medium hover:bg-blue-50">
+                            <i class="fas fa-plus-circle mr-1"></i> Ver mais vídeos e webinars
+                        </button>
+                    </div>
+                </section>
+
+                <!-- 5. Ferramentas e Datasets Complementares -->
+                <section id="ferramentas" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">5. Ferramentas e Datasets Complementares</h2>
+                    
+                    <div class="mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">IBTrACS - International Best Track Archive for Climate Stewardship</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Dataset global de trajetórias de ciclones tropicais, utilizado pelo CLIMADA para modelagem de ciclones. Contém registros históricos detalhados desde 1850 até o presente.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://www.ncdc.noaa.gov/ibtracs/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-database mr-1"></i> Acessar dataset
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Dados</span>
+                                    <span class="resource-tag bg-orange-100 text-orange-800">Ciclones</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">CMIP6 - Coupled Model Intercomparison Project Phase 6</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Conjunto de simulações de modelos climáticos globais que fornece projeções futuras para diversos cenários de emissões. Útil para análise de riscos climáticos a longo prazo.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://esgf-node.llnl.gov/projects/cmip6/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-database mr-1"></i> Acessar dataset
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Dados</span>
+                                    <span class="resource-tag bg-purple-100 text-purple-800">Projeções</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">API de Dados CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Interface para acessar dados pré-processados utilizados no CLIMADA, incluindo perigos, exposições e funções de impacto. Facilita o acesso a dados sem necessidade de processamento local.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://climada.ethz.ch/data-api/v1/docs" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-server mr-1"></i> Acessar API
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">API</span>
+                                    <span class="resource-tag bg-emerald-100 text-emerald-800">Serviço</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">ERA5 - Climate Reanalysis</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Dataset de reanálise climática produzido pelo ECMWF, fornecendo dados históricos de alta resolução para diversas variáveis climáticas. Importante para análise de eventos extremos passados.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://cds.climate.copernicus.eu/cdsapp#!/dataset/reanalysis-era5-single-levels" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-database mr-1"></i> Acessar dataset
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Dados</span>
+                                    <span class="resource-tag bg-amber-100 text-amber-800">Reanálise</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Cartopy - Biblioteca de Mapeamento Geoespacial</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Biblioteca Python para criação de mapas e visualizações geoespaciais, utilizada pelo CLIMADA para representação de resultados. Útil para personalização de visualizações além do padrão do CLIMADA.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://scitools.org.uk/cartopy/docs/latest/" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-map mr-1"></i> Acessar ferramenta
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-teal-100 text-teal-800">Visualização</span>
+                                    <span class="resource-tag bg-indigo-100 text-indigo-800">Python</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. Estudos de Caso -->
+                <section id="estudos" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">6. Estudos de Caso</h2>
+                    
+                    <div class="mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Impacto de Ciclones Tropicais em Plataformas Offshore no Golfo do México</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Estudo detalhado que analisa o impacto histórico de ciclones tropicais em estruturas offshore no Golfo do México e avalia medidas de adaptação. Inclui código CLIMADA e dados para reprodução da análise.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-file-alt mr-1"></i> Acessar estudo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Offshore</span>
+                                    <span class="resource-tag bg-amber-100 text-amber-800">Energia</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Análise de Risco de Tempestades para Portos e Operações Marítimas</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Este estudo de caso examina o risco de tempestades para infraestruturas portuárias e operações marítimas, integrando dados meteorológicos, informações de exposição e vulnerabilidade específicas para o setor.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-file-alt mr-1"></i> Acessar estudo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-blue-100 text-blue-800">Portos</span>
+                                    <span class="resource-tag bg-rose-100 text-rose-800">Tempestades</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6 mb-4">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Impactos da Elevação do Nível do Mar em Ativos Costeiros</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Aplicação do CLIMADA para avaliar os impactos da elevação do nível do mar em infraestruturas costeiras, incluindo refinarias, portos e instalações industriais. Foco em projeções de longo prazo e planejamento de adaptação.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-file-alt mr-1"></i> Acessar estudo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-emerald-100 text-emerald-800">Costeiro</span>
+                                    <span class="resource-tag bg-purple-100 text-purple-800">Nível do Mar</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Análise Custo-Benefício de Medidas de Adaptação para Embarcações Offshore</h3>
+                                <span class="resource-tag bg-red-100 text-red-800">Avançado</span>
+                            </div>
+                            <p class="mb-3">Estudo que aplica o módulo CostBenefit do CLIMADA para avaliar diferentes medidas de adaptação para embarcações offshore, considerando cenários climáticos futuros e análise de incerteza.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-file-alt mr-1"></i> Acessar estudo
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-cyan-100 text-cyan-800">Adaptação</span>
+                                    <span class="resource-tag bg-orange-100 text-orange-800">Financeiro</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0 text-blue-500">
+                                <i class="fas fa-lightbulb text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-base font-medium text-blue-800">Dica para Estudos de Caso</h4>
+                                <p class="text-sm text-blue-700 mt-1">
+                                    Ao explorar os estudos de caso, tente reproduzir as análises utilizando os códigos fornecidos. A prática com exemplos reais é fundamental para desenvolver proficiência no uso do CLIMADA para problemas específicos do setor offshore.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 7. Comunidade e Suporte -->
+                <section id="comunidade" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">7. Comunidade e Suporte</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Repositório GitHub do CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Repositório oficial do CLIMADA no GitHub, onde você pode acompanhar o desenvolvimento, reportar problemas e contribuir com melhorias. Um excelente ponto de contato com a comunidade de desenvolvedores.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fab fa-github mr-1"></i> Acessar repositório
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-gray-100 text-gray-800">GitHub</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Issues e Discussões no GitHub</h3>
+                                <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                            </div>
+                            <p class="mb-3">Acompanhe problemas conhecidos, participe de discussões técnicas e obtenha ajuda da comunidade para questões específicas relacionadas ao uso do CLIMADA.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://github.com/CLIMADA-project/climada_python/issues" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-comment-alt mr-1"></i> Acessar discussões
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-amber-100 text-amber-800">Suporte</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Fórum de Discussão do Curso</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Espaço exclusivo para alunos do curso discutirem dúvidas, compartilharem insights e colaborarem em projetos. Monitores e instrutores participam ativamente para fornecer suporte.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="#" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-users mr-1"></i> Acessar fórum
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-teal-100 text-teal-800">Colaboração</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resource-card bg-white rounded-xl shadow-sm p-6">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg font-semibold text-gray-800">Eventos e Webinars CLIMADA</h3>
+                                <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                            </div>
+                            <p class="mb-3">Calendário de eventos, workshops e webinars relacionados ao CLIMADA e análise de risco climático. Oportunidades para aprendizado contínuo e networking com especialistas.</p>
+                            <div class="flex justify-between items-center">
+                                <a href="https://wcr.ethz.ch/news-and-events.html" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                    <i class="fas fa-calendar-alt mr-1"></i> Ver calendário
+                                </a>
+                                <div>
+                                    <span class="resource-tag bg-violet-100 text-violet-800">Eventos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Como Obter Ajuda</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                    <i class="fas fa-question"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-base font-medium text-gray-900">Dúvidas sobre Conceitos</h4>
+                                    <p class="mt-1 text-sm text-gray-600">Para dúvidas sobre conceitos fundamentais de risco climático ou funcionamento do CLIMADA, utilize o fórum de discussão do curso ou consulte a documentação oficial.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-base font-medium text-gray-900">Problemas Técnicos</h4>
+                                    <p class="mt-1 text-sm text-gray-600">Para erros de código ou problemas técnicos, verifique as issues do GitHub ou abra uma nova issue descrevendo detalhadamente o problema e como reproduzi-lo.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-base font-medium text-gray-900">Ideias e Sugestões</h4>
+                                    <p class="mt-1 text-sm text-gray-600">Para compartilhar ideias de novas funcionalidades ou sugestões de melhorias, utilize as discussões no GitHub ou entre em contato direto com a equipe do CLIMADA.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">
+                                    <i class="fas fa-hands-helping"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-base font-medium text-gray-900">Consultoria Especializada</h4>
+                                    <p class="mt-1 text-sm text-gray-600">Para casos específicos que requeiram análise aprofundada ou implementações customizadas, a equipe do CLIMADA oferece serviços de consultoria especializada.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. Materiais de Aprofundamento por Tópico -->
+                <section id="aprofundamento" class="mb-12">
+                    <h2 class="text-2xl font-bold text-blue-800 mb-6">8. Materiais de Aprofundamento por Tópico</h2>
+                    
+                    <div class="space-y-6 mb-6">
+                        <details class="bg-white rounded-xl shadow-sm">
+                            <summary class="p-6 font-semibold text-gray-800 cursor-pointer flex justify-between items-center">
+                                <span class="flex items-center">
+                                    <i class="fas fa-book-open text-blue-600 mr-3"></i>
+                                    Unidade 1.1: Conceitos Fundamentais de Risco Climático
+                                </span>
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </summary>
+                            <div class="px-6 pb-6 pt-2 space-y-4">
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">The Concept of Risk: A Decision Maker's Guide to Understanding Risk</h4>
+                                        <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Uma introdução abrangente ao conceito de risco e sua aplicação em diferentes contextos, incluindo riscos climáticos.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Guia Técnico: Modelagem de Perigos Naturais para Análise de Risco</h4>
+                                        <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Documento técnico que explora métodos para modelagem de perigos naturais, incluindo abordagens determinísticas e probabilísticas.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Curso Online: Fundamentos de Ciência do Clima para Análise de Risco</h4>
+                                        <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Curso complementar que fornece base científica sobre mudanças climáticas, eventos extremos e seus impactos em diferentes setores.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                            </div>
+                        </details>
+                        
+                        <details class="bg-white rounded-xl shadow-sm">
+                            <summary class="p-6 font-semibold text-gray-800 cursor-pointer flex justify-between items-center">
+                                <span class="flex items-center">
+                                    <i class="fas fa-laptop-code text-blue-600 mr-3"></i>
+                                    Unidade 1.2: Introdução à Plataforma CLIMADA
+                                </span>
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </summary>
+                            <div class="px-6 pb-6 pt-2 space-y-4">
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">CLIMADA: Arquitetura e Design de Software</h4>
+                                        <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Documento técnico que descreve em detalhes a arquitetura de software do CLIMADA, incluindo diagramas de classes e fluxo de dados.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Vídeo: Tour pelos Componentes do CLIMADA</h4>
+                                        <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Série de vídeos curtos que explora cada componente principal do CLIMADA em detalhes, com exemplos práticos de utilização.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Comparação: CLIMADA e Outras Plataformas de Modelagem de Risco</h4>
+                                        <span class="resource-tag bg-yellow-100 text-yellow-800">Intermediário</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Análise comparativa entre CLIMADA e outras plataformas de modelagem de risco climático, destacando pontos fortes e limitações de cada abordagem.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                            </div>
+                        </details>
+                        
+                        <details class="bg-white rounded-xl shadow-sm">
+                            <summary class="p-6 font-semibold text-gray-800 cursor-pointer flex justify-between items-center">
+                                <span class="flex items-center">
+                                    <i class="fas fa-tools text-blue-600 mr-3"></i>
+                                    Unidade 1.3: Configuração do Ambiente de Trabalho
+                                </span>
+                                <i class="fas fa-chevron-down text-gray-400"></i>
+                            </summary>
+                            <div class="px-6 pb-6 pt-2 space-y-4">
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Guia Avançado de Instalação para Diferentes Plataformas</h4>
+                                        <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Instruções detalhadas para instalação do CLIMADA em diferentes sistemas operacionais, incluindo soluções para problemas comuns.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Tutorial: Ambientes Virtuais para Projetos Python</h4>
+                                        <span class="resource-tag bg-green-100 text-green-800">Iniciante</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Explicação sobre a importância de ambientes virtuais para projetos Python e como configurá-los corretamente para diferentes aplicações.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                                
+                                <div class="resource-card bg-gray-50 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-medium text-gray-800">Configurações de Alto Desempenho para CLIMADA</h4>
+                                        <span class="resource-tag bg-red-100 text-red-800">Avançado</span>
+                                    </div>
+                                    <p class="text-sm mt-1 mb-2">Guia para otimização de desempenho do CLIMADA em análises de grande escala, incluindo configurações de hardware, paralelização e dicas para reduzir tempo de computação.</p>
+                                    <a href="#" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center">
+                                        <i class="fas fa-external-link-alt mr-1"></i> Acessar material
+                                    </a>
+                                </div>
+                            </div>
+                        </details>
+                    </div>
+                    
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Trilhas de Aprendizado Recomendadas</h3>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="font-medium text-gray-800 mb-2">Para Iniciantes em Análise de Risco Climático</h4>
+                                <ol class="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+                                    <li>Conceitos Fundamentais de Risco Climático (Unidade 1.1)</li>
+                                    <li>Vídeo: Introdução ao CLIMADA</li>
+                                    <li>Guia de Instalação Básica CLIMADA</li>
+                                    <li>Tutorial: Primeiros Passos com CLIMADA</li>
+                                    <li>Estudo de Caso: Impactos da Elevação do Nível do Mar em Ativos Costeiros</li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-medium text-gray-800 mb-2">Para Profissionais do Setor Offshore</h4>
+                                <ol class="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+                                    <li>The impacts of climate hazards on offshore energy infrastructure: A review</li>
+                                    <li>Tutorial: Modelagem de Ciclones Tropicais no CLIMADA</li>
+                                    <li>Estudo de Caso: Impacto de Ciclones Tropicais em Plataformas Offshore</li>
+                                    <li>API de Dados CLIMADA (para acesso a dados relevantes)</li>
+                                    <li>Webinar: Precificação de Riscos Climáticos para Ativos Corporativos</li>
+                                </ol>
+                            </div>
+                            
+                            <div>
+                                <h4 class="font-medium text-gray-800 mb-2">Para Cientistas de Dados e Desenvolvedores</h4>
+                                <ol class="list-decimal pl-5 space-y-1 text-sm text-gray-700">
+                                    <li>CLIMADA v1: a global weather and climate risk assessment platform (artigo)</li>
+                                    <li>API de Referência CLIMADA</li>
+                                    <li>Configurações de Alto Desempenho para CLIMADA</li>
+                                    <li>Guia para Contribuidores CLIMADA</li>
+                                    <li>Uncertainty and sensitivity analysis for probabilistic weather and climate risk modelling</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="text-lg font-semibold">Precificação de Riscos Climáticos com CLIMADA</h3>
+                    <p class="text-gray-400 text-sm mt-1">Do Básico ao Avançado</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center md:justify-end gap-4">
+                    <a href="#" class="text-gray-300 hover:text-white transition">
+                        <i class="fas fa-home mr-1"></i> Início
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition">
+                        <i class="fas fa-book-open mr-1"></i> Módulos
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition">
+                        <i class="fas fa-users mr-1"></i> Comunidade
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition">
+                        <i class="fas fa-question-circle mr-1"></i> Suporte
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400 mb-4 md:mb-0">© 2025 Curso CLIMADA. Desenvolvido para fins educacionais.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-blue-400 transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script -->
+    <script>
+        // Filtro de recursos
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('resource-search');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const resourceCards = document.querySelectorAll('.resource-card');
+            const sectionLinks = document.querySelectorAll('.section-link');
+            
+            // Filtro por texto
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                resourceCards.forEach(card => {
+                    const cardText = card.textContent.toLowerCase();
+                    if (cardText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Filtro por nível
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Reset active state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active-filter', 'bg-blue-50', 'text-blue-600', 'border-blue-300');
+                        btn.classList.add('bg-white', 'border-gray-300');
+                    });
+                    
+                    // Set active state
+                    this.classList.add('active-filter', 'bg-blue-50', 'text-blue-600', 'border-blue-300');
+                    this.classList.remove('bg-white', 'border-gray-300');
+                    
+                    // Filter resources
+                    resourceCards.forEach(card => {
+                        const tags = card.querySelectorAll('.resource-tag');
+                        let matchFound = false;
+                        
+                        if (filterValue === 'all') {
+                            matchFound = true;
+                        } else {
+                            tags.forEach(tag => {
+                                if (tag.textContent.toLowerCase() === filterValue) {
+                                    matchFound = true;
+                                }
+                            });
+                        }
+                        
+                        if (matchFound) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Navegação lateral ativa no scroll
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                document.querySelectorAll('section').forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (window.pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                sectionLinks.forEach(link => {
+                    link.classList.remove('active', 'border-blue-600', 'text-blue-600', 'font-medium');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active', 'border-blue-600', 'text-blue-600', 'font-medium');
+                    }
+                });
+            });
+            
+            // Smooth scroll para sections
+            sectionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Controle de detalhes (accordion)
+            document.querySelectorAll('details').forEach(detail => {
+                detail.addEventListener('toggle', function() {
+                    const icon = this.querySelector('.fa-chevron-down');
+                    if (this.open) {
+                        icon.classList.add('transform', 'rotate-180');
+                    } else {
+                        icon.classList.remove('transform', 'rotate-180');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
