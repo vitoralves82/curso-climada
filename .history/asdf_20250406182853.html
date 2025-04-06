@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prática 1: Instalação e Primeiros Passos com CLIMADA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/themes/prism-okaidia.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #3b82f6;
+            --light: #f3f4f6;
+            --dark: #1f2937;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8fafc;
+        }
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        .progress-item {
+            transition: all 0.3s ease;
+        }
+        .progress-item.completed {
+            background-color: #eafaf1;
+            border-left: 4px solid #2ecc71;
+        }
+        .code-block {
+            margin: 20px 0;
+            border-radius: 8px;
+            position: relative;
+        }
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            background-color: #2d3748;
+            padding: 8px 16px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            color: white;
+        }
+        .copy-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        pre {
+            margin: 0 !important;
+            border-top-left-radius: 0 !important;
+            border-top-right-radius: 0 !important;
+            max-height: none !important;
+        }
+        .tip-box {
+            background-color: #fff8e6;
+            border-left: 4px solid #ffc107;
+        }
+        .warning-box {
+            background-color: #ffeeee;
+            border-left: 4px solid #f44336;
+        }
+        .task-box {
+            background-color: #e6f7ff;
+            border-left: 4px solid #2196f3;
+        }
+        .navigation-link {
+            transition: all 0.3s ease;
+        }
+        .navigation-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .module-nav {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header text-white py-4 px-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl font-bold">CLIMADA Course</h1>
+                <span class="mx-3">|</span>
+                <span class="text-lg">Precificação de Riscos Climáticos em Ativos Corporativos</span>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li><a href="#" class="navigation-link px-2 py-1 rounded">Início</a></li>
+                    <li><a href="#" class="navigation-link px-2 py-1 rounded">Módulos</a></li>
+                    <li><a href="#" class="navigation-link px-2 py-1 rounded">Recursos</a></li>
+                    <li><a href="#" class="navigation-link px-2 py-1 rounded">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-white">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Module Navigation -->
+    <div class="module-nav py-3 px-6 shadow-sm">
+        <div class="container mx-auto">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="#" class="text-blue-800 font-medium mr-2">
+                        <i class="fas fa-home"></i>
+                    </a>
+                    <span class="mx-2 text-gray-500">/</span>
+                    <a href="#" class="text-blue-800 font-medium mr-2">Módulo 1</a>
+                    <span class="mx-2 text-gray-500">/</span>
+                    <span class="text-gray-600">Prática 1</span>
+                </div>
+                <div class="flex">
+                    <a href="#" class="text-blue-600 hover:text-blue-800 mr-4">
+                        <i class="fas fa-arrow-left mr-1"></i> Anterior
+                    </a>
+                    <a href="#" class="text-blue-600 hover:text-blue-800">
+                        Próximo <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 max-w-5xl">
+        <div class="bg-white rounded-lg shadow-md p-8 mb-8">
+            <h1 class="text-3xl font-bold mb-6 text-gray-800 border-b pb-4">Prática 1: Instalação do Ambiente CLIMADA e Primeiros Passos</h1>
+            
+            <div class="mb-8">
+                <p class="text-lg mb-4">Nesta prática, você irá configurar o ambiente CLIMADA em seu computador e executar seus primeiros comandos com a API da plataforma. Este é o ponto de partida para todas as análises de risco climático que realizaremos ao longo do curso.</p>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-blue-500 mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="font-medium">Objetivos desta prática:</p>
+                            <ul class="list-disc pl-5 mt-2">
+                                <li>Instalar o ambiente Python necessário para CLIMADA</li>
+                                <li>Configurar o CLIMADA utilizando conda/mamba</li>
+                                <li>Verificar a instalação com testes simples</li>
+                                <li>Executar comandos básicos utilizando a API do CLIMADA</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção 1: Requisitos do Sistema -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">1. Requisitos do Sistema</h2>
+                <p class="mb-4">Antes de começarmos a instalação, verifique se seu sistema atende aos seguintes requisitos:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="border rounded-lg p-4 bg-gray-50">
+                        <h3 class="font-bold text-lg mb-2">Hardware Recomendado:</h3>
+                        <ul class="list-disc pl-5">
+                            <li>Processador: Multi-core moderno (Intel i5/i7 ou equivalente)</li>
+                            <li>Memória RAM: Mínimo 8GB, recomendado 16GB</li>
+                            <li>Espaço em disco: Mínimo 10GB disponíveis</li>
+                        </ul>
+                    </div>
+                    <div class="border rounded-lg p-4 bg-gray-50">
+                        <h3 class="font-bold text-lg mb-2">Software Necessário:</h3>
+                        <ul class="list-disc pl-5">
+                            <li>Sistema Operacional: Windows 10/11, macOS, ou Linux</li>
+                            <li>Git instalado (para clonar repositórios)</li>
+                            <li>Conexão com a Internet para download de pacotes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="tip-box p-4 rounded mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="font-medium">Dica profissional:</p>
+                            <p>Para melhores resultados, recomendamos utilizar um ambiente dedicado para o CLIMADA, isolado de outras instalações Python. Isso evita conflitos de dependências com outros projetos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 2: Instalação do Ambiente -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">2. Instalação do Ambiente CLIMADA</h2>
+                
+                <p class="mb-4">O CLIMADA é disponibilizado pelo conda-forge e é recomendado instalá-lo usando o gerenciador de pacotes <strong>Mamba</strong> (uma implementação mais rápida do Conda).</p>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">2.1 Instalação do Miniconda e Mamba</h3>
+                
+                <div class="task-box p-4 rounded mb-6">
+                    <p class="mb-2 font-medium">Primeiro, instale o Miniconda:</p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li class="mb-2">Baixe o instalador do Miniconda apropriado para seu sistema operacional:<br>
+                        <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" class="text-blue-600 hover:underline">https://docs.conda.io/en/latest/miniconda.html</a></li>
+                        <li class="mb-2">Execute o instalador e siga as instruções na tela</li>
+                        <li>Abra um novo terminal para verificar a instalação com o comando <code class="bg-gray-100 px-2 py-1 rounded">conda --version</code></li>
+                    </ol>
+                    
+                    <p class="mb-2 font-medium">Depois, instale o Mamba:</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Terminal</span>
+                            <button class="copy-btn" onclick="copyCode(this)">
+                                <i class="far fa-copy"></i> Copiar
+                            </button>
+                        </div>
+                        <pre><code class="language-bash">conda install -c conda-forge mamba</code></pre>
+                    </div>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">2.2 Criação do Ambiente CLIMADA</h3>
+                
+                <p class="mb-4">Agora vamos criar um ambiente dedicado para o CLIMADA e instalar o pacote:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Terminal</span>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                    <pre><code class="language-bash"># Crie um novo ambiente chamado 'climada_env'
+mamba create -n climada_env -c conda-forge python=3.9
+
+# Ative o ambiente
+conda activate climada_env
+
+# Instale o CLIMADA
+mamba install -c conda-forge climada
+
+# Verificação opcional: instale o Jupyter Notebook para trabalhar com tutoriais
+mamba install -c conda-forge jupyterlab notebook</code></pre>
+                </div>
+                
+                <div class="warning-box p-4 rounded mt-6 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-exclamation-triangle text-red-500 mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="font-medium">Atenção:</p>
+                            <p>A instalação do CLIMADA pode demorar alguns minutos devido ao grande número de dependências. Se encontrar conflitos de pacotes, tente criar um ambiente totalmente novo com o comando acima. Não misture pip e conda para instalação de pacotes no mesmo ambiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 3: Verificação da Instalação -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">3. Verificação da Instalação</h2>
+                
+                <p class="mb-4">Vamos verificar se o CLIMADA foi instalado corretamente executando alguns comandos básicos:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                    <pre><code class="language-python"># Teste básico para verificar a instalação do CLIMADA
+import sys
+import climada
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Imprima as versões
+print(f"Python version: {sys.version}")
+print(f"CLIMADA version: {climada.__version__}")
+print(f"NumPy version: {np.__version__}")
+
+# Teste a importação de módulos essenciais do CLIMADA
+from climada.hazard import Hazard
+from climada.entity import Entity, Exposures
+from climada.engine import Impact
+
+print("Importações básicas realizadas com sucesso!")</code></pre>
+                </div>
+                
+                <p class="mt-4 mb-4">Salve o código acima em um arquivo <code class="bg-gray-100 px-2 py-1 rounded">verificacao_climada.py</code> e execute-o no terminal:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Terminal</span>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                    <pre><code class="language-bash">python verificacao_climada.py</code></pre>
+                </div>
+                
+                <p class="mt-4">Se não ocorrer nenhum erro e você vir a mensagem "Importações básicas realizadas com sucesso!", a instalação está correta.</p>
+            </section>
+
+            <!-- Seção 4: Primeiros Passos com a API do CLIMADA -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">4. Primeiros Passos com a API do CLIMADA</h2>
+                
+                <p class="mb-4">Agora vamos explorar os conceitos básicos da API do CLIMADA. Crie um notebook Jupyter ou um script Python e execute os seguintes exemplos:</p>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">4.1 Criando uma grade de centroides</h3>
+                
+                <p class="mb-3">Centroides são pontos geográficos onde o CLIMADA calcula a intensidade dos perigos e impactos. Vamos criar e visualizar uma grade simples:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                    <pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+from climada.hazard import Centroids
+
+# Definir uma área para análise (exemplo: parte da costa brasileira)
+min_lat, max_lat = -25.0, -22.0  # latitude sul (valores negativos)
+min_lon, max_lon = -45.0, -42.0  # longitude oeste (valores negativos)
+
+# Criar centroides com resolução de 0.1 graus
+centroides = Centroids.from_pnt_bounds(
+    (min_lon, min_lat, max_lon, max_lat), 
+    res=0.1
+)
+
+# Verificar os centroides
+centroides.check()
+
+# Plotar os centroides
+plt.figure(figsize=(10, 8))
+centroides.plot()
+plt.title('Grade de Centroides - Costa Sudeste do Brasil')
+plt.xlabel('Longitude')
+plt.ylabel('Latitude')
+plt.show()</code></pre>
+                </div>
+                
+                <h3 class="text-xl font-semibold mb-3 mt-6">4.2 Explorando exposições econômicas com LitPop</h3>
+                
+                <p class="mb-3">O módulo LitPop permite estimar a distribuição espacial de valores econômicos. Vamos criar uma exposição simples:</p>
+                
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>Python</span>
+                        <button class="copy-btn" onclick="copyCode(this)">
+                            <i class="far fa-copy"></i> Copiar
+                        </button>
+                    </div>
+                    <pre><code class="language-python">from climada.entity.exposures import LitPop
+
+# Criar uma exposição LitPop para uma região específica
+# Usando um país pequeno para processamento mais rápido
+exposicao = LitPop.from_countries(
+    'URY',  # Uruguai (código ISO)
+    res_arcsec=120,  # Resolução em segundos de arco (2 minutos ~ 3.7 km no equador)
+    reference_year=2020  # Ano de referência
+)
+
+# Definir geometria de pontos para visualização
+exposicao.set_geometry_points()
+
+# Visualizar a exposição
+plt.figure(figsize=(12, 8))
+exposicao.plot_hexbin(
+    pop_name=True,  # Mostrar nome do país
+    buffer=0.5,     # Buffer ao redor da área
+    cmap='YlOrRd'   # Esquema de cores
+)
+plt.title('Distribuição da Exposição Econômica - Uruguai')
+plt.show()
+
+# Mostrar estatísticas básicas
+valor_total = exposicao.gdf.value.sum()
+print(f"Valor total da exposição: {valor_total:,.2f} USD")
+print(f"Número de pontos de exposição: {len(exposicao.gdf)}")
+print(f"Valor médio por ponto: {exposicao.gdf.value.mean():,.2f} USD")
+print(f"Valor máximo por ponto: {exposicao.gdf.value.max():,.2f} USD")</code></pre>
+                </div>
+                
+                <div class="tip-box p-4 rounded mt-6 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-lightbulb text-yellow-500 mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p class="font-medium">Dica:</p>
+                            <p>Para usar o LitPop com dados demográficos, você precisa baixar manualmente o conjunto de dados Gridded Population of the World (GPW) do site da NASA SEDAC. Veja as instruções detalhadas na <a href="https://climada-python.readthedocs.io/en/stable/tutorial/climada_entity_LitPop.html" target="_blank" class="text-blue-600 hover:underline">documentação oficial do LitPop</a>.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 5: Tarefas Práticas -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">5. Tarefas Práticas</h2>
+                
+                <p class="mb-4">Complete as seguintes tarefas para praticar o que aprendeu:</p>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-3">Tarefa 1: Exploração de Diferentes Regiões</h3>
+                    <p class="mb-3">Modifique o exemplo dos centroides para analisar uma área geográfica diferente, relevante para ativos offshore:</p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li class="mb-2">Escolha uma área de interesse como o Golfo do México (latitude: 18-30°N, longitude: 80-98°W) ou a Bacia de Campos no Brasil.</li>
+                        <li class="mb-2">Crie uma grade de centroides com resolução de 0.05 graus (aproximadamente 5.5 km no equador).</li>
+                        <li class="mb-2">Faça um plot da grade e adicione um título descritivo.</li>
+                        <li>Experimente com diferentes resoluções e observe como isso afeta a densidade da grade e o tempo de processamento.</li>
+                    </ol>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-3">Tarefa 2: Comparação de Exposições</h3>
+                    <p class="mb-3">Explore diferentes configurações do LitPop para comparar exposições econômicas:</p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li class="mb-2">Crie exposições LitPop para um mesmo país usando diferentes expoentes:
+                            <ul class="list-disc pl-6 mt-1">
+                                <li>exponents=(1,0): Apenas luz noturna</li>
+                                <li>exponents=(0,1): Apenas população</li>
+                                <li>exponents=(1,1): Combinação padrão</li>
+                            </ul>
+                        </li>
+                        <li class="mb-2">Visualize as três exposições lado a lado.</li>
+                        <li>Compare os valores totais e a distribuição espacial. O que você observa sobre as diferenças?</li>
+                    </ol>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h3 class="text-xl font-semibold mb-3">Tarefa 3: Documentação e Exploração</h3>
+                    <p class="mb-3">Familiarize-se com a documentação do CLIMADA e explore seus recursos:</p>
+                    <ol class="list-decimal pl-6 mb-4">
+                        <li class="mb-2">Acesse a <a href="https://climada-python.readthedocs.io/en/stable/" target="_blank" class="text-blue-600 hover:underline">documentação oficial do CLIMADA</a>.</li>
+                        <li class="mb-2">Explore os tutoriais disponíveis para "entity", "hazard" e "engine".</li>
+                        <li class="mb-2">Identifique qual tutorial seria mais relevante para análise de riscos de embarcações offshore.</li>
+                        <li>Escreva um breve resumo (3-5 parágrafos) descrevendo como você imagina que o CLIMADA pode ser aplicado para análise de riscos de embarcações offshore, com base no que aprendeu até agora.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <!-- Seção 6: Verificação de Progresso -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">6. Verificação de Progresso</h2>
+                
+                <p class="mb-4">Marque as tarefas que você já completou:</p>
+                
+                <div class="space-y-3 mb-6">
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check1" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check1" class="cursor-pointer">Instalação do Miniconda e Mamba</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check2" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check2" class="cursor-pointer">Criação do ambiente CLIMADA</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check3" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check3" class="cursor-pointer">Verificação da instalação bem-sucedida</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check4" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check4" class="cursor-pointer">Criação e visualização de centroides</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check5" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check5" class="cursor-pointer">Criação e visualização de exposição com LitPop</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check6" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check6" class="cursor-pointer">Tarefa 1: Exploração de diferentes regiões</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check7" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check7" class="cursor-pointer">Tarefa 2: Comparação de exposições</label>
+                    </div>
+                    
+                    <div class="progress-item p-3 border rounded-lg flex items-start">
+                        <input type="checkbox" id="check8" class="w-5 h-5 mt-1 mr-3 progress-check">
+                        <label for="check8" class="cursor-pointer">Tarefa 3: Documentação e exploração</label>
+                    </div>
+                </div>
+                
+                <div class="mt-6">
+                    <div class="bg-green-50 border border-green-200 rounded-lg p-6 hidden" id="completion-message">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-xl font-semibold text-green-800">Parabéns!</h3>
+                                <p class="text-green-700">Você completou todas as tarefas desta prática. Você está pronto para avançar para o próximo módulo do curso.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 7: Recursos Adicionais -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">7. Recursos Adicionais</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border rounded-lg p-5 bg-gray-50">
+                        <h3 class="font-bold text-lg mb-3 text-gray-800">Documentação Oficial</h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="https://climada-python.readthedocs.io/en/stable/" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-book mr-2"></i> Documentação do CLIMADA
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://climada-python.readthedocs.io/en/stable/tutorial/climada_entity_LitPop.html" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-map mr-2"></i> Tutorial do LitPop
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://climada-python.readthedocs.io/en/stable/tutorial/climada_hazard_TropCyclone.html" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-wind mr-2"></i> Tutorial de Ciclones Tropicais
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fab fa-github mr-2"></i> Repositório GitHub do CLIMADA
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="border rounded-lg p-5 bg-gray-50">
+                        <h3 class="font-bold text-lg mb-3 text-gray-800">Artigos e Publicações</h3>
+                        <ul class="space-y-2">
+                            <li>
+                                <a href="https://gmd.copernicus.org/articles/12/3085/2019/" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-file-alt mr-2"></i> CLIMADA v1: A Global Weather and Climate Risk Assessment Platform
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://doi.org/10.5194/essd-12-817-2020" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-chart-line mr-2"></i> Asset Exposure Data for Global Physical Risk Assessment
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://climada.ethz.ch/" target="_blank" class="text-blue-600 hover:underline flex items-center">
+                                    <i class="fas fa-globe mr-2"></i> Site do Projeto CLIMADA ETH Zurich
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-6 border rounded-lg p-5 bg-gray-50">
+                    <h3 class="font-bold text-lg mb-3 text-gray-800">Solução de Problemas Comuns</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">Erro ao baixar dados GPW para o LitPop</h4>
+                            <p>Para usar o LitPop, você precisa baixar manualmente o conjunto de dados GPW. Siga as instruções em: <a href="https://climada-python.readthedocs.io/en/stable/tutorial/climada_entity_LitPop.html#population-count" target="_blank" class="text-blue-600 hover:underline">Tutorial LitPop - Population Count</a></p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Conflitos de pacotes durante a instalação</h4>
+                            <p>Se encontrar conflitos, tente criar um ambiente totalmente novo e siga a ordem exata de instalação. Evite misturar pip e conda no mesmo ambiente.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Problemas de memória com grandes áreas geográficas</h4>
+                            <p>Ao trabalhar com grandes áreas geográficas, reduza a resolução dos centroides ou divida a análise em regiões menores para evitar problemas de memória.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seção 8: Envio do Exercício -->
+            <section>
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">8. Envio do Exercício</h2>
+                
+                <p class="mb-6">Prepare seu trabalho para envio seguindo estas instruções:</p>
+                
+                <div class="bg-white border rounded-lg p-6 mb-6">
+                    <h3 class="text-xl font-semibold mb-4">Orientações para Envio</h3>
+                    
+                    <ol class="list-decimal pl-6 mb-4 space-y-2">
+                        <li>Organize seu código e resultados em um único notebook Jupyter (.ipynb)</li>
+                        <li>Inclua comentários explicativos em seu código</li>
+                        <li>Adicione capturas de tela dos resultados visuais obtidos</li>
+                        <li>Para a Tarefa 3, inclua seu resumo escrito no final do notebook</li>
+                        <li>Nomeie seu arquivo como: <code class="bg-gray-100 px-2 py-1 rounded">Modulo1_Pratica1_SeuNome.ipynb</code></li>
+                    </ol>
+                    
+                    <div class="mt-6">
+                        <form id="submission-form" class="space-y-4">
+                            <div>
+                                <label for="file-upload" class="block text-sm font-medium text-gray-700 mb-1">Selecione seu arquivo para envio:</label>
+                                <input type="file" id="file-upload" name="file-upload" class="block w-full text-sm text-gray-500
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-md file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-blue-50 file:text-blue-700
+                                hover:file:bg-blue-100">
+                            </div>
+                            
+                            <div>
+                                <label for="comments" class="block text-sm font-medium text-gray-700 mb-1">Comentários adicionais (opcional):</label>
+                                <textarea id="comments" name="comments" rows="3" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <i class="fas fa-paper-plane mr-2"></i> Enviar Exercício
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-info-circle text-yellow-500 mt-1"></i>
+                        </div>
+                        <div class="ml-4">
+                            <p>Após o envio, o instrutor irá revisar seu trabalho e fornecer feedback individual. O prazo para envio é até a próxima aula. Para dúvidas, utilize o fórum de discussão do curso.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">CLIMADA Course</h3>
+                    <p class="text-gray-300">Precificação de Riscos Climáticos em Ativos Corporativos com CLIMADA: Do Básico ao Avançado</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white">Página Inicial</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Módulos do Curso</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Fórum de Discussão</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white">Suporte Técnico</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Contato</h3>
+                    <p class="text-gray-300 mb-2">Para dúvidas e suporte:</p>
+                    <p class="text-gray-300"><i class="fas fa-envelope mr-2"></i> suporte@climadacurso.com</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; 2025 CLIMADA Course. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Prism.js for code highlighting -->
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.27.0/components/prism-bash.min.js"></script>
+    
+    <script>
+        // Function to copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                }, 2000);
+            });
+        }
+        
+        // Handle progress checkboxes
+        document.querySelectorAll('.progress-check').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const parentItem = this.closest('.progress-item');
+                if (this.checked) {
+                    parentItem.classList.add('completed');
+                } else {
+                    parentItem.classList.remove('completed');
+                }
+                
+                // Check if all items are checked
+                const allChecked = Array.from(
+                    document.querySelectorAll('.progress-check')
+                ).every(cb => cb.checked);
+                
+                const completionMessage = document.getElementById('completion-message');
+                if (allChecked) {
+                    completionMessage.classList.remove('hidden');
+                } else {
+                    completionMessage.classList.add('hidden');
+                }
+            });
+        });
+        
+        // Handle form submission
+        document.getElementById('submission-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const fileInput = document.getElementById('file-upload');
+            const comments = document.getElementById('comments').value;
+            
+            // Validate file
+            if (!fileInput.files.length) {
+                alert('Por favor, selecione um arquivo para enviar.');
+                return;
+            }
+            
+            // Show success message (in a real app, this would send the data to a server)
+            const formContainer = this.parentElement;
+            formContainer.innerHTML = `
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-xl font-semibold text-green-800">Exercício Enviado com Sucesso!</h3>
+                            <p class="text-green-700">Seu arquivo "${fileInput.files[0].name}" foi enviado. O instrutor irá revisar e fornecer feedback em breve.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>

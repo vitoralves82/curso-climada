@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 1: Fundamentos do Risco Climático e Introdução ao CLIMADA</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0c6e9e;
+            --secondary-color: #3bb4c1;
+            --accent-color: #f59e0b;
+            --text-color: #374151;
+            --light-bg: #f3f4f6;
+        }
+        
+        body {
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary-color);
+        }
+        
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(59, 180, 193, 0.1);
+        }
+        
+        .nav-link.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+            transition: width 0.5s ease-in-out;
+        }
+        
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .quiz-option {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .quiz-option:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .quiz-option.selected {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+        
+        .quiz-option.correct {
+            background-color: #d1fae5;
+            border-color: #10b981;
+        }
+        
+        .quiz-option.incorrect {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+        
+        .diagram-node {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .diagram-node:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+        
+        .info-popup {
+            display: none;
+            position: absolute;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            max-width: 320px;
+        }
+        
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #f1f5f9;
+            padding: 0.1em 0.3em;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        pre {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        .concept-box {
+            border-left: 4px solid var(--primary-color);
+            background-color: rgba(12, 110, 158, 0.05);
+        }
+        
+        .warning-box {
+            border-left: 4px solid var(--accent-color);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .expanded {
+            max-height: 2000px;
+        }
+        
+        @media print {
+            .no-print {
+                display: none;
+            }
+            
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow sticky top-0 z-50 print:static print:shadow-none">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <a href="#" class="text-xl font-bold text-primary-color">
+                            <span style="color: var(--primary-color);">CLIMA</span><span style="color: var(--secondary-color);">DA</span>
+                        </a>
+                    </div>
+                    <nav class="ml-6 flex space-x-4 items-center">
+                        <a href="#" class="nav-link active px-3 py-2 rounded-md text-sm font-medium">Módulo 1</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500">Módulo 2</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500">Módulo 3</a>
+                        <a href="#" class="nav-link px-3 py-2 rounded-md text-sm font-medium text-gray-500">Práticas</a>
+                    </nav>
+                </div>
+                <div class="flex items-center">
+                    <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-home mr-1"></i> Dashboard
+                    </a>
+                    <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-users mr-1"></i> Comunidade
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="bg-white shadow-sm no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+            <div class="flex items-center">
+                <span class="text-sm text-gray-500 mr-4">Progresso do Módulo:</span>
+                <div class="progress-bar flex-grow">
+                    <div class="progress-bar-fill" style="width: 0%;" id="moduleProgress"></div>
+                </div>
+                <span class="text-sm text-gray-500 ml-4" id="progressPercentage">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Module Header -->
+        <div class="bg-white shadow overflow-hidden sm:rounded-lg mb-8">
+            <div class="px-4 py-5 sm:px-6 bg-gradient-to-r from-blue-600 to-cyan-500">
+                <h1 class="text-2xl font-bold text-white">Módulo 1: Fundamentos do Risco Climático e Introdução ao CLIMADA</h1>
+                <p class="mt-1 max-w-2xl text-sm text-blue-50">Primeira etapa da sua jornada na precificação de riscos climáticos</p>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-5 sm:px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="col-span-2">
+                        <h3 class="text-lg font-medium text-gray-900">Visão Geral do Módulo</h3>
+                        <p class="mt-2 text-gray-600">
+                            Neste módulo introdutório, você conhecerá os conceitos fundamentais de risco climático e a plataforma CLIMADA, 
+                            que será utilizada ao longo do curso para quantificar e precificar riscos climáticos em ativos corporativos, 
+                            com ênfase especial em embarcações offshore. Além disso, você irá configurar o ambiente de trabalho necessário 
+                            para as análises práticas.
+                        </p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-md font-medium text-gray-900 mb-2">Objetivos de Aprendizagem</h3>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>Compreender os conceitos fundamentais de risco climático</li>
+                            <li>Identificar os componentes do risco: perigo, exposição e vulnerabilidade</li>
+                            <li>Entender a arquitetura e funcionalidades do CLIMADA</li>
+                            <li>Configurar com sucesso o ambiente de trabalho</li>
+                            <li>Executar comandos básicos no CLIMADA</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 1.1: Conceitos Fundamentais de Risco Climático -->
+        <section id="section-1-1" class="mb-12">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gradient-to-r from-blue-500 to-blue-600">
+                    <h2 class="text-xl font-bold text-white">1.1: Conceitos Fundamentais de Risco Climático</h2>
+                </div>
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Definindo Risco Climático</h3>
+                    
+                    <p class="mb-4">
+                        Risco climático refere-se à combinação da probabilidade de ocorrência de eventos climáticos adversos e 
+                        seus potenciais impactos negativos em sistemas humanos e naturais. No contexto de ativos corporativos, 
+                        o risco climático representa a possibilidade de perdas financeiras, danos físicos ou interrupções operacionais 
+                        causados por eventos relacionados ao clima.
+                    </p>
+                    
+                    <div class="concept-box p-4 rounded-md mb-6">
+                        <h4 class="font-semibold mb-2">Fórmula Conceitual do Risco Climático</h4>
+                        <p class="mb-1">O risco climático é geralmente representado como função de três componentes principais:</p>
+                        <div class="bg-gray-100 p-3 rounded text-center font-bold text-lg mb-2">
+                            Risco = Perigo × Exposição × Vulnerabilidade
+                        </div>
+                        <p>Esta estrutura conceitual forma a base da abordagem metodológica do CLIMADA para quantificação de risco.</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+                                <h4 class="font-semibold">Perigo (Hazard)</h4>
+                            </div>
+                            <p class="text-sm">
+                                Refere-se aos eventos físicos potencialmente danosos relacionados ao clima. Exemplos incluem ciclones tropicais, 
+                                ondas de calor, inundações e aumento do nível do mar. É caracterizado pela sua intensidade, frequência e 
+                                distribuição geográfica.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-building text-blue-500 mr-2"></i>
+                                <h4 class="font-semibold">Exposição (Exposure)</h4>
+                            </div>
+                            <p class="text-sm">
+                                Representa a presença de pessoas, ativos, infraestrutura ou outros elementos em locais que podem 
+                                ser afetados por perigos climáticos. No caso de embarcações offshore, a exposição inclui a localização, 
+                                valor e características operacionais das embarcações.
+                            </p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-shield-alt text-red-500 mr-2"></i>
+                                <h4 class="font-semibold">Vulnerabilidade (Vulnerability)</h4>
+                            </div>
+                            <p class="text-sm">
+                                É a propensão ou predisposição dos elementos expostos a serem adversamente afetados pelos perigos. 
+                                Inclui a sensibilidade ao dano e a capacidade de adaptação. Para embarcações, depende de fatores como 
+                                design, idade, manutenção e especificações técnicas.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Tipos de Riscos Climáticos</h3>
+                    
+                    <p class="mb-4">
+                        Os riscos climáticos são geralmente classificados em duas grandes categorias: riscos físicos e riscos de transição. 
+                        Embora o CLIMADA seja principalmente focado na quantificação de riscos físicos, é importante entender ambas as categorias 
+                        para uma visão completa dos desafios impostos pelas mudanças climáticas.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-blue-800 mb-2">Riscos Físicos</h4>
+                            <p class="mb-2">
+                                Referem-se aos impactos diretos de eventos climáticos extremos ou mudanças graduais nos padrões climáticos.
+                            </p>
+                            <h5 class="font-medium text-gray-800 mt-3 mb-1">Riscos Agudos (Eventos Extremos)</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1 mb-3">
+                                <li>Ciclones tropicais e tempestades extratropicais</li>
+                                <li>Ondas extremas e ressacas marítimas</li>
+                                <li>Inundações costeiras e fluviais</li>
+                                <li>Incêndios florestais</li>
+                                <li>Ondas de calor e secas extremas</li>
+                            </ul>
+                            <h5 class="font-medium text-gray-800 mt-3 mb-1">Riscos Crônicos (Mudanças Graduais)</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Elevação do nível do mar</li>
+                                <li>Mudanças nos padrões de precipitação</li>
+                                <li>Aumento da temperatura média</li>
+                                <li>Acidificação dos oceanos</li>
+                                <li>Mudanças na sazonalidade de ventos e correntes marítimas</li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-blue-800 mb-2">Riscos de Transição</h4>
+                            <p class="mb-2">
+                                Decorrem da transição para uma economia de baixo carbono e incluem mudanças em políticas, tecnologias, 
+                                mercados e reputação.
+                            </p>
+                            <h5 class="font-medium text-gray-800 mt-3 mb-1">Principais Tipos</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li><span class="font-medium">Riscos Políticos e Legais:</span> Regulações de emissões, precificação de carbono, litígios climáticos</li>
+                                <li><span class="font-medium">Riscos Tecnológicos:</span> Substituição de tecnologias existentes por alternativas de baixo carbono</li>
+                                <li><span class="font-medium">Riscos de Mercado:</span> Mudanças na oferta e demanda de certos produtos e serviços</li>
+                                <li><span class="font-medium">Riscos Reputacionais:</span> Percepção negativa de stakeholders sobre empresas intensivas em carbono</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Impactos em Ativos Corporativos - Foco em Embarcações Offshore</h3>
+                    
+                    <p class="mb-4">
+                        As embarcações offshore, como plataformas, embarcações de apoio, navios de perfuração e FPSOs (Floating Production Storage and Offloading), 
+                        estão particularmente expostas a riscos climáticos físicos devido à sua localização e natureza operacional.
+                    </p>
+                    
+                    <div class="overflow-x-auto mb-6">
+                        <table class="min-w-full bg-white border border-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-4 py-2 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700">Perigo Climático</th>
+                                    <th class="px-4 py-2 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700">Impactos Potenciais em Embarcações Offshore</th>
+                                    <th class="px-4 py-2 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700">Considerações para Modelagem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">Ciclones Tropicais</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Danos estruturais causados por ventos extremos</li>
+                                            <li>Instabilidade devido a ondas altas</li>
+                                            <li>Interrupção de operações e evacuações</li>
+                                            <li>Desconexão de sistemas de ancoragem</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        No CLIMADA, modelado como combinação de velocidade de vento e campos de onda, com consideração 
+                                        da vulnerabilidade específica de cada tipo de embarcação.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">Tempestades Extratropicais</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Impactos semelhantes aos ciclones, mas em latitudes mais altas</li>
+                                            <li>Menor previsibilidade em algumas regiões</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        Requer consideração de diferenças nas características físicas em relação aos ciclones tropicais.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">Ondas Extremas</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Danos a equipamentos de convés</li>
+                                            <li>Esforços estruturais extremos</li>
+                                            <li>Risco para operações de transferência</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        Modelagem de altura significativa de onda e períodos de pico, considerando vulnerabilidade por tipo de embarcação.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">Elevação do Nível do Mar</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Impacto menor em embarcações flutuantes</li>
+                                            <li>Aumento da base de ondas de tempestade</li>
+                                            <li>Impactos em infraestrutura costeira de apoio</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        Considerado principalmente como amplificador de outros perigos em análises de longo prazo.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">Mudanças em Correntes e Ventos</td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Alteração em forças de arrasto</li>
+                                            <li>Mudanças em necessidades operacionais</li>
+                                            <li>Reconsideração de sistemas de posicionamento</li>
+                                        </ul>
+                                    </td>
+                                    <td class="px-4 py-2 border-b border-gray-200 text-sm">
+                                        Requer integração de modelos climáticos de longo prazo com análises operacionais específicas.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Importância da Quantificação e Precificação do Risco Climático</h3>
+                    
+                    <p class="mb-4">
+                        Para empresas com ativos significativos expostos a riscos climáticos, como operadoras de embarcações offshore, 
+                        a quantificação e precificação desses riscos é fundamental por diversos motivos:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Benefícios Estratégicos</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Tomada de Decisão Informada:</span> 
+                                    Permite decisões baseadas em evidências sobre investimentos, localização de ativos e estratégias operacionais.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Otimização de Portfólio:</span> 
+                                    Auxilia na diversificação geográfica e técnica para reduzir a exposição agregada.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Planejamento de Longo Prazo:</span> 
+                                    Facilita a integração dos riscos climáticos no planejamento estratégico de longo prazo.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Avaliação de Medidas de Adaptação:</span> 
+                                    Permite comparar custo-benefício de diferentes estratégias de adaptação.
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Benefícios Financeiros e Operacionais</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Alocação Eficiente de Capital:</span> 
+                                    Permite direcionar recursos para áreas de maior risco ou retorno.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Precificação Adequada de Ativos:</span> 
+                                    Evita a subavaliação ou superavaliação de ativos expostos a riscos climáticos.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Otimização de Seguros:</span> 
+                                    Facilita a negociação de apólices de seguro com base em análises quantitativas de risco.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Continuidade de Negócios:</span> 
+                                    Melhora o planejamento de contingência e resiliência operacional.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box p-4 rounded-md mb-6">
+                        <h4 class="font-semibold mb-2">Desafios da Precificação de Riscos Climáticos</h4>
+                        <p class="mb-2">A precificação de riscos climáticos apresenta desafios significativos:</p>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>Incertezas nas projeções climáticas futuras, especialmente em escalas locais</li>
+                            <li>Disponibilidade limitada de dados históricos para calibração de modelos</li>
+                            <li>Complexidade na modelagem de interações entre múltiplos perigos</li>
+                            <li>Dificuldade em quantificar impactos indiretos e em cadeia</li>
+                            <li>Incertezas na evolução de políticas climáticas e tecnologias de adaptação</li>
+                        </ul>
+                        <p class="mt-2">
+                            O CLIMADA ajuda a enfrentar esses desafios através de sua abordagem probabilística e estrutura modular, 
+                            permitindo a integração de diferentes fontes de dados e a análise de incertezas.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mb-4">
+                        <h4 class="font-semibold mb-2">Conceitos-Chave da Seção 1.1</h4>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>O risco climático é função da interação entre perigo, exposição e vulnerabilidade</li>
+                            <li>Existem dois tipos principais de riscos climáticos: físicos (agudos e crônicos) e de transição</li>
+                            <li>Embarcações offshore estão particularmente expostas a perigos como ciclones, ondas extremas e tempestades</li>
+                            <li>A quantificação e precificação dos riscos climáticos traz benefícios estratégicos, financeiros e operacionais</li>
+                            <li>Apesar dos desafios, ferramentas como o CLIMADA permitem análises robustas de risco climático</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quiz Section 1.1 -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg mt-6">
+                <div class="px-4 py-5 sm:px-6 bg-blue-100">
+                    <h3 class="text-lg font-medium text-gray-900">Quiz: Conceitos Fundamentais de Risco Climático</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-600">Teste seus conhecimentos sobre os conceitos apresentados nesta seção.</p>
+                </div>
+                <div class="px-4 py-5 sm:px-6" id="quiz-section-1-1">
+                    <!-- Question 1 -->
+                    <div class="mb-6 quiz-question">
+                        <p class="font-medium text-gray-900 mb-3">1. Quais são os três componentes principais que definem o risco climático?</p>
+                        <div class="space-y-2">
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q1" class="mt-1 mr-2">
+                                    <span>Mitigação, Adaptação e Resiliência</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="true">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q1" class="mt-1 mr-2">
+                                    <span>Perigo, Exposição e Vulnerabilidade</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q1" class="mt-1 mr-2">
+                                    <span>Probabilidade, Impacto e Frequência</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q1" class="mt-1 mr-2">
+                                    <span>Custos, Benefícios e Incertezas</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500 hidden quiz-explanation">
+                            <strong>Explicação:</strong> O risco climático é definido como a interação entre perigo (eventos físicos potencialmente danosos), 
+                            exposição (presença de ativos em áreas afetadas) e vulnerabilidade (propensão dos ativos a sofrerem danos).
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="mb-6 quiz-question">
+                        <p class="font-medium text-gray-900 mb-3">2. Qual dos seguintes NÃO é um exemplo de risco físico agudo relacionado ao clima?</p>
+                        <div class="space-y-2">
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q2" class="mt-1 mr-2">
+                                    <span>Ciclones tropicais</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q2" class="mt-1 mr-2">
+                                    <span>Ondas extremas</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="true">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q2" class="mt-1 mr-2">
+                                    <span>Elevação gradual do nível do mar</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q2" class="mt-1 mr-2">
+                                    <span>Inundações costeiras repentinas</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500 hidden quiz-explanation">
+                            <strong>Explicação:</strong> A elevação gradual do nível do mar é classificada como um risco físico crônico, 
+                            pois representa uma mudança gradual nas condições climáticas ao longo do tempo, em vez de um evento extremo específico.
+                        </div>
+                    </div>
+                    
+                    <!-- Question 3 -->
+                    <div class="mb-6 quiz-question">
+                        <p class="font-medium text-gray-900 mb-3">3. Para embarcações offshore, qual dos seguintes fatores é considerado parte da "vulnerabilidade" no contexto de análise de risco climático?</p>
+                        <div class="space-y-2">
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q3" class="mt-1 mr-2">
+                                    <span>A localização geográfica da embarcação</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q3" class="mt-1 mr-2">
+                                    <span>O valor monetário da embarcação</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q3" class="mt-1 mr-2">
+                                    <span>A frequência de ciclones na região</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="true">
+                                <label class="flex items-start">
+                                    <input type="radio" name="q3" class="mt-1 mr-2">
+                                    <span>As especificações técnicas e idade da embarcação</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500 hidden quiz-explanation">
+                            <strong>Explicação:</strong> A vulnerabilidade refere-se à propensão de um elemento exposto a sofrer danos quando 
+                            afetado por um perigo. Para embarcações, características como design, idade, condições de manutenção e especificações 
+                            técnicas determinam sua vulnerabilidade aos perigos climáticos.
+                        </div>
+                    </div>
+                    
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500" id="submitQuiz1">
+                        Verificar Respostas
+                    </button>
+                    
+                    <div class="mt-4 p-4 bg-green-100 rounded hidden" id="quizResult1">
+                        <p class="font-medium text-green-800">Você acertou <span id="correctCount1">0</span> de 3 questões!</p>
+                        <p class="text-sm text-green-700 mt-1">Revise as explicações para aprofundar seu entendimento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1.2: Introdução à Plataforma CLIMADA -->
+        <section id="section-1-2" class="mb-12">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gradient-to-r from-blue-500 to-blue-600">
+                    <h2 class="text-xl font-bold text-white">1.2: Introdução à Plataforma CLIMADA</h2>
+                </div>
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">História e Objetivos do CLIMADA</h3>
+                    
+                    <p class="mb-4">
+                        CLIMADA (CLIMate ADAptation) é uma plataforma open-source de análise de risco climático desenvolvida pelo 
+                        Instituto de Ciência Atmosférica e Climática da ETH Zurich (Suíça). Seu desenvolvimento iniciou-se com o objetivo 
+                        de criar uma ferramenta que permitisse a quantificação probabilística de riscos climáticos e a avaliação 
+                        de medidas de adaptação.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Evolução do CLIMADA</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Versão Original (MATLAB):</span> 
+                                    A primeira versão do CLIMADA foi desenvolvida em MATLAB, estabelecendo os fundamentos metodológicos 
+                                    para avaliação de risco e adaptação.
+                                </li>
+                                <li>
+                                    <span class="font-medium">CLIMADA Python (2017):</span> 
+                                    Reimplementação completa em Python, tornando a plataforma totalmente open-source e expandindo 
+                                    significativamente suas capacidades.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Desenvolvimento Contínuo:</span> 
+                                    Atualmente, a plataforma é mantida por uma comunidade ativa de pesquisadores e desenvolvedores, 
+                                    com atualizações e melhorias frequentes.
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-900 mb-2">Objetivos Principais</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Quantificação Probabilística:</span> 
+                                    Permitir a avaliação probabilística de riscos climáticos para diversos tipos de ativos e setores.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Análise Custo-Benefício:</span> 
+                                    Fornecer ferramentas para avaliar a eficácia econômica de medidas de adaptação.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Transparência e Reprodutibilidade:</span> 
+                                    Promover práticas científicas abertas através de código-fonte disponível e processos documentados.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Flexibilidade e Modularidade:</span> 
+                                    Permitir a personalização e extensão da plataforma para diversos contextos e necessidades.
+                                </li>
+                                <li>
+                                    <span class="font-medium">Acessibilidade:</span> 
+                                    Democratizar o acesso a ferramentas de análise de risco climático avançadas.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">Aplicações do CLIMADA</h4>
+                        <p class="mb-2">
+                            O CLIMADA tem sido aplicado em diversos contextos e setores, demonstrando sua versatilidade e relevância:
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-medium text-blue-800 mb-1">Análises Nacionais e Globais</h5>
+                                <ul class="list-disc pl-5 text-xs text-gray-600">
+                                    <li>Mapeamento global de risco de ciclones tropicais</li>
+                                    <li>Avaliações de risco a nível nacional para países em desenvolvimento</li>
+                                    <li>Análises de impacto econômico de mudanças climáticas em larga escala</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-medium text-blue-800 mb-1">Setor Financeiro e Seguros</h5>
+                                <ul class="list-disc pl-5 text-xs text-gray-600">
+                                    <li>Avaliação de risco para carteiras de investimento</li>
+                                    <li>Desenvolvimento de produtos de seguro paramétrico</li>
+                                    <li>Estresse teste climático para instituições financeiras</li>
+                                </ul>
+                            </div>
+                            <div class="bg-blue-50 p-3 rounded">
+                                <h5 class="font-medium text-blue-800 mb-1">Setores Específicos</h5>
+                                <ul class="list-disc pl-5 text-xs text-gray-600">
+                                    <li>Análise de riscos para infraestrutura crítica</li>
+                                    <li>Avaliação de vulnerabilidade agrícola</li>
+                                    <li>Riscos climáticos para o setor de energia</li>
+                                    <li>Avaliação de risco para ativos offshore (foco deste curso)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Arquitetura do CLIMADA: Core e Petals</h3>
+                    
+                    <p class="mb-4">
+                        O CLIMADA é estruturado em dois repositórios principais, seguindo uma arquitetura modular que proporciona 
+                        flexibilidade e extensibilidade.
+                    </p>
+                    
+                    <div class="relative mb-8" id="climada-architecture">
+                        <div class="border border-gray-200 rounded-lg p-4 bg-white">
+                            <h4 class="font-semibold text-center mb-4">Arquitetura do CLIMADA</h4>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="border border-blue-200 rounded-lg p-4 bg-blue-50 diagram-node" id="core-node">
+                                    <h5 class="font-medium text-blue-800 mb-2 text-center">CLIMADA Core (climada_python)</h5>
+                                    <p class="text-sm mb-3">
+                                        Contém a funcionalidade central necessária para cálculos de impacto, danos evitados,
+                                        incerteza e previsões.
+                                    </p>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div class="bg-white p-2 rounded border border-blue-100 text-xs text-center diagram-node" id="node-hazard">
+                                            Hazard<br>(Perigo)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-blue-100 text-xs text-center diagram-node" id="node-exposures">
+                                            Exposures<br>(Exposição)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-blue-100 text-xs text-center diagram-node" id="node-impact-funcs">
+                                            Impact Functions<br>(Funções de Impacto)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-blue-100 text-xs text-center diagram-node" id="node-engine">
+                                            Engine<br>(Motor de Cálculo)
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="border border-green-200 rounded-lg p-4 bg-green-50 diagram-node" id="petals-node">
+                                    <h5 class="font-medium text-green-800 mb-2 text-center">CLIMADA Petals (climada_petals)</h5>
+                                    <p class="text-sm mb-3">
+                                        Estende o Core com módulos mais especializados para geração de dados e aplicações específicas.
+                                    </p>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <div class="bg-white p-2 rounded border border-green-100 text-xs text-center diagram-node" id="node-hazard-modules">
+                                            Módulos de Perigo<br>(TC_Surge, Wildfire, etc.)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-green-100 text-xs text-center diagram-node" id="node-exposure-modules">
+                                            Módulos de Exposição<br>(OpenStreetMap, etc.)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-green-100 text-xs text-center diagram-node" id="node-impact-modules">
+                                            Módulos de Impacto<br>(Crop, Drought, etc.)
+                                        </div>
+                                        <div class="bg-white p-2 rounded border border-green-100 text-xs text-center diagram-node" id="node-advanced-modules">
+                                            Módulos Avançados<br>(SupplyChain, etc.)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex justify-center mt-4">
+                                <div class="border border-gray-200 rounded-lg p-3 bg-gray-50 text-sm">
+                                    <h5 class="font-medium text-gray-800 mb-1 text-center">API de Dados</h5>
+                                    <p class="text-xs text-center">
+                                        Fornece acesso a conjuntos de dados pré-processados para perigos globais, exposição e funções de impacto
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Info Popups -->
+                        <div class="info-popup" id="popup-core">
+                            <h5 class="font-medium text-blue-800 mb-1">CLIMADA Core</h5>
+                            <p class="text-sm">
+                                O núcleo funcional do CLIMADA, que contém todas as classes e métodos fundamentais para análise de risco climático.
+                                É suficiente para muitas análises e fornece interfaces para extensões mais especializadas.
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <a href="https://github.com/CLIMADA-project/climada_python" target="_blank" class="text-blue-600 hover:underline">
+                                    <i class="fab fa-github mr-1"></i> GitHub: climada-project/climada_python
+                                </a>
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-petals">
+                            <h5 class="font-medium text-green-800 mb-1">CLIMADA Petals</h5>
+                            <p class="text-sm">
+                                Extensões do Core que adicionam funcionalidades mais avançadas e específicas. Inclui módulos para 
+                                diferentes tipos de perigos, métodos de exposição, e análises especializadas. Depende do Core para funcionar.
+                            </p>
+                            <p class="text-xs text-gray-500 mt-1">
+                                <a href="https://github.com/CLIMADA-project/climada_petals" target="_blank" class="text-blue-600 hover:underline">
+                                    <i class="fab fa-github mr-1"></i> GitHub: climada-project/climada_petals
+                                </a>
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-hazard">
+                            <h5 class="font-medium text-blue-800 mb-1">Hazard (Perigo)</h5>
+                            <p class="text-sm">
+                                Módulo que gerencia dados sobre perigos climáticos, como ciclones tropicais, inundações, secas, etc.
+                                Define a intensidade, frequência e distribuição espacial dos eventos.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Classes principais:</span> Hazard, Centroids, TCTracks, TropCyclone
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-exposures">
+                            <h5 class="font-medium text-blue-800 mb-1">Exposures (Exposição)</h5>
+                            <p class="text-sm">
+                                Módulo que gerencia dados sobre os ativos expostos, incluindo sua localização geográfica, 
+                                valor econômico e características relevantes para análise de risco.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Classes principais:</span> Exposures, LitPop
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-impact-funcs">
+                            <h5 class="font-medium text-blue-800 mb-1">Impact Functions (Funções de Impacto)</h5>
+                            <p class="text-sm">
+                                Módulo que define como os perigos afetam os ativos expostos, relacionando a intensidade do 
+                                perigo ao dano esperado. Também chamadas de "curvas de vulnerabilidade".
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Classes principais:</span> ImpactFunc, ImpactFuncSet, IFTropCyclone
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-engine">
+                            <h5 class="font-medium text-blue-800 mb-1">Engine (Motor de Cálculo)</h5>
+                            <p class="text-sm">
+                                Módulo central que combina perigos, exposições e funções de impacto para calcular métricas de risco,
+                                análises custo-benefício e outros resultados.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Classes principais:</span> Impact, CostBenefit, Forecast, Unsequa
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-hazard-modules">
+                            <h5 class="font-medium text-green-800 mb-1">Módulos de Perigo Especializados</h5>
+                            <p class="text-sm">
+                                Implementações específicas para diferentes tipos de perigos climáticos, com métodos avançados
+                                de modelagem e processamento de dados.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Exemplos:</span> TC_Surge (tempestade de ciclones), Wildfire (incêndios),
+                                Landslide (deslizamentos), RiverFlood (inundações)
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-exposure-modules">
+                            <h5 class="font-medium text-green-800 mb-1">Módulos de Exposição Especializados</h5>
+                            <p class="text-sm">
+                                Implementações para diferentes fontes e tipos de dados de exposição, permitindo análises
+                                mais específicas para diferentes setores.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Exemplos:</span> OpenStreetMap (dados de infraestrutura), 
+                                BlackMarble (luzes noturnas e atividade econômica)
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-impact-modules">
+                            <h5 class="font-medium text-green-800 mb-1">Módulos de Impacto Especializados</h5>
+                            <p class="text-sm">
+                                Implementações para análise de impactos em setores específicos, com considerações
+                                particulares para diferentes tipos de ativos e sistemas.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Exemplos:</span> Crop (impactos agrícolas),
+                                Drought (impactos de seca)
+                            </p>
+                        </div>
+                        
+                        <div class="info-popup" id="popup-advanced-modules">
+                            <h5 class="font-medium text-green-800 mb-1">Módulos Avançados</h5>
+                            <p class="text-sm">
+                                Implementações de análises avançadas que vão além do impacto direto, como efeitos em cadeia
+                                de suprimentos, análises socioeconômicas complexas, etc.
+                            </p>
+                            <p class="text-xs mt-1">
+                                <span class="font-medium">Exemplos:</span> SupplyChain (cadeia de suprimentos), 
+                                MultiHazard (múltiplos perigos simultâneos)
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Principais Componentes do CLIMADA</h3>
+                    
+                    <p class="mb-4">
+                        Vamos explorar em mais detalhes os quatro componentes principais do CLIMADA, que formam a base 
+                        para todas as análises de risco climático na plataforma.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-bolt text-yellow-500 mr-2"></i>
+                                <h4 class="font-semibold text-gray-900">Hazard (Perigo)</h4>
+                            </div>
+                            <p class="text-sm mb-3">
+                                Representa os eventos perigosos que podem causar impactos, como ciclones tropicais, inundações ou incêndios. 
+                                Cada perigo é caracterizado por sua intensidade em diferentes pontos geográficos (centroides) e pela 
+                                probabilidade ou frequência de ocorrência.
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Principais Características</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1 mb-3">
+                                <li>Conjunto de eventos com probabilidades associadas</li>
+                                <li>Matriz de intensidade para cada evento em cada centroide</li>
+                                <li>Métodos para manipulação e visualização de dados</li>
+                                <li>Interfaces para diferentes fontes de dados (históricos, sintéticos, projeções)</li>
+                            </ul>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Exemplo para Ciclones Tropicais</h5>
+                            <pre class="text-xs p-2">
+# Importar módulos necessários
+from climada.hazard import TCTracks, TropCyclone, Centroids
+
+# Carregar dados de trajetórias de ciclones
+tracks = TCTracks.from_ibtracs_netcdf(
+    provider='usa', 
+    storm_id='2017242N16333'  # Furacão Irma
+)
+
+# Definir centroides para análise
+centroids = Centroids.from_pnt_bounds(
+    (-85, 20, -60, 35),  # Área no Caribe/Atlântico
+    res=0.1  # Resolução de 0.1 graus
+)
+
+# Criar objeto de perigo de ciclone tropical
+tc_hazard = TropCyclone.from_tracks(
+    tracks, 
+    centroids=centroids
+)
+
+# Visualizar intensidade para um evento específico
+tc_hazard.plot_intensity('2017242N16333')
+</pre>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-building text-blue-500 mr-2"></i>
+                                <h4 class="font-semibold text-gray-900">Exposures (Exposição)</h4>
+                            </div>
+                            <p class="text-sm mb-3">
+                                Representa os ativos expostos aos perigos, como infraestrutura, populações ou embarcações offshore. 
+                                Inclui informações sobre localização geográfica, valor econômico e características relevantes para 
+                                a análise de risco.
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Principais Características</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1 mb-3">
+                                <li>Representação geolocalizada de ativos (pontos, linhas ou polígonos)</li>
+                                <li>Valor associado a cada ativo (monetário, populacional, etc.)</li>
+                                <li>Metadados sobre categorias, tipos e características dos ativos</li>
+                                <li>Referências para funções de impacto aplicáveis</li>
+                            </ul>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Exemplo com LitPop (Modelagem Econômica)</h5>
+                            <pre class="text-xs p-2">
+# Importar módulo de exposição LitPop
+from climada.entity.exposures import LitPop
+
+# Criar exposição para Porto Rico usando o modelo LitPop
+# que combina luzes noturnas e dados de população
+exp_litpop = LitPop.from_countries(
+    'Puerto Rico',  # País/região de interesse
+    res_arcsec=120,  # Resolução espacial em segundos de arco
+    fin_mode='pc'    # Modo financeiro: capital produzido
+)
+
+# Configurar a geometria como pontos
+exp_litpop.set_geometry_points()
+
+# Associar a exposição à função de impacto para ciclones tropicais
+exp_litpop.gdf['impf_TC'] = 1  # ID da função de impacto
+
+# Visualizar a exposição
+exp_litpop.plot_hexbin(
+    pop_name=True,  # Mostrar nomes de localidades
+    buffer=0.1      # Buffer para visualização
+)
+</pre>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-chart-line text-red-500 mr-2"></i>
+                                <h4 class="font-semibold text-gray-900">Impact Functions (Funções de Impacto)</h4>
+                            </div>
+                            <p class="text-sm mb-3">
+                                Definem a relação entre a intensidade de um perigo e o dano esperado para um determinado tipo de ativo. 
+                                Também conhecidas como "curvas de vulnerabilidade", elas traduzem, por exemplo, a velocidade do vento 
+                                em porcentagem de dano estrutural.
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Principais Características</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1 mb-3">
+                                <li>Relação matemática entre intensidade do perigo e dano</li>
+                                <li>Componentes MDD (Mean Degree of Damage) e PAA (Proportion of Assets Affected)</li>
+                                <li>Específicas para combinações de perigo e tipo de ativo</li>
+                                <li>Baseadas em dados históricos, modelos físicos ou opinião de especialistas</li>
+                            </ul>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Exemplo para Ciclones Tropicais</h5>
+                            <pre class="text-xs p-2">
+# Importar módulos de função de impacto
+from climada.entity.impact_funcs import ImpactFuncSet, ImpfTropCyclone
+
+# Criar função de impacto para ciclones tropicais
+# usando o modelo de Emanuel para os EUA
+imp_fun = ImpfTropCyclone.from_emanuel_usa()
+
+# Criar conjunto de funções de impacto
+imp_fun_set = ImpactFuncSet([imp_fun])
+
+# Visualizar a função de impacto
+imp_fun.plot()
+</pre>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-2">
+                                <i class="fas fa-cogs text-gray-500 mr-2"></i>
+                                <h4 class="font-semibold text-gray-900">Engine (Motor de Cálculo)</h4>
+                            </div>
+                            <p class="text-sm mb-3">
+                                O núcleo computacional do CLIMADA que combina perigos, exposições e funções de impacto para calcular 
+                                métricas de risco, como impacto anual esperado, impacto por evento e curvas de excedência de probabilidade. 
+                                Também inclui funcionalidades para análise custo-benefício de medidas de adaptação.
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Principais Características</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1 mb-3">
+                                <li>Cálculo eficiente de impactos para grandes conjuntos de dados</li>
+                                <li>Geração de métricas estatísticas de risco</li>
+                                <li>Análise custo-benefício de medidas de adaptação</li>
+                                <li>Visualização de resultados e geração de relatórios</li>
+                                <li>Análises de incerteza e sensibilidade</li>
+                            </ul>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Exemplo de Cálculo de Impacto</h5>
+                            <pre class="text-xs p-2">
+# Importar módulo de cálculo de impacto
+from climada.engine import ImpactCalc
+
+# Calcular o impacto combinando perigo, exposição e funções de impacto
+impact = ImpactCalc(
+    exp_litpop,    # Exposição (definida anteriormente)
+    imp_fun_set,   # Funções de impacto (definidas anteriormente)
+    tc_hazard      # Perigo (definido anteriormente)
+).impact()
+
+# Calcular e plotar a curva de frequência de excedência
+freq_curve = impact.calc_freq_curve()
+freq_curve.plot()
+
+# Visualizar o impacto anual esperado por exposição
+impact.plot_basemap_eai_exposure(buffer=0.1)
+
+# Obter o impacto anual agregado esperado
+print(f'Impacto anual esperado: {impact.aai_agg:.2e} USD')
+</pre>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Fluxo de Trabalho para Análise de Risco com CLIMADA</h3>
+                    
+                    <p class="mb-4">
+                        O processo típico de análise de risco climático com o CLIMADA segue um fluxo lógico, desde a preparação 
+                        dos dados até a interpretação e aplicação dos resultados.
+                    </p>
+                    
+                    <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                        <ol class="relative border-l border-gray-200 ml-3">
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-database text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">1. Preparação dos Dados</h5>
+                                <p class="text-sm mb-2">
+                                    Definição dos dados de entrada para perigos, exposição e funções de impacto. Esta etapa pode incluir:
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Coleta de dados históricos de perigos (ex: registros de ciclones tropicais)</li>
+                                    <li>Preparação de dados de exposição (ex: localização e valor de embarcações offshore)</li>
+                                    <li>Seleção ou calibração de funções de impacto apropriadas</li>
+                                    <li>Definição de cenários de análise (ex: atual vs. mudança climática)</li>
+                                </ul>
+                            </li>
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-bolt text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">2. Modelagem de Perigos</h5>
+                                <p class="text-sm mb-2">
+                                    Criação dos objetos de perigo (Hazard) que representam os eventos naturais a serem analisados.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Importação ou geração de eventos históricos</li>
+                                    <li>Geração de eventos sintéticos para análise probabilística completa</li>
+                                    <li>Aplicação de cenários de mudança climática (se relevante)</li>
+                                    <li>Definição da resolução espacial e temporal da análise</li>
+                                </ul>
+                            </li>
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-building text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">3. Definição da Exposição</h5>
+                                <p class="text-sm mb-2">
+                                    Criação dos objetos de exposição (Exposures) que representam os ativos em risco.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Importação ou geração de dados de ativos</li>
+                                    <li>Atribuição de valores econômicos ou outros indicadores relevantes</li>
+                                    <li>Associação com funções de impacto apropriadas</li>
+                                    <li>Validação e controle de qualidade dos dados</li>
+                                </ul>
+                            </li>
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-chart-line text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">4. Configuração das Funções de Impacto</h5>
+                                <p class="text-sm mb-2">
+                                    Definição das relações entre intensidade do perigo e dano esperado.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Seleção de funções pré-definidas ou criação de novas</li>
+                                    <li>Calibração com dados históricos de perdas, quando disponíveis</li>
+                                    <li>Adaptação para características específicas dos ativos analisados</li>
+                                    <li>Agrupamento em conjuntos de funções (ImpactFuncSet)</li>
+                                </ul>
+                            </li>
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-calculator text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">5. Cálculo de Impacto</h5>
+                                <p class="text-sm mb-2">
+                                    Combinação dos componentes anteriores para calcular o impacto esperado.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Utilização da classe Impact para combinar perigo, exposição e funções de impacto</li>
+                                    <li>Cálculo de métricas como impacto anual esperado (AAI) e curva de excedência de probabilidade</li>
+                                    <li>Análise de impactos por região, tipo de ativo ou evento específico</li>
+                                    <li>Consideração de múltiplos cenários, se relevante</li>
+                                </ul>
+                            </li>
+                            <li class="mb-6 ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-shield-alt text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">6. Análise de Adaptação (Opcional)</h5>
+                                <p class="text-sm mb-2">
+                                    Avaliação de medidas para reduzir o risco climático.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Definição de medidas de adaptação (estruturais, operacionais, financeiras)</li>
+                                    <li>Modelagem dos efeitos das medidas na exposição, perigo ou vulnerabilidade</li>
+                                    <li>Análise custo-benefício usando a classe CostBenefit</li>
+                                    <li>Comparação da eficácia de diferentes medidas ou combinações</li>
+                                </ul>
+                            </li>
+                            <li class="ml-6">
+                                <span class="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
+                                    <i class="fas fa-chart-bar text-blue-600"></i>
+                                </span>
+                                <h5 class="font-semibold text-lg mb-1">7. Visualização e Interpretação</h5>
+                                <p class="text-sm mb-2">
+                                    Análise dos resultados para informar decisões.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Utilização de métodos de visualização integrados para mapas, gráficos e tabelas</li>
+                                    <li>Exportação de resultados para outras ferramentas ou relatórios</li>
+                                    <li>Interpretação no contexto de decisões de gestão de risco, investimento ou políticas</li>
+                                    <li>Comunicação dos resultados para diferentes públicos</li>
+                                </ul>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Vantagens do Código Aberto para Transparência e Auditabilidade</h3>
+                    
+                    <p class="mb-4">
+                        O CLIMADA é uma plataforma totalmente open-source, disponibilizada sob a licença GNU General Public License v3.0. 
+                        Esta abordagem traz diversas vantagens para a análise de risco climático, especialmente em contextos onde a 
+                        transparência e a auditabilidade são essenciais.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Transparência Metodológica</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Acesso completo ao código-fonte e algoritmos</li>
+                                <li>Documentação detalhada dos métodos e pressupostos</li>
+                                <li>Possibilidade de revisão por pares da implementação</li>
+                                <li>Clareza sobre limitações e simplificações do modelo</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Reprodutibilidade</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Resultados verificáveis e reproduzíveis</li>
+                                <li>Controle de versão para rastreabilidade</li>
+                                <li>Facilidade para documentar e compartilhar análises</li>
+                                <li>Redução de "caixa-preta" na modelagem de risco</li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">Colaboração e Melhoria Contínua</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                <li>Contribuições da comunidade científica global</li>
+                                <li>Implementação rápida de avanços metodológicos</li>
+                                <li>Correção colaborativa de erros e limitações</li>
+                                <li>Ecossistema de extensões e aplicações</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <p class="mb-4">
+                        No contexto da precificação de riscos climáticos para ativos corporativos, essas vantagens são particularmente 
+                        relevantes para:
+                    </p>
+                    
+                    <ul class="list-disc pl-5 text-gray-600 space-y-1 mb-6">
+                        <li>
+                            <span class="font-medium">Requisitos regulatórios:</span> 
+                            Atender às crescentes exigências de transparência nas divulgações relacionadas ao clima (ex: TCFD - Task Force on Climate-related Financial Disclosures)
+                        </li>
+                        <li>
+                            <span class="font-medium">Auditoria externa:</span> 
+                            Facilitar a verificação independente de análises de risco climático
+                        </li>
+                        <li>
+                            <span class="font-medium">Comunicação com stakeholders:</span> 
+                            Permitir explicações claras sobre metodologias e pressupostos para investidores, seguradoras e reguladores
+                        </li>
+                        <li>
+                            <span class="font-medium">Benchmarking:</span> 
+                            Possibilitar comparações metodologicamente consistentes entre diferentes ativos, empresas ou setores
+                        </li>
+                        <li>
+                            <span class="font-medium">Redução de vieses:</span> 
+                            Mitigar o risco de perspectivas limitadas ou interesses particulares na modelagem de risco
+                        </li>
+                    </ul>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mb-4">
+                        <h4 class="font-semibold mb-2">Conceitos-Chave da Seção 1.2</h4>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>CLIMADA (CLIMate ADAptation) é uma plataforma open-source para análise probabilística de risco climático</li>
+                            <li>A arquitetura do CLIMADA é dividida em Core (funcionalidades essenciais) e Petals (extensões especializadas)</li>
+                            <li>Os quatro componentes principais são: Hazard (Perigo), Exposures (Exposição), Impact Functions (Funções de Impacto) e Engine (Motor de Cálculo)</li>
+                            <li>O fluxo de trabalho típico inclui preparação de dados, modelagem de perigos, definição de exposição, configuração de funções de impacto, cálculo de impacto e interpretação</li>
+                            <li>A natureza open-source do CLIMADA traz vantagens significativas em termos de transparência, reprodutibilidade e colaboração</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1.3: Configuração do Ambiente de Trabalho -->
+        <section id="section-1-3" class="mb-12">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gradient-to-r from-blue-500 to-blue-600">
+                    <h2 class="text-xl font-bold text-white">1.3: Configuração do Ambiente de Trabalho</h2>
+                </div>
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Requisitos do Sistema</h3>
+                    
+                    <p class="mb-4">
+                        Antes de iniciar a instalação do CLIMADA, é importante verificar se seu sistema atende aos requisitos mínimos 
+                        para executar a plataforma de forma eficiente, especialmente considerando que análises de risco climático 
+                        podem ser computacionalmente intensivas.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 mb-2">Requisitos de Hardware Recomendados</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Processador:</span> 
+                                    CPU multi-core moderno (4+ núcleos recomendados)
+                                </li>
+                                <li>
+                                    <span class="font-medium">Memória RAM:</span> 
+                                    Mínimo de 8GB, recomendado 16GB ou mais para conjuntos de dados grandes
+                                </li>
+                                <li>
+                                    <span class="font-medium">Armazenamento:</span> 
+                                    Mínimo de 10GB de espaço livre, recomendado 50GB+ para armazenar conjuntos de dados climáticos
+                                </li>
+                                <li>
+                                    <span class="font-medium">Conexão de Internet:</span> 
+                                    Banda larga para download de conjuntos de dados (alguns podem ter vários GB)
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 mb-2">Sistemas Operacionais Suportados</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <span class="font-medium">Windows:</span> 
+                                    Windows 10 ou superior
+                                </li>
+                                <li>
+                                    <span class="font-medium">macOS:</span> 
+                                    macOS 10.14 (Mojave) ou superior
+                                </li>
+                                <li>
+                                    <span class="font-medium">Linux:</span> 
+                                    Qualquer distribuição moderna (Ubuntu 18.04+, Debian 10+, CentOS 7+, etc.)
+                                </li>
+                                <li>
+                                    <span class="font-medium">Nota sobre WSL:</span> 
+                                    O Windows Subsystem for Linux (WSL2) também é uma opção viável para usuários do Windows
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box p-4 rounded-md mb-6">
+                        <h4 class="font-semibold mb-2">Considerações para Análises de Grande Escala</h4>
+                        <p class="mb-2">
+                            Para análises que envolvem conjuntos de dados muito grandes ou simulações extensivas (ex: milhares de eventos de perigo 
+                            em resolução global), você pode considerar:
+                        </p>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>Sistemas com 32GB+ de RAM</li>
+                            <li>Armazenamento SSD para melhor desempenho</li>
+                            <li>Processadores com maior número de núcleos</li>
+                            <li>Configuração de ambiente em serviços de computação em nuvem</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Instalação do Python e Bibliotecas Necessárias</h3>
+                    
+                    <p class="mb-4">
+                        O CLIMADA é desenvolvido em Python e requer Python 3.9 ou superior. A forma recomendada de instalar 
+                        Python e gerenciar as dependências é através do gerenciador de pacotes Conda (ou Mamba, sua alternativa mais rápida).
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">Passo 1: Instalar Miniconda ou Anaconda</h4>
+                        <p class="text-sm mb-2">
+                            Ambas são distribuições que incluem Python e o gerenciador de pacotes Conda. O Miniconda é uma versão 
+                            mais leve que instala apenas o essencial, enquanto o Anaconda inclui muitas bibliotecas científicas pré-instaladas.
+                        </p>
+                        <ol class="list-decimal pl-6 text-sm text-gray-600 space-y-2 mb-4">
+                            <li>
+                                Acesse o site oficial do <a href="https://docs.conda.io/en/latest/miniconda.html" target="_blank" class="text-blue-600 hover:underline">Miniconda</a> ou 
+                                <a href="https://www.anaconda.com/products/distribution" target="_blank" class="text-blue-600 hover:underline">Anaconda</a>
+                            </li>
+                            <li>
+                                Baixe o instalador adequado para seu sistema operacional (Windows, macOS ou Linux)
+                            </li>
+                            <li>
+                                Execute o instalador e siga as instruções na tela
+                                <ul class="list-disc pl-5 mt-1 space-y-1">
+                                    <li>No Windows, você pode usar o instalador .exe</li>
+                                    <li>No macOS, você pode usar o instalador .pkg ou o comando bash</li>
+                                    <li>No Linux, use o comando bash para executar o script de instalação</li>
+                                </ul>
+                            </li>
+                            <li>
+                                Verifique a instalação abrindo um terminal (ou Anaconda Prompt no Windows) e digitando:
+                                <pre class="bg-gray-100 p-2 mt-1 rounded text-xs">conda --version</pre>
+                            </li>
+                        </ol>
+                        
+                        <h4 class="font-semibold text-gray-900 mb-2">Passo 2: (Opcional) Instalar Mamba</h4>
+                        <p class="text-sm mb-2">
+                            Mamba é uma reimplementação do gerenciador de pacotes Conda, com melhor desempenho, especialmente para 
+                            resolução de dependências. É altamente recomendado para instalar o CLIMADA.
+                        </p>
+                        <ol class="list-decimal pl-6 text-sm text-gray-600 space-y-2 mb-4">
+                            <li>
+                                Abra um terminal (ou Anaconda Prompt no Windows)
+                            </li>
+                            <li>
+                                Instale Mamba executando:
+                                <pre class="bg-gray-100 p-2 mt-1 rounded text-xs">conda install -c conda-forge mamba</pre>
+                            </li>
+                            <li>
+                                Verifique a instalação:
+                                <pre class="bg-gray-100 p-2 mt-1 rounded text-xs">mamba --version</pre>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Instalação do CLIMADA</h3>
+                    
+                    <p class="mb-4">
+                        A maneira recomendada de instalar o CLIMADA é através do canal conda-forge, usando o Conda ou Mamba.
+                        É altamente recomendado instalar o CLIMADA em um ambiente virtual separado.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">Passo 1: Criar um Ambiente Virtual</h4>
+                        <p class="text-sm mb-2">
+                            Um ambiente virtual permite isolar as dependências do CLIMADA de outros projetos Python em seu sistema.
+                        </p>
+                        <pre class="bg-gray-100 p-3 mt-1 rounded text-sm mb-4">
+# Usando conda
+conda create -n climada_env python=3.9
+
+# OU, usando mamba (recomendado)
+mamba create -n climada_env python=3.9
+
+# Ativar o ambiente
+# No Windows:
+conda activate climada_env
+# No macOS/Linux:
+conda activate climada_env
+</pre>
+                        
+                        <h4 class="font-semibold text-gray-900 mb-2">Passo 2: Instalar o CLIMADA</h4>
+                        <p class="text-sm mb-2">
+                            Instale o pacote CLIMADA do canal conda-forge.
+                        </p>
+                        <pre class="bg-gray-100 p-3 mt-1 rounded text-sm mb-4">
+# Usando conda
+conda install -c conda-forge climada
+
+# OU, usando mamba (recomendado)
+mamba install -c conda-forge climada
+</pre>
+                        
+                        <div class="bg-blue-50 p-4 rounded-md mb-4">
+                            <h5 class="font-medium text-blue-800 mb-1">Dica</h5>
+                            <p class="text-sm">
+                                Para análises mais avançadas, você também pode instalar o pacote climada_petals, que contém módulos adicionais:
+                            </p>
+                            <pre class="bg-gray-100 p-2 mt-1 rounded text-xs">
+# Usando mamba
+mamba install -c conda-forge climada_petals
+</pre>
+                        </div>
+                        
+                        <h4 class="font-semibold text-gray-900 mb-2">Passo 3: Verificar a Instalação</h4>
+                        <p class="text-sm mb-2">
+                            Verifique se o CLIMADA foi instalado corretamente executando um teste simples.
+                        </p>
+                        <pre class="bg-gray-100 p-3 mt-1 rounded text-sm mb-4">
+# Iniciar o Python
+python
+
+# No interpretador Python, execute:
+import climada
+print(climada.__version__)
+
+# Você deve ver a versão do CLIMADA, por exemplo: 3.1.1
+# Sair do interpretador Python
+exit()
+</pre>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Configuração de um Ambiente de Desenvolvimento</h3>
+                    
+                    <p class="mb-4">
+                        Para trabalhar eficientemente com o CLIMADA, é útil configurar um ambiente de desenvolvimento adequado. 
+                        Existem várias opções, mas duas das mais populares são o Jupyter Notebook e o Visual Studio Code.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Jupyter Notebook</h4>
+                            <p class="text-sm mb-3">
+                                O Jupyter Notebook é uma aplicação web que permite criar e compartilhar documentos contendo código, 
+                                visualizações e texto explicativo. É especialmente útil para análises exploratórias e para documentar 
+                                seu fluxo de trabalho passo a passo.
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Instalação</h5>
+                            <pre class="bg-gray-100 p-2 mt-1 rounded text-xs mb-3">
+# No ambiente climada_env
+mamba install -c conda-forge notebook
+</pre>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Iniciar o Jupyter Notebook</h5>
+                            <pre class="bg-gray-100 p-2 mt-1 rounded text-xs mb-3">
+# Ativar o ambiente primeiro, se ainda não estiver ativado
+conda activate climada_env
+
+# Iniciar o Jupyter Notebook
+jupyter notebook
+</pre>
+                            <p class="text-sm">
+                                Isso abrirá uma nova guia no seu navegador com a interface do Jupyter Notebook, onde você pode 
+                                criar novos notebooks ou abrir existentes.
+                            </p>
+                        </div>
+                        
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Visual Studio Code</h4>
+                            <p class="text-sm mb-3">
+                                O Visual Studio Code (VS Code) é um editor de código-fonte leve mas poderoso, com suporte para 
+                                depuração, controle de versão integrado e inúmeras extensões. Oferece uma experiência mais 
+                                completa de IDE (Ambiente de Desenvolvimento Integrado).
+                            </p>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Instalação</h5>
+                            <ol class="list-decimal pl-5 text-xs text-gray-600 space-y-1 mb-3">
+                                <li>Baixe e instale o VS Code do <a href="https://code.visualstudio.com/" target="_blank" class="text-blue-600 hover:underline">site oficial</a></li>
+                                <li>Abra o VS Code</li>
+                                <li>Instale a extensão "Python" pela loja de extensões</li>
+                                <li>Opcionalmente, instale a extensão "Jupyter" para trabalhar com notebooks</li>
+                            </ol>
+                            <h5 class="font-medium text-gray-800 text-sm mb-1">Configuração para CLIMADA</h5>
+                            <ol class="list-decimal pl-5 text-xs text-gray-600 space-y-1">
+                                <li>Abra um diretório para seu projeto CLIMADA</li>
+                                <li>Selecione o interpretador Python do ambiente climada_env</li>
+                                <li>Crie um novo arquivo .py ou .ipynb para começar a trabalhar</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mb-6">
+                        <h4 class="font-semibold text-blue-800 mb-2">JupyterLab - Uma Alternativa Avançada</h4>
+                        <p class="text-sm mb-2">
+                            O JupyterLab é a próxima geração do Jupyter Notebook, oferecendo uma interface mais flexível e poderosa.
+                        </p>
+                        <pre class="bg-gray-100 p-2 mt-1 rounded text-xs mb-2">
+# Instalar JupyterLab
+mamba install -c conda-forge jupyterlab
+
+# Iniciar JupyterLab
+jupyter lab
+</pre>
+                        <p class="text-sm">
+                            O JupyterLab oferece recursos adicionais como organização em abas, visualização lado a lado, 
+                            terminal integrado e muito mais, que podem ser úteis para projetos complexos.
+                        </p>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Verificação da Instalação e Teste da Funcionalidade Básica</h3>
+                    
+                    <p class="mb-4">
+                        Antes de começar a desenvolver suas análises de risco climático, é importante verificar se toda a instalação 
+                        está funcionando corretamente. Vamos realizar um teste básico que utiliza os principais componentes do CLIMADA.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">Teste Básico do CLIMADA</h4>
+                        <p class="text-sm mb-2">
+                            Crie um novo notebook Jupyter (ou arquivo Python) e execute o código abaixo para testar as funcionalidades básicas:
+                        </p>
+                        <pre class="bg-gray-100 p-3 mt-1 rounded text-sm mb-2">
+# Importar módulos necessários
+import numpy as np
+import matplotlib.pyplot as plt
+from climada.hazard import Hazard
+from climada.entity import Exposures, ImpactFuncSet, ImpactFunc
+from climada.engine import Impact
+
+# Criar um hazard sintético simples
+intensity = np.zeros((100, 100))
+intensity[40:60, 40:60] = 1  # Área de intensidade 1
+centroids_lat = np.linspace(0, 1, 100)
+centroids_lon = np.linspace(0, 1, 100)
+dates = np.ones(1)
+haz = Hazard('TC')
+haz.centroids.set_lat_lon(centroids_lat, centroids_lon)
+haz.intensity = sparse.csr_matrix(intensity.reshape(1, -1))
+haz.units = 'm/s'
+haz.event_id = np.array([1])
+haz.event_name = ['event_1']
+haz.date = dates
+haz.orig = np.array([True])
+haz.frequency = np.array([1])
+
+# Criar exposição
+exp = Exposures()
+exp.gdf['value'] = 1
+exp.gdf['latitude'] = 0.5
+exp.gdf['longitude'] = 0.5
+exp.check()
+
+# Criar função de impacto
+impact_func = ImpactFunc()
+impact_func.id = 1
+impact_func.haz_type = 'TC'
+impact_func.name = 'Função de teste'
+impact_func.intensity = np.array([0, 1, 2])
+impact_func.mdd = np.array([0, 0.5, 1])
+impact_func.paa = np.array([0, 1, 1])
+impact_func.check()
+
+impact_func_set = ImpactFuncSet([impact_func])
+exp.gdf['impf_TC'] = 1  # Atribuir ID da função de impacto
+
+# Calcular impacto
+imp = Impact()
+imp.calc(exp, impact_func_set, haz)
+print(f"Impacto calculado: {imp.at_event}")
+
+# Plotar função de impacto
+impact_func.plot()
+plt.show()
+</pre>
+                        <p class="text-sm">
+                            Este código cria um exemplo simples com um perigo, exposição e função de impacto, e calcula o impacto resultante. 
+                            Se você conseguir executar este código sem erros e visualizar o gráfico da função de impacto, sua instalação 
+                            do CLIMADA está funcionando corretamente.
+                        </p>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Obtendo Conjuntos de Dados para Análise</h3>
+                    
+                    <p class="mb-4">
+                        O CLIMADA requer dados específicos para análises de risco climático. A plataforma facilita o acesso a vários 
+                        conjuntos de dados através de sua API de dados e métodos de download integrados.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-semibold text-gray-900 mb-2">API de Dados do CLIMADA</h4>
+                        <p class="text-sm mb-2">
+                            A API de dados do CLIMADA oferece acesso fácil a conjuntos de dados pré-processados para perigos, exposições e funções de impacto.
+                        </p>
+                        <pre class="bg-gray-100 p-3 mt-1 rounded text-sm mb-4">
+# Exemplo de uso da API de dados
+from climada.util.api_client import Client
+
+client = Client()
+
+# Listar conjuntos de dados disponíveis
+datasets = client.list_dataset_infos()
+print(f"Datasets disponíveis: {len(datasets)}")
+
+# Baixar dados de ciclones tropicais
+tc_datasets = client.get_dataset_info(hazard_type="tropical_cyclone")
+print(f"Conjuntos de dados de ciclones tropicais: {len(tc_datasets)}")
+</pre>
+                        
+                        <h4 class="font-semibold text-gray-900 mb-2">Dados Populacionais para LitPop</h4>
+                        <p class="text-sm mb-2">
+                            Para usar o módulo LitPop, você precisa baixar manualmente dados populacionais do Gridded Population of the World (GPW).
+                        </p>
+                        <ol class="list-decimal pl-6 text-sm text-gray-600 space-y-2 mb-4">
+                            <li>
+                                Acesse o <a href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4" target="_blank" class="text-blue-600 hover:underline">site do SEDAC</a> 
+                                (você precisará criar uma conta gratuita)
+                            </li>
+                            <li>
+                                Baixe o arquivo "GPW v4 Population Count, v4.11" para o ano 2020 no formato GeoTIFF
+                            </li>
+                            <li>
+                                Coloque o arquivo baixado na pasta ~/climada/data/ (o CLIMADA criará esta pasta durante a primeira execução)
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Resolução de Problemas Comuns</h3>
+                    
+                    <p class="mb-4">
+                        Durante a instalação e uso inicial do CLIMADA, você pode encontrar alguns problemas comuns. Aqui estão algumas 
+                        soluções para questões frequentes:
+                    </p>
+                    
+                    <div class="mb-6">
+                        <div class="accordion-item mb-2">
+                            <button class="accordion-button flex justify-between items-center w-full p-3 bg-gray-100 hover:bg-gray-200 rounded">
+                                <span class="font-medium">Conflitos de dependências durante a instalação</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapsible-content p-4 bg-gray-50 rounded-b">
+                                <p class="text-sm mb-2">
+                                    Os conflitos de dependências são um problema comum, especialmente com pacotes que têm muitas dependências complexas como o CLIMADA.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Use Mamba em vez de Conda para melhor resolução de dependências</li>
+                                    <li>Crie um ambiente totalmente novo para o CLIMADA</li>
+                                    <li>Tente instalar as dependências em etapas, começando com as mais básicas</li>
+                                    <li>Verifique se não há pacotes conflitantes já instalados no ambiente</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item mb-2">
+                            <button class="accordion-button flex justify-between items-center w-full p-3 bg-gray-100 hover:bg-gray-200 rounded">
+                                <span class="font-medium">Erros relacionados a bibliotecas geoespaciais</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapsible-content p-4 bg-gray-50 rounded-b">
+                                <p class="text-sm mb-2">
+                                    O CLIMADA utiliza várias bibliotecas geoespaciais que às vezes podem apresentar problemas de instalação, 
+                                    especialmente em sistemas Windows.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Instale as bibliotecas geoespaciais diretamente do canal conda-forge</li>
+                                    <li>No Windows, considere usar o WSL2 para um ambiente Linux mais compatível</li>
+                                    <li>Verifique se as dependências GDAL e Fiona estão instaladas corretamente</li>
+                                    <li>Em alguns casos, pode ser necessário instalar bibliotecas de sistema adicionais</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item mb-2">
+                            <button class="accordion-button flex justify-between items-center w-full p-3 bg-gray-100 hover:bg-gray-200 rounded">
+                                <span class="font-medium">Problemas com o download de dados</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapsible-content p-4 bg-gray-50 rounded-b">
+                                <p class="text-sm mb-2">
+                                    Alguns conjuntos de dados usados pelo CLIMADA são grandes e podem apresentar problemas durante o download.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Verifique sua conexão de internet</li>
+                                    <li>Alguns downloads podem exigir autenticação (como os dados do GPW)</li>
+                                    <li>Tente baixar manualmente os arquivos e colocá-los nas pastas esperadas</li>
+                                    <li>Use um gerenciador de downloads para arquivos grandes</li>
+                                    <li>Verifique o espaço em disco disponível</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <button class="accordion-button flex justify-between items-center w-full p-3 bg-gray-100 hover:bg-gray-200 rounded">
+                                <span class="font-medium">Problemas de memória durante execução</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                            <div class="collapsible-content p-4 bg-gray-50 rounded-b">
+                                <p class="text-sm mb-2">
+                                    Análises de risco climático podem ser intensivas em memória, especialmente com conjuntos de dados grandes.
+                                </p>
+                                <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                                    <li>Trabalhe com resoluções espaciais mais baixas para testes iniciais</li>
+                                    <li>Use o parâmetro CONFIG.max_matrix_size para controlar o uso de memória</li>
+                                    <li>Divida análises grandes em partes menores</li>
+                                    <li>Utilize processamento paralelo com cuidado</li>
+                                    <li>Considere usar uma máquina com mais RAM ou uma instância na nuvem</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Recursos Adicionais</h3>
+                    
+                    <p class="mb-4">
+                        Aqui estão alguns recursos úteis para aprofundar seu conhecimento sobre o CLIMADA e obter ajuda:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Documentação Oficial</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <a href="https://climada-python.readthedocs.io/en/latest/" target="_blank" class="text-blue-600 hover:underline">
+                                        Documentação do CLIMADA Core
+                                    </a>
+                                    <p class="text-xs mt-1">Guia completo do CLIMADA Core, incluindo tutoriais e referência da API</p>
+                                </li>
+                                <li>
+                                    <a href="https://climada-petals.readthedocs.io/en/latest/" target="_blank" class="text-blue-600 hover:underline">
+                                        Documentação do CLIMADA Petals
+                                    </a>
+                                    <p class="text-xs mt-1">Documentação dos módulos adicionais no Petals</p>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/CLIMADA-project/climada_python/tree/main/doc/tutorial" target="_blank" class="text-blue-600 hover:underline">
+                                        Tutoriais no GitHub
+                                    </a>
+                                    <p class="text-xs mt-1">Exemplos práticos e tutoriais passo a passo</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-gray-900 mb-2">Suporte e Comunidade</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-600 space-y-2">
+                                <li>
+                                    <a href="https://github.com/CLIMADA-project/climada_python/issues" target="_blank" class="text-blue-600 hover:underline">
+                                        GitHub Issues
+                                    </a>
+                                    <p class="text-xs mt-1">Reporte problemas ou contribua com soluções</p>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/CLIMADA-project/climada_papers" target="_blank" class="text-blue-600 hover:underline">
+                                        Artigos Científicos sobre CLIMADA
+                                    </a>
+                                    <p class="text-xs mt-1">Publicações que explicam a metodologia e aplicações</p>
+                                </li>
+                                <li>
+                                    <a href="https://stackoverflow.com/questions/tagged/climada" target="_blank" class="text-blue-600 hover:underline">
+                                        Stack Overflow (tag: climada)
+                                    </a>
+                                    <p class="text-xs mt-1">Perguntas e respostas da comunidade</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-md mb-4">
+                        <h4 class="font-semibold mb-2">Conceitos-Chave da Seção 1.3</h4>
+                        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+                            <li>O CLIMADA é uma biblioteca Python que requer Python 3.9+ e várias dependências</li>
+                            <li>A instalação é simplificada usando Conda/Mamba através do canal conda-forge</li>
+                            <li>É recomendado criar um ambiente virtual dedicado para o CLIMADA</li>
+                            <li>Jupyter Notebook ou VS Code são ambientes de desenvolvimento adequados para trabalhar com o CLIMADA</li>
+                            <li>Dados externos, como o GPW para análises LitPop, podem exigir download manual</li>
+                            <li>Existem recursos oficiais de documentação e comunidade para obter ajuda e aprofundar conhecimentos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Quiz Section -->
+        <section class="mb-12">
+            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div class="px-4 py-5 sm:px-6 bg-gradient-to-r from-blue-600 to-cyan-500">
+                    <h2 class="text-xl font-bold text-white">Verificação de Compreensão do Módulo 1</h2>
+                    <p class="mt-1 max-w-2xl text-sm text-blue-50">Teste seus conhecimentos sobre os conceitos apresentados neste módulo.</p>
+                </div>
+                <div class="px-4 py-5 sm:px-6" id="final-quiz">
+                    <!-- Question 1 -->
+                    <div class="mb-6 quiz-question">
+                        <p class="font-medium text-gray-900 mb-3">1. Qual componente do CLIMADA é responsável por representar a intensidade e frequência de eventos climáticos como ciclones tropicais?</p>
+                        <div class="space-y-2">
+                            <div class="quiz-option border rounded-md p-3" data-correct="true">
+                                <label class="flex items-start">
+                                    <input type="radio" name="fq1" class="mt-1 mr-2">
+                                    <span>Hazard (Perigo)</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="fq1" class="mt-1 mr-2">
+                                    <span>Exposures (Exposição)</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="fq1" class="mt-1 mr-2">
+                                    <span>Impact Functions (Funções de Impacto)</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="fq1" class="mt-1 mr-2">
+                                    <span>Engine (Motor de Cálculo)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-2 text-sm text-gray-500 hidden quiz-explanation">
+                            <strong>Explicação:</strong> O componente Hazard (Perigo) é responsável por representar os eventos físicos climáticos, 
+                            incluindo sua intensidade, frequência e distribuição espacial. No caso de ciclones tropicais, isso inclui 
+                            velocidades de vento, trajetórias e probabilidades associadas.
+                        </div>
+                    </div>
+                    
+                    <!-- Question 2 -->
+                    <div class="mb-6 quiz-question">
+                        <p class="font-medium text-gray-900 mb-3">2. Para embarcações offshore, qual dos seguintes elementos NÃO seria tipicamente incluído na modelagem da exposição (Exposures)?</p>
+                        <div class="space-y-2">
+                            <div class="quiz-option border rounded-md p-3" data-correct="false">
+                                <label class="flex items-start">
+                                    <input type="radio" name="fq2" class="mt-1 mr-2">
+                                    <span>Valor econômico das embarcações</span>
+                                </label>
+                            </div>
+                            <div class="quiz-option border rounde
