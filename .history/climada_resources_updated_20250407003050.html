@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos Complementares - Curso CLIMADA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a6c74; /* Teal escuro */
+            --secondary-color: #3a86ff; /* Azul vibrante */
+            --accent-color: #fb5607; /* Laranja vibrante */
+            --light-bg: #f8f9fa; /* Fundo claro */
+            --dark-bg: #343a40; /* Fundo escuro */
+            --border-color: #e0e0e0; /* Cor de borda */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f1f5f9; /* Fundo ligeiramente cinza */
+        }
+
+        .navbar {
+            background-color: var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .content-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border-color); /* Borda sutil */
+        }
+
+        .section-header {
+            background-color: var(--light-bg);
+            border-left: 4px solid var(--accent-color);
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 1rem 1.5rem; /* Padding */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-header h2 {
+             margin-bottom: 0; /* Remover margem padrão */
+             font-size: 1.1rem; /* Ajuste tamanho */
+             font-weight: 600;
+             color: #444; /* Cor mais escura */
+        }
+
+        .section-header:hover {
+            background-color: #e9ecef;
+        }
+
+        .section-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease-out, padding-top 0.3s ease-out 0.1s, padding-bottom 0.3s ease-out 0.1s; /* Transições */
+            padding: 0 1.5rem; /* Apenas padding horizontal inicialmente */
+        }
+
+        .section-content.active {
+             padding-top: 1.5rem; /* Padding completo quando ativo */
+             padding-bottom: 1.5rem;
+             /* max-height set by JS based on scrollHeight */
+             transition: max-height 0.8s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in; /* Transições */
+        }
+
+
+        .btn-primary, .btn-secondary {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s, transform 0.1s;
+            display: inline-flex; /* Alinhar ícone */
+            align-items: center;
+             text-decoration: none;
+        }
+        .btn-primary:hover, .btn-secondary:hover {
+             transform: translateY(-1px);
+        }
+        .btn-sm { /* Classe para botões menores */
+            padding: 0.4rem 0.8rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .btn-primary:hover { background-color: #085561; }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .btn-secondary:hover { background-color: #2a75f5; }
+
+        .resource-card {
+            border: 1px solid var(--border-color); /* Borda padrão */
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem; /* Espaçamento entre cards */
+            border-radius: 6px;
+            background-color: white;
+             padding: 1rem; /* Padding interno */
+        }
+
+        .resource-card:hover {
+            border-left-color: var(--accent-color);
+            background-color: var(--light-bg);
+            box-shadow: 0 3px 6px rgba(0,0,0,0.05); /* Sombra no hover */
+        }
+        .resource-card h3 a {
+             color: var(--primary-color);
+             font-weight: 600;
+             font-size: 1rem; /* Tamanho título */
+        }
+        .resource-card p {
+             font-size: 0.9rem;
+             color: #555;
+        }
+
+        .tag {
+            background-color: #e9ecef;
+            color: #495057;
+            padding: 0.25rem 0.6rem; /* Padding ajustado */
+            border-radius: 12px; /* Mais arredondado */
+            font-size: 0.7rem; /* Menor ainda */
+            margin-right: 0.3rem; /* Menos espaço */
+            margin-bottom: 0.25rem; /* Espaçamento inferior */
+            display: inline-block;
+            transition: background-color 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .tag:hover {
+            background-color: #dee2e6;
+            border-color: #adb5bd; /* Borda sutil no hover */
+        }
+
+        .difficulty-badge {
+            padding: 0.2rem 0.5rem; /* Menor padding */
+            border-radius: 4px;
+            font-size: 0.7rem; /* Menor fonte */
+            font-weight: bold;
+            display: inline-block;
+             margin-right: 0.3rem; /* Menos espaço */
+             margin-bottom: 0.25rem;
+             border-width: 1px;
+             border-style: solid;
+        }
+        /* Cores para badges */
+        .difficulty-beginner { background-color: #d1e7dd; color: #145A32; border-color: #a3cfbb;}
+        .difficulty-intermediate { background-color: #fff3cd; color: #856404; border-color: #ffeeba;}
+        .difficulty-advanced { background-color: #f8d7da; color: #721c24; border-color: #f5c6cb;}
+
+        .footer {
+            background-color: var(--dark-bg);
+            color: white;
+        }
+
+        .toggle-icon {
+            transition: transform 0.3s ease;
+            color: var(--accent-color); /* Cor do ícone */
+        }
+        .toggle-icon.rotate-180 { /* Classe para rotação */
+            transform: rotate(180deg);
+        }
+
+
+        .sidebar {
+            position: sticky;
+            top: 84px; /* Abaixo da navbar sticky */
+            height: calc(100vh - 104px); /* Ajustado */
+            overflow-y: auto;
+            padding-right: 10px; /* Espaço para scrollbar */
+        }
+
+        @media (max-width: 1024px) { /* Ajuste breakpoint para sidebar */
+            .sidebar {
+                position: static;
+                height: auto;
+                margin-top: 2rem; /* Espaço acima no mobile */
+                 padding-right: 0;
+            }
+        }
+
+        /* Checkbox custom style */
+        .custom-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            font-size: 0.9rem; /* Tamanho do texto */
+        }
+        .custom-checkbox input {
+            margin-right: 0.5rem;
+             width: 16px; /* Tamanho checkbox */
+             height: 16px;
+             accent-color: var(--primary-color); /* Cor do check */
+             cursor: pointer;
+        }
+         .custom-checkbox label { cursor: pointer; }
+
+        /* Resource type icons */
+        .resource-icon {
+            width: 36px; /* Ícone maior */
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px; /* Quadrado arredondado */
+            background-color: var(--light-bg);
+            margin-right: 1rem;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0; /* Não encolher o ícone */
+        }
+        .resource-icon i { font-size: 1.1rem; } /* Tamanho do ícone FA */
+
+        .resource-icon.article { color: #0366d6; } /* Azul GitHub */
+        .resource-icon.video { color: #e83e8c; } /* Rosa */
+        .resource-icon.dataset { color: #28a745; } /* Verde */
+        .resource-icon.tool { color: #fd7e14; } /* Laranja */
+        .resource-icon.community { color: #6f42c1; } /* Roxo */
+        .resource-icon.book { color: #17a2b8; } /* Ciano (para documentação) */
+        .resource-icon.briefcase { color: #ffc107; } /* Amarelo (para estudos de caso) */
+
+
+        /* Search box style */
+        .search-container {
+            position: relative;
+        }
+        .search-container input {
+            padding-left: 2.5rem;
+            width: 100%;
+            border-radius: 20px; /* Input arredondado */
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem 0.5rem 2.5rem; /* Padding ajustado */
+            font-size: 0.9rem;
+        }
+         .search-container input:focus {
+             border-color: var(--secondary-color);
+             box-shadow: 0 0 0 2px rgba(58, 134, 255, 0.2); /* Sombra foco */
+             outline: none;
+         }
+        .search-icon {
+            position: absolute;
+            left: 0.9rem; /* Ajuste posição */
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+            pointer-events: none; /* Não interceptar cliques */
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px; /* Maior */
+            height: 45px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden; /* Start hidden */
+            transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            z-index: 999; /* Ensure it's on top */
+        }
+        .back-to-top:hover {
+             background-color: #085561;
+             transform: scale(1.1); /* Efeito de zoom */
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible; /* Make visible */
+        }
+        /* Focus style for accessibility */
+         :focus-visible {
+             outline: 2px solid var(--secondary-color);
+             outline-offset: 2px;
+             box-shadow: 0 0 0 3px rgba(58, 134, 255, 0.3);
+         }
+         /* Remove default outline for specific elements if custom style is preferred */
+         .btn-primary:focus-visible, .btn-secondary:focus-visible, .sidebar-link:focus-visible, .toc-link:focus-visible, input[type="checkbox"]:focus-visible, details summary:focus-visible {
+              outline: none;
+          }
+         .section-header:focus-visible {
+             outline: none;
+             background-color: #e0f0ff;
+             box-shadow: 0 0 0 2px var(--secondary-color) inset;
+         }
+         .resource-card a:focus-visible {
+              outline: none;
+              background-color: rgba(58, 134, 255, 0.1);
+              box-shadow: 0 0 0 2px var(--secondary-color);
+          }
+         .back-to-top:focus-visible {
+             outline: 2px solid white;
+             outline-offset: 2px;
+             box-shadow: 0 0 0 3px var(--primary-color);
+         }
+         details summary { list-style: none; /* Hide default marker */ }
+         details summary::-webkit-details-marker { display: none; } /* Hide marker in Chrome */
+         details[open] summary .fa-chevron-down { transform: rotate(180deg); } /* Rotate icon when details open */
+
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Navbar -->
+    <nav class="navbar sticky top-0 z-50 py-3">
+        <div class="container mx-auto px-4 flex flex-wrap items-center justify-between">
+            <div class="flex items-center">
+                <a href="climada_course_index.html" class="text-white text-xl font-bold flex items-center">
+                    <i class="fas fa-chart-line mr-2"></i>
+                    CLIMADA | Curso
+                </a>
+            </div>
+
+            <button class="lg:hidden text-white focus:outline-none" aria-label="Menu" aria-controls="menu-content" aria-expanded="false" id="mobile-menu-button">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="hidden lg:flex lg:items-center lg:w-auto w-full" id="menu-content">
+                 <ul class="flex flex-col lg:flex-row list-none lg:ml-auto lg:items-center">
+                    <li class="nav-item mb-2 lg:mb-0 lg:mr-6">
+                        <a href="climada_course_index.html" class="text-white hover:text-gray-200 transition-colors flex items-center">
+                            <i class="fas fa-home mr-1"></i> Início
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2 lg:mb-0 lg:mr-6">
+                        <a href="climada_module1_updated.html" class="text-white hover:text-gray-200 transition-colors flex items-center">
+                            <i class="fas fa-book-open mr-1"></i> Módulos
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2 lg:mb-0 lg:mr-6">
+                        <a href="climada_practice1_updated.html" class="text-white hover:text-gray-200 transition-colors flex items-center">
+                            <i class="fas fa-laptop-code mr-1"></i> Práticas
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2 lg:mb-0 lg:mr-6">
+                        <a href="climada_quiz1_updated.html" class="text-white hover:text-gray-200 transition-colors flex items-center">
+                            <i class="fas fa-question-circle mr-1"></i> Quiz
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2 lg:mb-0">
+                        <a href="climada_resources_updated.html" class="text-gray-100 font-bold flex items-center"> <!-- Link atual -->
+                            <i class="fas fa-external-link-alt mr-1"></i> Recursos
+                        </a>
+                    </li>
+                    <li class="nav-item mt-3 lg:mt-0 lg:ml-6 search-container">
+                         <span class="search-icon">
+                             <i class="fas fa-search"></i>
+                         </span>
+                         <input type="text" placeholder="Buscar no curso..." class="py-1 px-3 rounded-full text-sm" aria-label="Buscar no curso">
+                    </li>
+                 </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center mb-4">
+                <a href="climada_module1_updated.html" class="btn-secondary btn-sm">
+                    <i class="fas fa-arrow-left mr-2"></i> Voltar ao Módulo 1
+                </a>
+            </div>
+            <h1 class="text-3xl font-bold text-center mb-2">Recursos Complementares</h1>
+            <p class="text-center text-lg mb-6 text-gray-100">Materiais adicionais para aprofundar seu conhecimento</p>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 py-6">
+        <div class="flex flex-wrap -mx-4">
+            <!-- Main Content -->
+            <div class="w-full lg:w-2/3 px-4">
+                <!-- Table of Contents -->
+                <div class="content-section p-6 mb-6">
+                    <h2 class="text-xl font-bold mb-4 text-primary-color">Sumário</h2>
+                    <ul class="space-y-1">
+                        <li><a href="#artigos" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('artigos')"><i class="fas fa-file-alt fa-fw mr-2 w-4"></i> Artigos e Publicações</a></li>
+                        <li><a href="#documentacao" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('documentacao')"><i class="fas fa-book fa-fw mr-2 w-4"></i> Documentação Técnica</a></li>
+                        <li><a href="#videos" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('videos')"><i class="fas fa-video fa-fw mr-2 w-4"></i> Vídeos e Webinars</a></li>
+                        <li><a href="#ferramentas" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('ferramentas')"><i class="fas fa-tools fa-fw mr-2 w-4"></i> Ferramentas e Datasets</a></li>
+                        <li><a href="#estudos" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('estudos')"><i class="fas fa-briefcase fa-fw mr-2 w-4"></i> Estudos de Caso</a></li>
+                        <li><a href="#comunidade" class="text-blue-600 hover:underline flex items-center text-sm py-1" onclick="smoothScrollAndToggle('comunidade')"><i class="fas fa-users fa-fw mr-2 w-4"></i> Comunidade e Suporte</a></li>
+                    </ul>
+                </div>
+
+                <!-- ****** SEÇÕES COM CONTEÚDO ATUALIZADO ABAIXO ****** -->
+
+                <!-- Articles Section -->
+                <div id="artigos" class="content-section mb-6">
+                    <div class="section-header" onclick="toggleSection('artigos')" role="button" tabindex="0" aria-expanded="false" aria-controls="artigos-content">
+                        <h2><i class="fas fa-file-alt mr-2 opacity-70"></i>Artigos Científicos e Publicações</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="artigos-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Publicações chave para entender a modelagem de riscos climáticos e o CLIMADA.</p>
+
+                        <!-- Resource 1 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon article"><i class="fas fa-file-alt"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://gmd.copernicus.org/articles/12/3085/2019/" target="_blank" rel="noopener noreferrer" class="hover:underline">CLIMADA v1: a global weather and climate risk assessment platform</a></h3>
+                                    <p class="my-2">Artigo seminal descrevendo a arquitetura e casos de uso da plataforma CLIMADA v1.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">CLIMADA</span><span class="tag">Plataforma</span><span class="tag">Modelagem</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Aznar-Siguan & Bresch, 2019</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 2 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon article"><i class="fas fa-file-alt"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://oasislmf.org/application/files/7417/1389/7573/Standardizing_Catastrophe_Model_Validation_3.2_OasisLMF.pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Standardizing Catastrophe Model Validation</a></h3>
+                                    <p class="my-2">Discussão sobre padronização e desafios na validação de modelos de catástrofe, relevante para modelos de risco climático.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Validação</span><span class="tag">Modelagem</span><span class="tag">Catástrofe</span><span class="tag">Risco</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Oasis LMF, 2024</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 3 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon article"><i class="fas fa-file-alt"></i></div>
+                                <div class="flex-1">
+                                     <h3><a href="https://ukcgfi.org/wp-content/uploads/2023/03/UK-CGFI-The-Challenge-of-Climate-Risk-Modelling-in-Financial-Institutions.pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">The Challenge of Climate Risk Modelling in Financial Institutions</a></h3>
+                                    <p class="my-2">Desafios e abordagens na modelagem de risco climático no setor financeiro, incluindo validação.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Risco Financeiro</span><span class="tag">Modelagem</span><span class="tag">Validação</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">UK CGFI, 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 4 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon article"><i class="fas fa-file-alt"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.bis.org/bcbs/publ/d517.pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Climate-related risk drivers and their transmission channels</a></h3>
+                                    <p class="my-2">Documento do BIS que discute os direcionadores de risco climático e menciona desafios de validação.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Risco Financeiro</span><span class="tag">Regulação</span><span class="tag">Validação</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">BIS/BCBS, 2021</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="#documentacao" class="btn-primary btn-sm" onclick="smoothScrollAndToggle('documentacao')">
+                                Próxima: Documentação <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Documentation Section -->
+                <div id="documentacao" class="content-section mb-6">
+                     <div class="section-header" onclick="toggleSection('documentacao')" role="button" tabindex="0" aria-expanded="false" aria-controls="documentacao-content">
+                        <h2><i class="fas fa-book mr-2 opacity-70"></i>Documentação Técnica</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="documentacao-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Documentação oficial, guias e tutoriais para usar a plataforma CLIMADA.</p>
+
+                        <!-- Resource 1 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon book"><i class="fas fa-book-open"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://climada-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer" class="hover:underline">Documentação Oficial CLIMADA (ReadTheDocs)</a></h3>
+                                    <p class="my-2">Referência completa da API, guias de instalação, tutoriais e exemplos detalhados.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Documentação</span><span class="tag">API</span><span class="tag">Tutoriais</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 2 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon book"><i class="fab fa-github"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://github.com/CLIMADA-project/climada_python" target="_blank" rel="noopener noreferrer" class="hover:underline">Repositório GitHub (climada_python)</a></h3>
+                                    <p class="my-2">Acesso ao código-fonte do Core, issues, pull requests e exemplos na pasta `doc`.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">GitHub</span><span class="tag">Código-fonte</span><span class="tag">Issues</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 3 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon book"><i class="fas fa-plug"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://github.com/CLIMADA-project/climada_petals" target="_blank" rel="noopener noreferrer" class="hover:underline">Repositório GitHub (climada_petals)</a></h3>
+                                    <p class="my-2">Código-fonte dos módulos adicionais (Petals) para perigos e funcionalidades específicas.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">GitHub</span><span class="tag">Petals</span><span class="tag">Módulos</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                        <!-- Resource 4 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon book"><i class="fas fa-book-reader"></i></div> <!-- Guide Icon -->
+                                <div class="flex-1">
+                                    <h3><a href="https://climada-python.readthedocs.io/en/stable/tutorial/main_tutorial.html" target="_blank" rel="noopener noreferrer" class="hover:underline">Tutorial Principal CLIMADA</a></h3>
+                                    <p class="my-2">Tutorial introdutório oficial que cobre os passos básicos de uma análise de risco.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Tutorial</span><span class="tag">Introdução</span><span class="tag">Guia</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 5 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                 <div class="resource-icon book"><i class="fas fa-cogs"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://climada-python.readthedocs.io/en/stable/guide/guide_install.html" target="_blank" rel="noopener noreferrer" class="hover:underline">Guia de Instalação</a></h3>
+                                    <p class="my-2">Instruções detalhadas para instalar o CLIMADA em diferentes sistemas operacionais.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Instalação</span><span class="tag">Configuração</span><span class="tag">Guia</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="#videos" class="btn-primary btn-sm" onclick="smoothScrollAndToggle('videos')">
+                                Próxima: Vídeos <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Videos Section -->
+                <div id="videos" class="content-section mb-6">
+                     <div class="section-header" onclick="toggleSection('videos')" role="button" tabindex="0" aria-expanded="false" aria-controls="videos-content">
+                        <h2><i class="fas fa-video mr-2 opacity-70"></i>Vídeos e Webinars</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="videos-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Conteúdo em vídeo para aprender sobre riscos climáticos e a plataforma CLIMADA de forma visual.</p>
+                         <!-- Resource 1 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon video"><i class="fab fa-youtube"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.youtube.com/watch?v=KR8RPDMIjfM" target="_blank" rel="noopener noreferrer" class="hover:underline">Introdução ao CLIMADA: Modelagem de Riscos Climáticos</a></h3>
+                                    <p class="my-2">Webinar introdutório apresentando os conceitos básicos do CLIMADA e seu uso.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Webinar</span><span class="tag">Introdução</span><span class="tag">Modelagem</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">ETH Zurich, ~60min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 2 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon video"><i class="fab fa-youtube"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.youtube.com/watch?v=dZJYVMnMHKg" target="_blank" rel="noopener noreferrer" class="hover:underline">Tutorial: Modelagem de Ciclones Tropicais com CLIMADA</a></h3>
+                                    <p class="my-2">Demonstração passo a passo da modelagem de ciclones tropicais, incluindo eventos sintéticos.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Tutorial</span><span class="tag">Ciclones</span><span class="tag">Demonstração</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project, ~45min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 3 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon video"><i class="fab fa-youtube"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.youtube.com/watch?v=IUzj2eNgMkw" target="_blank" rel="noopener noreferrer" class="hover:underline">Riscos Climáticos para Instalações Offshore: Apresentação de Caso</a></h3>
+                                    <p class="my-2">Estudo de caso detalhado sobre avaliação de riscos climáticos para instalações offshore.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Offshore</span><span class="tag">Estudo de Caso</span><span class="tag">Petróleo & Gás</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Indústria Offshore, ~75min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 4 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon video"><i class="fab fa-youtube"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.youtube.com/watch?v=JNnRJwA_xdU" target="_blank" rel="noopener noreferrer" class="hover:underline">Webinar: Adaptação às Mudanças Climáticas no Setor Marítimo</a></h3>
+                                    <p class="my-2">Discussão sobre estratégias de adaptação para o setor marítimo, incluindo embarcações offshore.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Adaptação</span><span class="tag">Setor Marítimo</span><span class="tag">Estratégias</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Global Maritime Forum, ~90min</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6">
+                            <a href="#ferramentas" class="btn-primary btn-sm" onclick="smoothScrollAndToggle('ferramentas')">
+                                Próxima: Ferramentas <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Tools and Datasets Section -->
+                <div id="ferramentas" class="content-section mb-6">
+                     <div class="section-header" onclick="toggleSection('ferramentas')" role="button" tabindex="0" aria-expanded="false" aria-controls="ferramentas-content">
+                        <h2><i class="fas fa-tools mr-2 opacity-70"></i>Ferramentas e Datasets</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="ferramentas-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Ferramentas complementares e conjuntos de dados úteis para análises de risco climático.</p>
+
+                        <!-- Resource 1 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon dataset"><i class="fas fa-database"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.ncdc.noaa.gov/ibtracs/" target="_blank" rel="noopener noreferrer" class="hover:underline">IBTrACS - International Best Track Archive</a></h3>
+                                    <p class="my-2">Principal fonte de dados globais de trajetórias históricas de ciclones tropicais.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Dataset</span><span class="tag">Ciclones</span><span class="tag">Histórico</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">NOAA/WMO</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 2 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon dataset"><i class="fas fa-cloud"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://cds.climate.copernicus.eu/" target="_blank" rel="noopener noreferrer" class="hover:underline">Copernicus Climate Data Store (CDS)</a></h3>
+                                    <p class="my-2">Plataforma para acesso a dados climáticos (reanálise ERA5, projeções CMIP6, etc.).</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Dataset</span><span class="tag">Reanálise</span><span class="tag">Projeções</span><span class="tag">Clima</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Copernicus/ECMWF</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 3 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon tool"><i class="fas fa-map"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://qgis.org/" target="_blank" rel="noopener noreferrer" class="hover:underline">QGIS</a></h3>
+                                    <p class="my-2">Software GIS open-source para visualização, edição e análise de dados geoespaciais.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Ferramenta</span><span class="tag">GIS</span><span class="tag">Visualização</span><span class="tag">Open-Source</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">QGIS Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 4 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon dataset"><i class="fas fa-globe-americas"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://sedac.ciesin.columbia.edu/data/collection/gpw-v4" target="_blank" rel="noopener noreferrer" class="hover:underline">GPW - Gridded Population of the World</a></h3>
+                                    <p class="my-2">Dados de população global em grade, usados como base para o módulo LitPop.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Dataset</span><span class="tag">População</span><span class="tag">Exposição</span><span class="tag">LitPop</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">NASA SEDAC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 5 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon dataset"><i class="fas fa-building"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://wiki.openstreetmap.org/wiki/Downloading_data" target="_blank" rel="noopener noreferrer" class="hover:underline">OpenStreetMap Data</a></h3>
+                                    <p class="my-2">Fonte rica de dados geoespaciais colaborativos (edifícios, estradas) para modelagem de exposição.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Dataset</span><span class="tag">Exposição</span><span class="tag">Infraestrutura</span><span class="tag">OSM</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">OSM Community</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="mt-6">
+                            <a href="#estudos" class="btn-primary btn-sm" onclick="smoothScrollAndToggle('estudos')">
+                                Próxima: Estudos de Caso <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Studies Section -->
+                <div id="estudos" class="content-section mb-6">
+                    <div class="section-header" onclick="toggleSection('estudos')" role="button" tabindex="0" aria-expanded="false" aria-controls="estudos-content">
+                        <h2><i class="fas fa-briefcase mr-2 opacity-70"></i>Estudos de Caso</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="estudos-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Exemplos de aplicação do CLIMADA em análises de risco reais.</p>
+                         <!-- Resource 0 (General Link) -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon briefcase"><i class="fas fa-globe"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://ethz.ch/en/research/research-partners-industry/transfer/success-stories-ip/eca-case-studies.html" target="_blank" rel="noopener noreferrer" class="hover:underline">Página ECA Case Studies (ETH Zurich)</a></h3>
+                                    <p class="my-2">Fonte central para diversos estudos de caso usando a metodologia Economics of Climate Adaptation (ECA) e CLIMADA.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Estudo de Caso</span><span class="tag">Aplicações</span><span class="tag">ECA</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">ETH Zurich</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 1 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon briefcase"><i class="fas fa-oil-can"></i></div> <!-- Oil Icon -->
+                                <div class="flex-1">
+                                    <h3><a href="https://www.frontiersin.org/articles/10.3389/fbuil.2021.618105/full" target="_blank" rel="noopener noreferrer" class="hover:underline">Hurricane Risk Assessment of Petroleum Infrastructure</a></h3>
+                                    <p class="my-2">Avaliação de risco de furacões para infraestrutura de petróleo em um clima em mudança (Golfo do México).</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Offshore</span><span class="tag">Petróleo</span><span class="tag">Golfo do México</span><span class="tag">Furacão</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Wu et al., 2021 (Frontiers)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 2 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon briefcase"><i class="fas fa-ship"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.tandfonline.com/doi/abs/10.1080/01441647.2023.2238955" target="_blank" rel="noopener noreferrer" class="hover:underline">Optimising the resilience of shipping networks to climate vulnerability</a></h3>
+                                    <p class="my-2">Metodologia para otimizar a resiliência de redes de navegação face à vulnerabilidade climática.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Navegação</span><span class="tag">Otimização</span><span class="tag">Rotas</span><span class="tag">Resiliência</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Lam & Notteboom, 2023 (T&F)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 3 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                 <div class="resource-icon briefcase"><i class="fas fa-wind"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.nyserda.ny.gov/-/media/Project/Nyserda/Files/Programs/Offshore-Wind/Offshore-Wind-Climate-Adaptation-and-Resilience-Study.pdf" target="_blank" rel="noopener noreferrer" class="hover:underline">Offshore Wind Climate Adaptation and Resilience Study (NY)</a></h3>
+                                    <p class="my-2">Estudo sobre adaptação e resiliência climática para energia eólica offshore em Nova Iorque.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Eólica Offshore</span><span class="tag">Adaptação</span><span class="tag">Resiliência</span><span class="tag">Relatório</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">NYSERDA, 2023</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 4 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                 <div class="resource-icon briefcase"><i class="fas fa-anchor"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.sciencedirect.com/science/article/pii/S037838392400108X" target="_blank" rel="noopener noreferrer" class="hover:underline">Climate change risk assessment for port infrastructure</a></h3>
+                                    <p class="my-2">Avaliação de risco das mudanças climáticas para infraestrutura portuária com foco em dragagem.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Portos</span><span class="tag">Infraestrutura</span><span class="tag">Avaliação Risco</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">She et al., 2024 (Ocean Eng.)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 5 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon briefcase"><i class="fas fa-leaf"></i></div> <!-- Agriculture Alt Icon -->
+                                <div class="flex-1">
+                                    <h3><a href="https://link.springer.com/article/10.1007/s13753-023-00479-w" target="_blank" rel="noopener noreferrer" class="hover:underline">Assessing agricultural drought risk</a></h3>
+                                    <p class="my-2">Avaliação do risco de seca agrícola e perdas econômicas usando abordagens de modelo.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Seca</span><span class="tag">Agricultura</span><span class="tag">Impacto Econômico</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Wang et al., 2023 (Nat Hazards)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 6 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon briefcase"><i class="fas fa-water"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.sciencedirect.com/science/article/abs/pii/S2212095522003145" target="_blank" rel="noopener noreferrer" class="hover:underline">Quantifying coastal flood risk and climate adaptation</a></h3>
+                                    <p class="my-2">Quantificação do risco de inundação costeira e avaliação econômica de estratégias de adaptação.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-advanced">Avançado</span>
+                                            <span class="tag">Inundação Costeira</span><span class="tag">Adaptação</span><span class="tag">Custo-Benefício</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">Lincke et al., 2023 (Clim Risk Manag)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                         <div class="mt-6">
+                            <a href="#comunidade" class="btn-primary btn-sm" onclick="smoothScrollAndToggle('comunidade')">
+                                Próxima: Comunidade <i class="fas fa-arrow-right ml-2"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Section -->
+                <div id="comunidade" class="content-section mb-6">
+                     <div class="section-header" onclick="toggleSection('comunidade')" role="button" tabindex="0" aria-expanded="false" aria-controls="comunidade-content">
+                        <h2><i class="fas fa-users mr-2 opacity-70"></i>Comunidade e Suporte</h2>
+                        <span class="toggle-icon"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div id="comunidade-content" class="section-content">
+                        <p class="mb-4 text-sm text-gray-600">Onde encontrar ajuda, fazer perguntas e interagir com outros usuários e desenvolvedores.</p>
+
+                        <!-- Resource 1 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon community"><i class="fab fa-github"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://github.com/CLIMADA-project/climada_python/issues" target="_blank" rel="noopener noreferrer" class="hover:underline">GitHub Issues</a></h3>
+                                    <p class="my-2">Canal oficial para reportar bugs, solicitar funcionalidades e fazer perguntas técnicas sobre o código.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Suporte</span><span class="tag">GitHub</span><span class="tag">Bugs</span><span class="tag">Técnico</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 2 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon community"><i class="fas fa-comments"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://climada.discourse.group/" target="_blank" rel="noopener noreferrer" class="hover:underline">Fórum de Discussão CLIMADA</a></h3>
+                                    <p class="my-2">Plataforma principal para discussões gerais, compartilhamento de experiências e perguntas sobre uso.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Fórum</span><span class="tag">Discussão</span><span class="tag">Comunidade</span><span class="tag">Ajuda</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Community</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Resource 3 -->
+                        <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon community"><i class="fas fa-calendar-alt"></i></div>
+                                <div class="flex-1">
+                                    <h3><a href="https://www.climada.tech/events/" target="_blank" rel="noopener noreferrer" class="hover:underline">Eventos CLIMADA</a></h3>
+                                    <p class="my-2">Página com informações sobre workshops, treinamentos e apresentações relacionadas ao CLIMADA.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-beginner">Iniciante</span>
+                                            <span class="tag">Eventos</span><span class="tag">Workshops</span><span class="tag">Treinamento</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Resource 4 -->
+                         <div class="resource-card">
+                            <div class="flex items-start">
+                                <div class="resource-icon community"><i class="fas fa-code-branch"></i></div>
+                                <div class="flex-1">
+                                     <h3><a href="https://climada-python.readthedocs.io/en/stable/dev_guide/contributing.html" target="_blank" rel="noopener noreferrer" class="hover:underline">Guia de Contribuição</a></h3>
+                                    <p class="my-2">Informações para desenvolvedores que desejam contribuir com o código do CLIMADA.</p>
+                                    <div class="flex flex-wrap items-center justify-between mt-2">
+                                        <div>
+                                            <span class="difficulty-badge difficulty-intermediate">Intermediário</span>
+                                            <span class="tag">Contribuição</span><span class="tag">Desenvolvimento</span><span class="tag">GitHub</span>
+                                        </div>
+                                        <span class="text-xs text-gray-500 mt-2 sm:mt-0">CLIMADA Project</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex flex-wrap justify-between items-center mt-8 gap-4">
+                     <a href="climada_module1_updated.html" class="btn-secondary btn-sm">
+                        <i class="fas fa-arrow-left mr-2"></i> Voltar ao Módulo 1
+                    </a>
+                     <div class="flex flex-wrap gap-4">
+                         <a href="climada_practice1_updated.html" class="btn-primary btn-sm">
+                            Ir para Prática 1 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="climada_quiz1_updated.html" class="btn-secondary btn-sm">
+                            Acessar Quiz <i class="fas fa-question-circle ml-2"></i>
+                        </a>
+                     </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="w-full lg:w-1/3 px-4">
+                 <div class="sidebar">
+                    <!-- Search Box -->
+                     <div class="content-section p-4 mb-6">
+                         <h3 class="font-semibold text-lg mb-3 text-gray-700">Buscar Recursos</h3>
+                         <div class="search-container mb-4">
+                             <span class="search-icon"><i class="fas fa-search"></i></span>
+                             <input type="text" id="resource-search" placeholder="Buscar por palavra-chave..." class="w-full" aria-label="Buscar recursos">
+                         </div>
+
+                         <h4 class="font-semibold mt-4 mb-2 text-gray-700 text-sm">Filtrar por:</h4>
+
+                         <details class="mb-2 group" open>
+                              <summary class="font-semibold text-sm mb-1 cursor-pointer list-none flex justify-between items-center text-gray-600 hover:text-primary-color py-1">
+                                  <span>Tipo de Recurso</span>
+                                  <i class="fas fa-chevron-down transform transition-transform duration-200"></i>
+                              </summary>
+                              <div class="pl-4 mt-1 space-y-1 border-l-2 border-gray-200 ml-1">
+                                 <label class="custom-checkbox"><input type="checkbox" value="artigo" class="filter-checkbox"> Artigos Científicos</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="documentacao" class="filter-checkbox"> Documentação</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="video" class="filter-checkbox"> Vídeos / Webinars</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="dataset" class="filter-checkbox"> Datasets / Ferramentas</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="case" class="filter-checkbox"> Estudos de Caso</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="comunidade" class="filter-checkbox"> Comunidade</label>
+                             </div>
+                          </details>
+
+                         <details class="mb-2 group">
+                              <summary class="font-semibold text-sm mb-1 cursor-pointer list-none flex justify-between items-center text-gray-600 hover:text-primary-color py-1">
+                                  <span>Nível de Dificuldade</span>
+                                  <i class="fas fa-chevron-down transform transition-transform duration-200"></i>
+                              </summary>
+                              <div class="pl-4 mt-1 space-y-1 border-l-2 border-gray-200 ml-1">
+                                 <label class="custom-checkbox"><input type="checkbox" value="iniciante" class="filter-checkbox"> Iniciante</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="intermediario" class="filter-checkbox"> Intermediário</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="avancado" class="filter-checkbox"> Avançado</label>
+                             </div>
+                          </details>
+
+                          <details class="mb-2 group">
+                              <summary class="font-semibold text-sm mb-1 cursor-pointer list-none flex justify-between items-center text-gray-600 hover:text-primary-color py-1">
+                                  <span>Relevância para Offshore</span>
+                                   <i class="fas fa-chevron-down transform transition-transform duration-200"></i>
+                              </summary>
+                             <div class="pl-4 mt-1 space-y-1 border-l-2 border-gray-200 ml-1">
+                                 <label class="custom-checkbox"><input type="checkbox" value="offshore" class="filter-checkbox"> Específico Offshore</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="aplicavel" class="filter-checkbox"> Aplicável Offshore</label>
+                                 <label class="custom-checkbox"><input type="checkbox" value="geral" class="filter-checkbox"> Geral</label>
+                             </div>
+                          </details>
+
+                         <div class="flex justify-center mt-4">
+                             <button class="btn-primary w-full btn-sm" id="apply-filters-button">
+                                 <i class="fas fa-filter mr-2"></i> Aplicar Filtros
+                             </button>
+                         </div>
+                     </div>
+
+                     <!-- Popular Tags -->
+                     <div class="content-section p-4 mb-6">
+                         <h3 class="font-semibold text-lg mb-3 text-gray-700">Tags Populares</h3>
+                         <div class="flex flex-wrap gap-1">
+                             <a href="#" class="tag">Ciclones</a> <a href="#" class="tag">Offshore</a>
+                             <a href="#" class="tag">Modelagem</a> <a href="#" class="tag">Adaptação</a>
+                             <a href="#" class="tag">API</a> <a href="#" class="tag">Exposição</a>
+                             <a href="#" class="tag">Petróleo</a> <a href="#" class="tag">Ondas</a>
+                             <a href="#" class="tag">Eventos Extremos</a> <a href="#" class="tag">Tutorial</a>
+                             <a href="#" class="tag">Impacto</a> <a href="#" class="tag">Navegação</a>
+                             <a href="#" class="tag">Python</a> <a href="#" class="tag">GitHub</a>
+                             <a href="#" class="tag">Dataset</a> <a href="#" class="tag">Inundação</a>
+                         </div>
+                     </div>
+
+                     <!-- Featured Resources -->
+                     <div class="content-section p-4 mb-6">
+                         <h3 class="font-semibold text-lg mb-3 text-gray-700">Recursos em Destaque</h3>
+                         <!-- Recurso 1 -->
+                         <div class="mb-4 pb-3 border-b border-gray-200">
+                             <a href="https://gmd.copernicus.org/articles/12/3085/2019/" target="_blank" rel="noopener noreferrer" class="font-semibold text-sm text-blue-600 hover:underline block truncate">CLIMADA v1: Plataforma Global</a>
+                             <p class="text-xs text-gray-600 mt-1">Artigo fundamental descrevendo a plataforma.</p>
+                         </div>
+                          <!-- Recurso 2 -->
+                          <div class="mb-4 pb-3 border-b border-gray-200">
+                             <a href="https://climada-python.readthedocs.io/en/stable/" target="_blank" rel="noopener noreferrer" class="font-semibold text-sm text-blue-600 hover:underline block truncate">Documentação Oficial</a>
+                             <p class="text-xs text-gray-600 mt-1">Referência completa da API e tutoriais.</p>
+                         </div>
+                          <!-- Recurso 3 -->
+                         <div class="mb-4 pb-3 border-b border-gray-200">
+                             <a href="https://climada-python.readthedocs.io/en/stable/tutorial/climada_hazard_TropCyclone.html" target="_blank" rel="noopener noreferrer" class="font-semibold text-sm text-blue-600 hover:underline block truncate">Tutorial: Ciclones Tropicais</a>
+                             <p class="text-xs text-gray-600 mt-1">Guia detalhado sobre modelagem de ciclones.</p>
+                         </div>
+                          <!-- Recurso 4 -->
+                         <div>
+                             <a href="https://climada.discourse.group/" target="_blank" rel="noopener noreferrer" class="font-semibold text-sm text-blue-600 hover:underline block truncate">Fórum de Discussão</a>
+                             <p class="text-xs text-gray-600 mt-1">Local para perguntas e interação com a comunidade.</p>
+                         </div>
+                     </div>
+
+                     <!-- Course Navigation -->
+                     <div class="content-section p-4">
+                         <h3 class="font-semibold text-lg mb-3 text-gray-700">Navegação do Curso</h3>
+                         <ul class="space-y-1">
+                             <li><a href="climada_course_index.html" class="flex items-center text-sm text-blue-600 hover:underline py-1"><i class="fas fa-home fa-fw mr-2 w-4"></i> Página Inicial</a></li>
+                             <li><a href="climada_module1_updated.html" class="flex items-center text-sm text-blue-600 hover:underline py-1"><i class="fas fa-book-open fa-fw mr-2 w-4"></i> Módulo 1</a></li>
+                             <li><a href="climada_practice1_updated.html" class="flex items-center text-sm text-blue-600 hover:underline py-1"><i class="fas fa-laptop-code fa-fw mr-2 w-4"></i> Prática 1</a></li>
+                             <li><a href="climada_quiz1_updated.html" class="flex items-center text-sm text-blue-600 hover:underline py-1"><i class="fas fa-question-circle fa-fw mr-2 w-4"></i> Quiz 1</a></li>
+                             <li class="font-semibold"><span class="flex items-center text-sm text-gray-700 py-1"><i class="fas fa-external-link-alt fa-fw mr-2 w-4"></i> Recursos (Atual)</span></li>
+                         </ul>
+
+                         <div class="mt-6 bg-blue-50 p-3 rounded-md border border-blue-200">
+                             <h4 class="font-semibold text-blue-800 mb-2 text-sm">Próximo Módulo</h4>
+                             <p class="text-xs text-gray-700">Continue com o Módulo 2: Modelagem de Perigos Climáticos.</p>
+                             <button class="btn-secondary w-full mt-2 btn-sm" disabled>
+                                 Em breve <i class="fas fa-clock ml-2"></i>
+                             </button>
+                         </div>
+                     </div>
+                 </div>
+             </aside>
+        </div>
+    </div>
+
+    <!-- Footer -->
+     <footer class="footer py-8 mt-12">
+        <div class="container mx-auto px-4">
+             <div class="flex flex-wrap justify-between">
+                <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">CLIMADA | Curso</h3>
+                    <p class="mb-4 text-sm text-gray-300">Curso sobre precificação de riscos climáticos com a plataforma CLIMADA.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/CLIMADA-project" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300" aria-label="GitHub CLIMADA">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+                 <div class="w-full md:w-1/3 mb-6 md:mb-0">
+                    <h3 class="text-xl font-bold mb-4">Links Rápidos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="climada_course_index.html" class="text-sm text-gray-300 hover:text-white">Página Inicial</a></li>
+                        <li><a href="climada_module1_updated.html" class="text-sm text-gray-300 hover:text-white">Módulo 1</a></li>
+                        <li><a href="climada_practice1_updated.html" class="text-sm text-gray-300 hover:text-white">Prática 1</a></li>
+                        <li><a href="climada_quiz1_updated.html" class="text-sm text-gray-300 hover:text-white">Quiz 1</a></li>
+                    </ul>
+                </div>
+                 <div class="w-full md:w-1/3">
+                    <h3 class="text-xl font-bold mb-4">Recursos Oficiais</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://climada-python.readthedocs.io/" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white">Documentação</a></li>
+                        <li><a href="https://github.com/CLIMADA-project/climada_python" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white">GitHub</a></li>
+                        <li><a href="https://www.climada.tech/" target="_blank" rel="noopener noreferrer" class="text-sm text-gray-300 hover:text-white">Site Oficial</a></li>
+                    </ul>
+                </div>
+            </div>
+             <div class="border-t border-gray-700 mt-8 pt-6 text-center">
+                <p class="text-sm">© 2024 Curso CLIMADA.</p>
+                <p class="mt-1 text-xs text-gray-400">Não afiliado oficialmente ao projeto CLIMADA.</p>
+            </div>
+        </div>
+     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+         // Smooth scroll to section and toggle if needed
+         function smoothScrollAndToggle(sectionId) {
+             const sectionElement = document.getElementById(sectionId);
+             if (!sectionElement) return;
+
+             const header = sectionElement.querySelector('.section-header');
+             if (!header) return;
+             const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+             // Scroll into view first
+             const navbarHeight = 64; // Adjust if your navbar height changes
+             const elementPosition = sectionElement.getBoundingClientRect().top;
+             const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 20; // Extra buffer
+             window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+
+             // If not expanded, toggle it after a short delay
+             if (!isExpanded) {
+                 setTimeout(() => {
+                    if (header.getAttribute('aria-expanded') === 'false') { // Double check
+                         toggleSection(sectionId);
+                     }
+                 }, 400); // Adjust delay
+             }
+         }
+
+        // Toggle section visibility and ARIA state (Robust version)
+        function toggleSection(sectionId) {
+            const sectionContent = document.getElementById(sectionId + '-content');
+            const header = document.querySelector(`[aria-controls="${sectionId}-content"]`);
+            if (!sectionContent || !header) {
+                console.warn(`Elementos não encontrados para toggleSection: ${sectionId}`);
+                return;
+             }
+
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
+            header.setAttribute('aria-expanded', !isExpanded);
+            const icon = header.querySelector('.toggle-icon i');
+
+            if (!isExpanded) {
+                // Expand
+                sectionContent.classList.add('active');
+                requestAnimationFrame(() => {
+                    sectionContent.style.paddingTop = '1.5rem'; // Ensure padding is set
+                    sectionContent.style.paddingBottom = '1.5rem';
+                    sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
+                    if(icon) icon.classList.add('rotate-180');
+                 });
+            } else {
+                // Collapse
+                 sectionContent.style.maxHeight = '0px';
+                 sectionContent.style.paddingTop = '0';
+                 sectionContent.style.paddingBottom = '0';
+                 if(icon) icon.classList.remove('rotate-180');
+                 sectionContent.addEventListener('transitionend', () => {
+                     if (header.getAttribute('aria-expanded') === 'false') {
+                         sectionContent.classList.remove('active');
+                     }
+                 }, { once: true });
+            }
+        }
+
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        if (backToTopButton) {
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                if (st > 300 && st < lastScrollTop) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+            }, { passive: true });
+
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Mobile Menu Toggle
+         const mobileMenuButton = document.getElementById('mobile-menu-button');
+         const menuContent = document.getElementById('menu-content');
+         if(mobileMenuButton && menuContent) {
+             mobileMenuButton.addEventListener('click', () => {
+                 const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                 mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                 menuContent.classList.toggle('hidden');
+                 menuContent.classList.toggle('lg:flex');
+             });
+         }
+
+         // Filter/Search Logic
+         const searchInput = document.getElementById('resource-search');
+         const applyFiltersButton = document.getElementById('apply-filters-button');
+         const resourceCards = document.querySelectorAll('.resource-card'); // Select all cards
+
+         function applyFilters() {
+             const searchTerm = searchInput.value.toLowerCase().trim();
+             const activeFilters = { type: [], difficulty: [], relevance: [] };
+             document.querySelectorAll('.custom-checkbox input:checked').forEach(cb => {
+                 const parentDetails = cb.closest('details');
+                 if (!parentDetails) return;
+                 const summaryText = parentDetails.querySelector('summary span')?.textContent.toLowerCase();
+                 if (summaryText?.includes('tipo')) activeFilters.type.push(cb.value);
+                 if (summaryText?.includes('dificuldade')) activeFilters.difficulty.push(cb.value);
+                 if (summaryText?.includes('relevância')) activeFilters.relevance.push(cb.value);
+             });
+
+             console.log("Filtrando por:", searchTerm, activeFilters);
+
+             resourceCards.forEach(card => {
+                 const cardText = card.textContent.toLowerCase();
+                 const cardTags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                 const cardDifficulty = card.querySelector('.difficulty-badge')?.textContent.toLowerCase().split(' ')[0] || '';
+                 const iconClasses = card.querySelector('.resource-icon')?.classList || [];
+
+                 let showCard = true;
+
+                 // Search Term Check
+                 if (searchTerm && !cardText.includes(searchTerm)) {
+                     showCard = false;
+                 }
+
+                 // Type Check
+                 if (showCard && activeFilters.type.length > 0) {
+                     let typeMatch = false;
+                     if (iconClasses.contains('article') && activeFilters.type.includes('artigo')) typeMatch = true;
+                     if (iconClasses.contains('book') && activeFilters.type.includes('documentacao')) typeMatch = true;
+                     if (iconClasses.contains('video') && activeFilters.type.includes('video')) typeMatch = true;
+                     if ((iconClasses.contains('dataset') || iconClasses.contains('tool')) && activeFilters.type.includes('dataset')) typeMatch = true;
+                     if (iconClasses.contains('briefcase') && activeFilters.type.includes('case')) typeMatch = true;
+                     if (iconClasses.contains('community') && activeFilters.type.includes('comunidade')) typeMatch = true;
+                     if (!typeMatch) showCard = false;
+                 }
+
+                 // Difficulty Check
+                 if (showCard && activeFilters.difficulty.length > 0) {
+                     if (!cardDifficulty || !activeFilters.difficulty.includes(cardDifficulty)) {
+                         showCard = false;
+                     }
+                 }
+
+                  // Relevance Check
+                  if (showCard && activeFilters.relevance.length > 0) {
+                      let relevanceMatch = false;
+                      if (activeFilters.relevance.includes('offshore') && cardTags.includes('offshore')) relevanceMatch = true;
+                      if (activeFilters.relevance.includes('aplicavel') && cardTags.some(tag => ['offshore', 'energia', 'marítimo', 'navegação', 'petróleo', 'portos', 'infraestrutura'].includes(tag))) relevanceMatch = true;
+                      if (activeFilters.relevance.includes('geral')) relevanceMatch = true;
+
+                      if (!relevanceMatch) showCard = false;
+                  }
+
+                 card.style.display = showCard ? 'flex' : 'none'; // Use flex display for resource cards
+             });
+         }
+
+         if (searchInput && applyFiltersButton) {
+             applyFiltersButton.addEventListener('click', applyFilters);
+             searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') applyFilters(); });
+             document.querySelectorAll('.custom-checkbox input').forEach(cb => cb.addEventListener('change', applyFilters));
+         }
+
+        // Open section based on hash on page load
+        document.addEventListener('DOMContentLoaded', function() {
+             const hash = window.location.hash.substring(1);
+             if (hash) {
+                 const sectionToExpand = document.getElementById(hash);
+                 if (sectionToExpand && sectionToExpand.classList.contains('content-section')) {
+                     setTimeout(() => smoothScrollAndToggle(hash), 100);
+                 }
+             }
+             // Sections start closed by default unless targetted by hash
+        });
+
+    </script>
+</body>
+</html>
