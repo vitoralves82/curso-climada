@@ -1060,118 +1060,194 @@
 
     <!-- JavaScript -->
     <script>
-        // Smooth scroll to section and toggle if needed
-        function smoothScrollAndToggle(sectionId) {
-            const sectionElement = document.getElementById(sectionId);
-            if (!sectionElement) return;
+         // Smooth scroll to section and toggle if needed
+         function smoothScrollAndToggle(sectionId) {
+             const sectionElement = document.getElementById(sectionId);
+             if (!sectionElement) return;
 
-            const header = sectionElement.querySelector('.section-header');
-            if (!header) return;
+             const header = sectionElement.querySelector('.section-header');
+             const isExpanded = header.getAttribute('aria-expanded') === 'true';
+
+             // Scroll into view first
+             sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+             // If not expanded, toggle it after a short delay
+             if (!isExpanded) {
+                 setTimeout(() => {
+                     // Double check state before toggling
+                     if (header.getAttribute('aria-expanded') === 'false') {
+                         toggleSection(sectionId);
+                     }
+                 }, 500); // Adjust delay
+             }
+         }
+
+
+         // Toggle section visibility and ARIA state (using scrollHeight)
+         function toggleSection(sectionId) {
+            const sectionContent = document.getElementById(sectionId + '-content');
+            const header = document.querySelector(`[aria-controls="${sectionId}-content"]`);
+             if (!sectionContent || !header) {
+                console.warn(`Section or header not found for ID: ${sectionId}`);
+                return;
+             }
+
             const isExpanded = header.getAttribute('aria-expanded') === 'true';
+            header.setAttribute('aria-expanded', !isExpanded);
+            const icon = header.querySelector('.toggle-icon i');
 
-            // Scroll into view first
-            const navbarHeight = 64; // Adjust if your navbar height changes
-            const elementPosition = sectionElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 10;
-            window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-
-            // If not expanded, toggle it after a short delay
             if (!isExpanded) {
-                setTimeout(() => {
-                   if (header.getAttribute('aria-expanded') === 'false') { // Double check
-                        toggleSection(sectionId);
-                    }
-                }, 400);
+                // Expand
+                sectionContent.classList.add('active');
+                 requestAnimationFrame(() => { // Ensure class is added before getting scrollHeight
+                     sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
+                     if(icon) icon.classList.add('rotate-180'); // Direct rotation class for chevron
+                 });
+            } else {
+                // Collapse
+                 sectionContent.style.maxHeight = '0px';
+                 if(icon) icon.classList.remove('rotate-180');
+                 // Remove active class after transition finishes
+                 sectionContent.addEventListener('transitionend', () => {
+                     if (header.getAttribute('aria-expanded') === 'false') {
+                         sectionContent.classList.remove('active');
+                     }
+                 }, { once: true });
             }
         }
 
-       // Toggle section visibility and ARIA state (Robust version)
-       function toggleSection(sectionId) {
-           const sectionContent = document.getElementById(sectionId + '-content'); // Assumes convention: sectionId + '-content'
-           const header = document.querySelector(`[aria-controls="${sectionId}-content"]`);
-           if (!sectionContent || !header) {
-               console.warn(`Elementos não encontrados para toggleSection: ${sectionId}`);
-               return;
-            }
+        // Back to top button functionality
+        const backToTopButton = document.getElementById('backToTop');
+        if (backToTopButton) {
+            window.addEventListener('scroll', () => { // Use arrow function and passive listener
+                if (window.pageYOffset > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            }, { passive: true });
 
-           const isExpanded = header.getAttribute('aria-expanded') === 'true';
-           header.setAttribute('aria-expanded', !isExpanded);
-           const icon = header.querySelector('.toggle-icon i'); // Find the icon
-
-           if (!isExpanded) {
-               // Expand
-               sectionContent.classList.add('active');
-               requestAnimationFrame(() => {
-                   sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
-                   if(icon) icon.classList.add('rotate-180');
-                   sectionContent.style.paddingTop = '1.5rem'; // Re-apply padding on expand
-                   sectionContent.style.paddingBottom = '1.5rem';
-                });
-           } else {
-               // Collapse
-               sectionContent.style.paddingTop = '0';
-               sectionContent.style.paddingBottom = '0';
-               sectionContent.style.maxHeight = '0px';
-               if(icon) icon.classList.remove('rotate-180');
-               sectionContent.addEventListener('transitionend', () => {
-                   if (header.getAttribute('aria-expanded') === 'false') {
-                       sectionContent.classList.remove('active');
-                   }
-               }, { once: true });
-           }
-       }
-
-       // Back to top button functionality
-       const backToTopButton = document.getElementById('backToTop');
-       if (backToTopButton) {
-           window.addEventListener('scroll', () => {
-               if (window.pageYOffset > 300) {
-                   backToTopButton.classList.add('visible');
-               } else {
-                   backToTopButton.classList.remove('visible');
-               }
-           }, { passive: true });
-
-           backToTopButton.addEventListener('click', () => {
-               window.scrollTo({ top: 0, behavior: 'smooth' });
-           });
-       }
-
-       // Mobile Menu Toggle
-        const mobileMenuButton = document.getElementById('mobile-menu-button'); // Assuming this ID exists
-        const menuContent = document.getElementById('menu-content');
-        if(mobileMenuButton && menuContent) {
-            mobileMenuButton.addEventListener('click', () => {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                menuContent.classList.toggle('hidden');
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
 
-       // Placeholder Filter/Search Logic (Keep as is, needs full implementation)
-       const searchInput = document.getElementById('resource-search');
-       const applyFiltersButton = document.getElementById('apply-filters-button');
-       // ... (rest of filter logic placeholder) ...
-       function applyFilters() {
-            console.log("Filtro placeholder ativado.");
-            // Add actual filtering logic here
-       }
-       if (searchInput && applyFiltersButton) {
-           applyFiltersButton.addEventListener('click', applyFilters);
-           searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') applyFilters(); });
-       }
+        // Mobile Menu Toggle
+         const mobileMenuButton = document.getElementById('mobile-menu-button');
+         const menuContent = document.getElementById('menu-content');
+         if(mobileMenuButton && menuContent) {
+             mobileMenuButton.addEventListener('click', () => {
+                 const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                 mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                 menuContent.classList.toggle('hidden');
+             });
+         }
 
-       // Open section based on hash on page load
-       document.addEventListener('DOMContentLoaded', function() {
-            const hash = window.location.hash.substring(1);
-            if (hash) {
-                const sectionToExpand = document.getElementById(hash);
-                if (sectionToExpand && sectionToExpand.classList.contains('content-section')) {
-                    setTimeout(() => smoothScrollAndToggle(hash), 100);
+
+        // Placeholder Filter/Search Logic
+        const searchInput = document.getElementById('resource-search');
+        const applyFiltersButton = document.getElementById('apply-filters-button');
+        const resourceCards = document.querySelectorAll('.resource-card'); // Get all cards
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const activeFilters = {
+                type: [],
+                difficulty: [],
+                relevance: []
+            };
+
+            // Get active filters from checkboxes
+            document.querySelectorAll('.custom-checkbox input:checked').forEach(cb => {
+                 if (['artigo', 'documentacao', 'video', 'dataset', 'case', 'comunidade'].includes(cb.value)) {
+                     activeFilters.type.push(cb.value);
+                 } else if (['iniciante', 'intermediario', 'avancado'].includes(cb.value)) {
+                     activeFilters.difficulty.push(cb.value);
+                 } else if (['offshore', 'aplicavel', 'geral'].includes(cb.value)) {
+                    activeFilters.relevance.push(cb.value); // Assuming tags or data attributes exist for relevance
+                 }
+            });
+
+            console.log("Filtering by:", searchTerm, activeFilters); // Log for debugging
+
+            resourceCards.forEach(card => {
+                let showCard = true;
+                const cardText = card.textContent.toLowerCase();
+                const cardTags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase());
+                const cardDifficulty = card.querySelector('.difficulty-badge')?.textContent.toLowerCase().split(' ')[0] || ''; // e.g., 'iniciante'
+
+                // Check search term
+                if (searchTerm && !cardText.includes(searchTerm)) {
+                    showCard = false;
                 }
-            }
-            // Sections start closed by default unless targetted by hash
-       });
-   </script>
+
+                // Check type filters (Simplified: assumes icon class reflects type)
+                 if (showCard && activeFilters.type.length > 0) {
+                     const iconClasses = card.querySelector('.resource-icon')?.classList || [];
+                     const cardType = [...iconClasses].find(cls => activeFilters.type.includes(cls)); // Match icon class to filter value
+                     // Special case for book/briefcase
+                     let effectiveType = cardType;
+                     if (iconClasses.contains('book')) effectiveType = 'documentacao';
+                     if (iconClasses.contains('briefcase')) effectiveType = 'case';
+                      if (iconClasses.contains('dataset') || iconClasses.contains('tool')) effectiveType = 'dataset'; // Combine tool/dataset for filter
+                     if (iconClasses.contains('article')) effectiveType = 'artigo';
+                     if (iconClasses.contains('video')) effectiveType = 'video';
+                     if (iconClasses.contains('community')) effectiveType = 'comunidade';
+
+                     if (!effectiveType || !activeFilters.type.includes(effectiveType)) {
+                         showCard = false;
+                     }
+                 }
+
+
+                // Check difficulty filters
+                if (showCard && activeFilters.difficulty.length > 0) {
+                    if (!cardDifficulty || !activeFilters.difficulty.includes(cardDifficulty)) {
+                         showCard = false;
+                    }
+                }
+
+                 // Check relevance filters (Example: checks tags)
+                 if (showCard && activeFilters.relevance.length > 0) {
+                     let relevant = false;
+                     if (activeFilters.relevance.includes('offshore') && cardTags.includes('offshore')) relevant = true;
+                     if (activeFilters.relevance.includes('aplicavel') && (cardTags.includes('offshore') || cardTags.includes('navegação') || cardTags.includes('energia'))) relevant = true; // Example applicability
+                     if (activeFilters.relevance.includes('geral')) relevant = true; // Show all if 'geral' is checked, or adjust logic
+
+                     if (!relevant) showCard = false;
+                 }
+
+
+                // Show or hide card
+                card.style.display = showCard ? '' : 'none';
+            });
+        }
+
+        if (searchInput && applyFiltersButton) {
+            applyFiltersButton.addEventListener('click', applyFilters);
+            searchInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    applyFilters();
+                }
+            });
+             // Optional: Add listeners to checkboxes for live filtering
+             // document.querySelectorAll('.custom-checkbox input').forEach(cb => cb.addEventListener('change', applyFilters));
+        }
+
+        // Open section based on hash on page load
+        document.addEventListener('DOMContentLoaded', function() {
+             const hash = window.location.hash.substring(1);
+             if (hash) {
+                 const sectionToExpand = document.getElementById(hash);
+                 if (sectionToExpand && sectionToExpand.classList.contains('content-section')) {
+                     setTimeout(() => smoothScrollAndToggle(hash), 100);
+                 }
+             } else {
+                  // Optionally open the first section by default
+                  // toggleSection('artigos');
+             }
+        });
+
+    </script>
 </body>
 </html>

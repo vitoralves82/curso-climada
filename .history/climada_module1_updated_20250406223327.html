@@ -1477,15 +1477,10 @@
 
     <script>
         // Function to toggle mobile menu
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
+        document.getElementById('mobileMenuButton')?.addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu) mobileMenu.classList.toggle('hidden');
+        });
 
         // Function to toggle submenus on mobile
         function toggleSubMenu(id) {
@@ -1497,7 +1492,7 @@
             button.setAttribute('aria-expanded', !isExpanded);
             subMenu.classList.toggle('hidden', isExpanded); // Toggle based on previous state
 
-            // Close other submenus (optional, keeps only one open)
+            // Close other submenus
             const allSubMenus = document.querySelectorAll('[id$="SubMenu"]');
             allSubMenus.forEach(menu => {
                 if (menu.id !== id && !menu.classList.contains('hidden')) {
@@ -1508,63 +1503,52 @@
             });
         }
 
-        // Toggle section visibility and ARIA state (Robust version)
-        function toggleSection(id) {
-             const sectionContainer = document.getElementById(id); // Get the container div
-             if (!sectionContainer) {
-                  console.warn("Container not found for section toggle:", id);
-                  return;
-              }
-             const sectionContent = sectionContainer.querySelector('.section-content'); // Find content inside container
-             const header = sectionContainer.querySelector('.section-header');
-             if (!sectionContent || !header) {
-                 console.warn("Content or header not found for section toggle:", id);
+         // Function to toggle collapsible sections and update ARIA
+         function toggleSection(id) {
+            const sectionContainer = document.getElementById(id);
+            const sectionContent = document.getElementById('content-' + id.split('-')[1] + '-' + id.split('-')[2]);
+            const header = sectionContainer.querySelector('.section-header');
+             if (!sectionContainer || !sectionContent || !header) {
+                 console.warn("Could not find elements for section toggle:", id);
                  return;
-              }
+             }
 
-             const isExpanded = header.getAttribute('aria-expanded') === 'true';
-             header.setAttribute('aria-expanded', !isExpanded);
-             sectionContainer.classList.toggle('section-expanded', !isExpanded); // Toggle class on container
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
+            header.setAttribute('aria-expanded', !isExpanded);
+            sectionContainer.classList.toggle('section-expanded', !isExpanded);
 
              if (!isExpanded) {
-                 // Expand
-                 requestAnimationFrame(() => { // Ensure styles are applied before calc
-                     sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
-                     sectionContent.style.paddingTop = '15px'; // Add padding on expand
-                     sectionContent.style.paddingBottom = '15px';
-                  });
+                 // Expand: Set max-height after a tiny delay to allow display change if needed
+                 setTimeout(() => {
+                    sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
+                    sectionContent.style.paddingTop = '15px';
+                    sectionContent.style.paddingBottom = '15px';
+                 }, 10);
              } else {
-                 // Collapse
-                 sectionContent.style.paddingTop = '0'; // Remove padding first
+                 // Collapse: Start height transition immediately
+                 sectionContent.style.paddingTop = '0';
                  sectionContent.style.paddingBottom = '0';
-                 sectionContent.style.maxHeight = '0px'; // Then collapse height
+                 sectionContent.style.maxHeight = '0';
              }
-             updateProgress(); // Update progress when section is toggled
-         }
 
+            updateProgress(); // Update progress when section is toggled
+        }
 
          // Smooth scroll and toggle
          function smoothScrollAndToggle(id) {
             const section = document.getElementById(id);
             if (section) {
                  const header = section.querySelector('.section-header');
-                 if (!header) return;
                  const isExpanded = header.getAttribute('aria-expanded') === 'true';
 
                  // Scroll into view first
-                 const navbarHeight = 64;
-                 const elementPosition = section.getBoundingClientRect().top;
-                 const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 10;
-                 window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-
+                 section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
                  // If not expanded, toggle it after a short delay
                  if (!isExpanded) {
                      setTimeout(() => {
-                          if (header.getAttribute('aria-expanded') === 'false') { // Double check
-                             toggleSection(id);
-                          }
-                     }, 400);
+                         toggleSection(id);
+                     }, 500); // Adjust delay as needed
                  }
                  // Update active link immediately
                  updateActiveSidebarLink('#' + id);
@@ -1573,30 +1557,42 @@
 
         // Function to check quiz answers (Handles only one attempt)
         function checkAnswer(element) {
-             const parentDiv = element.closest('[data-question]');
-             if (!parentDiv || parentDiv.dataset.answered === 'true') return;
-             parentDiv.dataset.answered = 'true';
+            const parentDiv = element.closest('[data-question]'); // Find parent question div
+            if (!parentDiv || parentDiv.dataset.answered === 'true') return; // Exit if not found or already answered
 
-             const isCorrect = element.getAttribute('data-correct') === 'true';
-             const allOptions = parentDiv.querySelectorAll('.quiz-option');
-             const feedback = parentDiv.querySelector('.quiz-feedback');
+            parentDiv.dataset.answered = 'true'; // Mark as answered
 
-             allOptions.forEach(option => {
-                 option.style.cursor = 'default';
-                 option.onclick = null;
-                 option.tabIndex = -1;
+            const isCorrect = element.getAttribute('data-correct') === 'true';
+            const allOptions = parentDiv.querySelectorAll('.quiz-option');
+            const feedback = parentDiv.querySelector('.quiz-feedback');
+
+            // Disable further clicks and update styles
+            allOptions.forEach(option => {
+                option.style.cursor = 'default';
+                option.onclick = null; // Remove handler definitively
+                 option.tabIndex = -1; // Remove from tab order
+
+                 // Clear previous visual states if any (though should be redundant with data-answered)
                  option.classList.remove('correct', 'incorrect');
-                 if (option === element) {
+
+                 // Apply result styles
+                 if (option === element) { // The clicked option
                      option.classList.add(isCorrect ? 'correct' : 'incorrect');
-                     option.setAttribute('aria-checked', 'true');
+                     option.setAttribute('aria-checked', 'true'); // Mark as checked for screen readers
                  } else if (option.getAttribute('data-correct') === 'true' && !isCorrect) {
+                     // If the clicked one was wrong, also highlight the correct one
                      option.classList.add('correct');
                  }
-             });
+            });
 
-             if (feedback) feedback.classList.remove('hidden');
-             updateProgress();
-         }
+            // Show feedback
+            if (feedback) {
+                feedback.classList.remove('hidden');
+            }
+
+            updateProgress(); // Update progress based on answered quizzes
+        }
+
 
         // Function to update progress bar
         function updateProgress() {
@@ -1604,6 +1600,7 @@
             const expandedSections = document.querySelectorAll('.section-expanded').length;
             const totalQuizzes = 2;
              const answeredQuizzes = document.querySelectorAll('.quiz-container [data-answered="true"]').length;
+
 
             const sectionProgress = (expandedSections / totalSections) * 0.7;
             const quizProgress = (answeredQuizzes / totalQuizzes) * 0.3;
@@ -1620,76 +1617,56 @@
             if (sidebarProgressText) sidebarProgressText.textContent = `${progressPercent}% Concluído`;
         }
 
-         // Update active sidebar link based on scroll or hash
-         function updateActiveSidebarLink(targetHash = null) {
-             let currentHash = targetHash || window.location.hash;
-              if (!currentHash && window.scrollY < 100) {
-                 currentHash = '#section1-1'; // Default to first if near top
-              }
-              else if (!currentHash) {
+        // Update active sidebar link based on scroll or hash
+        function updateActiveSidebarLink(targetHash = null) {
+            let currentHash = targetHash || window.location.hash;
+             if (!currentHash) {
                  const sections = ['section1-1', 'section1-2', 'section1-3'];
                  let activeSectionId = sections[0];
-                 let minVisibleTop = Infinity;
-                 for (const id of sections) {
+                 for (const id of sections.slice().reverse()) {
                      const element = document.getElementById(id);
                      if (element) {
                          const rect = element.getBoundingClientRect();
-                         if (rect.top >= 0 && rect.top < window.innerHeight * 0.6 && rect.top < minVisibleTop) {
-                              minVisibleTop = rect.top;
+                         if (rect.top <= 150) { // Consider active when section top is near top 150px
                              activeSectionId = id;
-                         } else if (rect.top < 85 && rect.bottom > 85) {
-                             activeSectionId = id;
+                             break;
                          }
                      }
                  }
                  currentHash = '#' + activeSectionId;
-              }
+             }
 
-              const sidebarLinks = document.querySelectorAll('.sidebar-link');
-              sidebarLinks.forEach(link => {
-                  link.classList.remove('active');
-                  if (link.getAttribute('href') === currentHash) {
-                      link.classList.add('active');
-                  }
-             });
-         }
-
+             const sidebarLinks = document.querySelectorAll('.sidebar-link');
+             sidebarLinks.forEach(link => {
+                 link.classList.remove('active');
+                 if (link.getAttribute('href') === currentHash) {
+                     link.classList.add('active');
+                 }
+            });
+        }
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-              const hash = window.location.hash;
-              let targetSectionId = 'section1-1'; // Default
-              if (hash) {
-                   const potentialId = hash.substring(1);
-                   if (document.getElementById(potentialId)) {
-                       targetSectionId = potentialId;
-                   }
-               }
-              // Use setTimeout to ensure smooth scroll and toggle works correctly on load
-              setTimeout(() => {
-                    const targetHeader = document.querySelector(`#${targetSectionId} .section-header`);
-                    if (targetHeader && targetHeader.getAttribute('aria-expanded') === 'false') {
-                        toggleSection(targetSectionId); // Expand if needed
-                    }
-                    // Scroll to the section if hash was present
-                    if (hash) {
-                         const sectionElement = document.getElementById(targetSectionId);
-                         if(sectionElement) {
-                            const navbarHeight = 64;
-                            const elementPosition = sectionElement.getBoundingClientRect().top;
-                            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 10;
-                            window.scrollTo({ top: offsetPosition, behavior: "auto" }); // Auto scroll on load
-                         }
-                    }
-                    updateActiveSidebarLink('#' + targetSectionId); // Set initial active link
-               }, 100);
+             const hash = window.location.hash;
+             if (hash) {
+                 const targetId = hash.substring(1);
+                 const sectionToExpand = document.getElementById(targetId);
+                 if (sectionToExpand && sectionToExpand.classList.contains('section-container')) {
+                     // Use smooth scroll and toggle to handle expansion and scrolling
+                      setTimeout(() => smoothScrollAndToggle(targetId), 100);
+                 } else {
+                      toggleSection('section1-1'); // Default fallback
+                 }
+             } else {
+                 toggleSection('section1-1'); // Open first section by default if no hash
+             }
 
+            updateProgress();
+            updateActiveSidebarLink(); // Initial check
 
-             updateProgress(); // Initial progress
-
-             // Listeners for scroll and hash change
-              window.addEventListener('scroll', () => updateActiveSidebarLink(), { passive: true });
-              window.addEventListener('hashchange', () => updateActiveSidebarLink());
+             // Listen to scroll and hashchange for active link update
+             window.addEventListener('scroll', () => updateActiveSidebarLink(), { passive: true }); // Use passive listener for scroll
+             window.addEventListener('hashchange', () => updateActiveSidebarLink());
         });
     </script>
 </body>

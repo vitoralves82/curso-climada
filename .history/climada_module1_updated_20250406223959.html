@@ -51,16 +51,15 @@
         .section-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.5s ease-out, padding-top 0.3s ease-out, padding-bottom 0.3s ease-out; /* Transitions combinadas */
+            transition: max-height 0.5s ease-out, padding 0.3s ease-out;
             padding: 0 15px;
         }
 
         .section-expanded .section-content {
             max-height: 15000px; /* Aumentado para conteúdo maior */
             padding: 15px;
-            transition: max-height 1s ease-in, padding-top 0.3s ease-in, padding-bottom 0.3s ease-in; /* Transitions combinadas */
+            transition: max-height 1s ease-in, padding 0.3s ease-in;
         }
-
 
         .section-icon {
             transition: transform 0.3s ease;
@@ -76,8 +75,7 @@
             padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
-            display: inline-flex; /* Ajustado para inline-flex */
-            align-items: center; /* Alinha ícone e texto */
+            display: inline-block;
             transition: background-color 0.3s, transform 0.1s;
         }
 
@@ -92,8 +90,7 @@
             padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
-            display: inline-flex; /* Ajustado para inline-flex */
-            align-items: center; /* Alinha ícone e texto */
+            display: inline-block;
             transition: background-color 0.3s, transform 0.1s;
         }
 
@@ -109,8 +106,7 @@
             padding: 8px 16px;
             border-radius: 4px;
             text-decoration: none;
-            display: inline-flex; /* Ajustado para inline-flex */
-            align-items: center; /* Alinha ícone e texto */
+            display: inline-block;
             transition: all 0.3s;
         }
 
@@ -416,21 +412,21 @@
                     <div class="dropdown-content">
                         <a href="climada_resources_updated.html">Recursos Complementares</a>
                         <a href="climada_quiz1_updated.html">Quiz Módulo 1</a>
-                        <a href="#" class="opacity-50 cursor-not-allowed">Dashboard do Aluno (Em breve)</a>
-                        <a href="#" class="opacity-50 cursor-not-allowed">Comunidade (Em breve)</a>
+                        <a href="climada_course_dashboard.html" class="opacity-50 cursor-not-allowed">Dashboard do Aluno (Em breve)</a>
+                        <a href="climada_course_community.html" class="opacity-50 cursor-not-allowed">Comunidade (Em breve)</a>
                     </div>
                 </div>
             </div>
 
             <div class="md:hidden">
-                <button id="mobileMenuButton" class="text-gray-600 focus:outline-none" aria-label="Abrir menu">
+                <button id="mobileMenuButton" class="text-gray-600 focus:outline-none">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
 
             <div class="hidden md:block search-container">
-                <input type="text" placeholder="Buscar no curso..." aria-label="Buscar no curso">
-                <button aria-label="Buscar"><i class="fas fa-search"></i></button>
+                <input type="text" placeholder="Buscar no curso...">
+                <button><i class="fas fa-search"></i></button>
             </div>
         </div>
 
@@ -438,7 +434,7 @@
         <div id="mobileMenu" class="hidden md:hidden bg-white py-2 container mx-auto border-t border-gray-200">
              <a href="climada_course_index.html" class="block py-2 px-4 hover:bg-blue-50">Início</a>
             <div class="py-2 px-4">
-                <button class="flex justify-between items-center w-full font-bold" onclick="toggleSubMenu('modulesSubMenu')" aria-expanded="false" aria-controls="modulesSubMenu">
+                <button class="flex justify-between items-center w-full font-bold" onclick="toggleSubMenu('modulesSubMenu')">
                     Módulos <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
                 <div id="modulesSubMenu" class="hidden pl-4 mt-2">
@@ -448,7 +444,7 @@
                 </div>
             </div>
             <div class="py-2 px-4">
-                <button class="flex justify-between items-center w-full" onclick="toggleSubMenu('practicesSubMenu')" aria-expanded="false" aria-controls="practicesSubMenu">
+                <button class="flex justify-between items-center w-full" onclick="toggleSubMenu('practicesSubMenu')">
                     Práticas <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
                 <div id="practicesSubMenu" class="hidden pl-4 mt-2">
@@ -457,19 +453,19 @@
                 </div>
             </div>
             <div class="py-2 px-4">
-                <button class="flex justify-between items-center w-full" onclick="toggleSubMenu('resourcesSubMenu')" aria-expanded="false" aria-controls="resourcesSubMenu">
+                <button class="flex justify-between items-center w-full" onclick="toggleSubMenu('resourcesSubMenu')">
                     Recursos <i class="fas fa-chevron-down ml-1 text-xs"></i>
                 </button>
                 <div id="resourcesSubMenu" class="hidden pl-4 mt-2">
                     <a href="climada_resources_updated.html" class="block py-2">Recursos Complementares</a>
                     <a href="climada_quiz1_updated.html" class="block py-2">Quiz Módulo 1</a>
-                    <a href="#" class="block py-2 opacity-50 cursor-not-allowed">Dashboard (Em breve)</a>
+                    <a href="climada_course_dashboard.html" class="block py-2 opacity-50 cursor-not-allowed">Dashboard (Em breve)</a>
                 </div>
             </div>
             <div class="py-2 px-4">
                  <div class="flex border border-gray-300 rounded-full">
-                    <input type="text" placeholder="Buscar..." class="w-full px-4 py-2 rounded-l-full text-sm" aria-label="Buscar no curso mobile">
-                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r-full" aria-label="Buscar"><i class="fas fa-search"></i></button>
+                    <input type="text" placeholder="Buscar..." class="w-full px-4 py-2 rounded-l-full text-sm">
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-r-full"><i class="fas fa-search"></i></button>
                 </div>
             </div>
         </div>
@@ -488,7 +484,7 @@
                 <h2 class="text-xl font-bold mb-3 text-gray-700">Sumário de Navegação Rápida</h2>
                 <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <li>
-                        <a href="#section1-1" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150" onclick="smoothScrollAndToggle('section1-1')">
+                        <a href="#section1-1" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150">
                             <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">1.1</span>
                             <span class="text-sm font-medium text-gray-800">Conceitos de Risco Climático</span>
                         </a>
@@ -500,7 +496,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#section1-2" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150" onclick="smoothScrollAndToggle('section1-2')">
+                        <a href="#section1-2" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150">
                             <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">1.2</span>
                             <span class="text-sm font-medium text-gray-800">Introdução ao CLIMADA</span>
                         </a>
@@ -513,7 +509,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#section1-3" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150" onclick="smoothScrollAndToggle('section1-3')">
+                        <a href="#section1-3" class="flex items-center p-2 rounded hover:bg-blue-100 transition duration-150">
                             <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mr-2">1.3</span>
                              <span class="text-sm font-medium text-gray-800">Configuração do Ambiente</span>
                         </a>
@@ -542,7 +538,7 @@
             <div class="md:w-3/4">
                 <!-- Section 1.1 -->
                 <div id="section1-1" class="section-container mb-10">
-                     <div class="section-header" onclick="toggleSection('section1-1')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-1-1">
+                     <div class="section-header" onclick="toggleSection('section1-1')" aria-expanded="false" aria-controls="content-1-1">
                         <h2 class="text-2xl font-bold text-blue-700">1.1: Conceitos Fundamentais de Risco Climático</h2>
                         <i class="fas fa-chevron-right section-icon"></i>
                     </div>
@@ -591,7 +587,7 @@
 
                         <div class="diagram mb-6">
                             <img src="https://cdn.jsdelivr.net/gh/climada-project/climada_python@main/doc/guide/img/climada_components.png"
-                                 alt="Diagrama mostrando a interação entre Perigo, Exposição e Vulnerabilidade para gerar Risco Climático" class="max-w-full h-auto">
+                                 alt="Componentes do Risco Climático - Perigo, Exposição e Vulnerabilidade interagindo" class="max-w-full h-auto">
                             <p class="text-xs text-gray-500 mt-2">
                                 Diagrama ilustrando a interação entre os componentes do risco climático.
                                 Fonte: Documentação CLIMADA.
@@ -777,18 +773,18 @@
                             <h3 class="text-xl font-semibold mb-4 text-gray-800">Quiz Rápido: Conceitos Fundamentais</h3>
                             <p class="mb-4 text-sm text-gray-700">Teste sua compreensão dos conceitos básicos de risco climático:</p>
 
-                            <div class="mb-6" data-question="1">
+                            <div class="mb-6">
                                 <p class="font-medium mb-2 text-sm">1. Qual dos seguintes NÃO é um componente principal do risco climático?</p>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>A. Perigo (Hazard)</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>B. Exposição (Exposure)</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>C. Vulnerabilidade (Vulnerability)</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="true" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="true" onclick="checkAnswer(this)">
                                     <span>D. Mitigação (Mitigation)</span>
                                 </div>
                                 <div class="hidden mt-2 p-2 bg-blue-50 rounded quiz-feedback text-xs text-gray-700">
@@ -796,18 +792,18 @@
                                 </div>
                             </div>
 
-                            <div class="mb-6" data-question="2">
+                            <div class="mb-6">
                                 <p class="font-medium mb-2 text-sm">2. Qual das seguintes alternativas exemplifica um risco físico climático para embarcações offshore?</p>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="true" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="true" onclick="checkAnswer(this)">
                                     <span>A. Aumento na frequência e intensidade de ciclones tropicais</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>B. Novas regulamentações sobre emissões de carbono</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>C. Transição do mercado para energias renováveis</span>
                                 </div>
-                                <div class="quiz-option text-sm" role="radio" tabindex="0" aria-checked="false" data-correct="false" onclick="checkAnswer(this)">
+                                <div class="quiz-option text-sm" data-correct="false" onclick="checkAnswer(this)">
                                     <span>D. Mudanças na percepção pública sobre combustíveis fósseis</span>
                                 </div>
                                 <div class="hidden mt-2 p-2 bg-blue-50 rounded quiz-feedback text-xs text-gray-700">
@@ -827,7 +823,7 @@
 
                 <!-- Section 1.2 -->
                 <div id="section1-2" class="section-container mb-10">
-                     <div class="section-header" onclick="toggleSection('section1-2')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-1-2">
+                     <div class="section-header" onclick="toggleSection('section1-2')" aria-expanded="false" aria-controls="content-1-2">
                         <h2 class="text-2xl font-bold text-blue-700">1.2: Introdução à Plataforma CLIMADA</h2>
                         <i class="fas fa-chevron-right section-icon"></i>
                     </div>
@@ -883,13 +879,13 @@
                         <div class="diagram mb-6" id="climada-architecture">
                              <div class="bg-white p-4 border rounded-lg border-gray-200">
                                 <h4 class="text-center font-semibold mb-4 text-gray-800">Arquitetura do CLIMADA</h4>
-                                <div class="flex flex-col md:flex-row justify-around items-stretch space-y-4 md:space-y-0 md:space-x-4"> <!-- Use items-stretch -->
-                                    <div class="bg-blue-50 p-4 rounded-lg md:w-1/2 border border-blue-100 flex flex-col"> <!-- Flex column -->
+                                <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-4">
+                                    <div class="bg-blue-50 p-4 rounded-lg md:w-5/12 border border-blue-100">
                                         <h5 class="text-center font-semibold mb-2 text-blue-800">CLIMADA Core</h5>
                                         <p class="text-xs text-center text-gray-500 mb-2">
                                             (climada_python)
                                         </p>
-                                        <ul class="list-disc pl-6 text-xs space-y-1 text-gray-700 flex-grow"> <!-- flex-grow -->
+                                        <ul class="list-disc pl-6 text-xs space-y-1 text-gray-700">
                                             <li>Módulos fundamentais de cálculo</li>
                                             <li>API de dados</li>
                                             <li>Classes base (Hazard, Exposures, ImpactFunc)</li>
@@ -899,18 +895,15 @@
                                              <li>Código estável e testado</li>
                                         </ul>
                                     </div>
-                                    <div class="text-4xl text-gray-400 hidden md:flex items-center justify-center"> <!-- Ícone no meio (desktop) -->
+                                    <div class="text-4xl text-gray-400">
                                         <i class="fas fa-link"></i>
                                     </div>
-                                     <div class="text-4xl text-gray-400 md:hidden flex items-center justify-center"> <!-- Ícone no meio (mobile) -->
-                                        <i class="fas fa-arrows-alt-v"></i>
-                                    </div>
-                                    <div class="bg-green-50 p-4 rounded-lg md:w-1/2 border border-green-100 flex flex-col"> <!-- Flex column -->
+                                    <div class="bg-green-50 p-4 rounded-lg md:w-5/12 border border-green-100">
                                         <h5 class="text-center font-semibold mb-2 text-green-800">CLIMADA Petals</h5>
                                         <p class="text-xs text-center text-gray-500 mb-2">
                                             (climada_petals)
                                         </p>
-                                        <ul class="list-disc pl-6 text-xs space-y-1 text-gray-700 flex-grow"> <!-- flex-grow -->
+                                        <ul class="list-disc pl-6 text-xs space-y-1 text-gray-700">
                                             <li>Módulos de perigos específicos (Wildfire, TC Surge)</li>
                                             <li>Funcionalidades avançadas (OpenStreetMap)</li>
                                             <li>Integrações com modelos externos</li>
@@ -1141,7 +1134,7 @@
 
                 <!-- Section 1.3 -->
                 <div id="section1-3" class="section-container mb-10">
-                    <div class="section-header" onclick="toggleSection('section1-3')" role="button" tabindex="0" aria-expanded="false" aria-controls="content-1-3">
+                    <div class="section-header" onclick="toggleSection('section1-3')" aria-expanded="false" aria-controls="content-1-3">
                         <h2 class="text-2xl font-bold text-blue-700">1.3: Configuração do Ambiente de Trabalho</h2>
                         <i class="fas fa-chevron-right section-icon"></i>
                     </div>
@@ -1180,7 +1173,7 @@
                         </p>
                         <div class="code-block mb-2">
                              <code># Criar ambiente (ex: climada_env)</code><br>
-                             <code>mamba create -n climada_env python=3.9 -c conda-forge -y</code>
+                             <code>mamba create -n climada_env python=3.9 -c conda-forge</code>
                         </div>
                         <div class="code-block mb-6">
                              <code># Ativar ambiente</code><br>
@@ -1191,14 +1184,14 @@
                             Instale o CLIMADA Core:
                         </p>
                         <div class="code-block mb-6">
-                            <code>mamba install -c conda-forge climada -y</code>
+                            <code>mamba install -c conda-forge climada</code>
                         </div>
 
                         <div class="note mb-6">
                             <h4 class="font-semibold mb-2">Nota: CLIMADA Petals</h4>
                             <p>
                                 Para funcionalidades adicionais, instale também o Petals (opcional):<br>
-                                <code>mamba install -c conda-forge climada_petals -y</code>
+                                <code>mamba install -c conda-forge climada_petals</code>
                             </p>
                         </div>
 
@@ -1213,7 +1206,7 @@
                                      <code># Listar ambientes</code><br>
                                      <code>mamba env list</code><br>
                                      <code># Ativar</code><br>
-                                     <code>mamba activate &lt;nome&gt;</code><br>
+                                     <code>mamba activate <nome></code><br>
                                      <code># Desativar</code><br>
                                      <code>mamba deactivate</code>
                                 </div>
@@ -1224,7 +1217,7 @@
                                      <code># Listar pacotes</code><br>
                                      <code>mamba list</code><br>
                                      <code># Instalar</code><br>
-                                     <code>mamba install &lt;pacote&gt;</code><br>
+                                     <code>mamba install <pacote></code><br>
                                      <code># Atualizar tudo</code><br>
                                      <code>mamba update --all</code>
                                 </div>
@@ -1248,7 +1241,7 @@
                         </p>
                         <div class="code-block mb-6">
                              <code># Instalar JupyterLab (recomendado)</code><br>
-                             <code>mamba install -c conda-forge jupyterlab -y</code><br>
+                             <code>mamba install -c conda-forge jupyterlab</code><br>
                              <code># Iniciar JupyterLab</code><br>
                              <code>jupyter lab</code>
                         </div>
@@ -1280,14 +1273,14 @@
                          <div class="code-block mb-6">
                              <code># Teste rápido com LitPop (requer download de dados na 1ª vez)</code><br>
                              <code>try:</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;from climada.entity.exposures.litpop import LitPop</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;exp = LitPop.from_countries('CHE', res_arcsec=300)</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Exposição (CHE) criada com {len(exp.gdf)} pontos.")</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;# exp.plot(); # Descomente para visualizar</code><br>
+                             <code>    from climada.entity.exposures.litpop import LitPop</code><br>
+                             <code>    exp = LitPop.from_countries('CHE', res_arcsec=300)</code><br>
+                             <code>    print(f"Exposição (CHE) criada com {len(exp.gdf)} pontos.")</code><br>
+                             <code>    # exp.plot(); # Descomente para visualizar</code><br>
                              <code>except ImportError:</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;print("LitPop não disponível ou erro no download de dados.")</code><br>
+                             <code>    print("LitPop não disponível ou erro no download de dados.")</code><br>
                              <code>except Exception as e:</code><br>
-                             <code>&nbsp;&nbsp;&nbsp;&nbsp;print(f"Erro ao executar LitPop: {e}")</code>
+                             <code>    print(f"Erro ao executar LitPop: {e}")</code>
                         </div>
 
                         <p class="mb-4">
@@ -1402,14 +1395,11 @@
                     <div class="mt-6 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
                         <h3 class="text-lg font-semibold mb-2 text-yellow-800">Precisa de Ajuda?</h3>
                         <p class="text-sm mb-3 text-gray-700">
-                            Encontrou alguma dificuldade com o conteúdo deste módulo?
+                            Encontrou dificuldade? Visite a comunidade ou reporte um problema.
                         </p>
-                         <!-- ****** CORREÇÃO APLICADA AQUI ****** -->
-                        <a href="mailto:vitor.domingues@environpact.com?subject=Dúvida%20-%20Curso%20CLIMADA%20-%20Módulo%201"
-                           class="btn-outline text-xs w-full text-center border-yellow-600 text-yellow-700 hover:bg-yellow-600 hover:text-white">
-                            <i class="fas fa-envelope mr-2"></i> Entrar em Contato
+                        <a href="climada_course_community.html" class="btn-outline text-xs w-full text-center border-yellow-600 text-yellow-700 hover:bg-yellow-600 hover:text-white">
+                            <i class="fas fa-users mr-2"></i> Acessar Comunidade
                         </a>
-                         <!-- ****** FIM DA CORREÇÃO ****** -->
                     </div>
                 </div>
             </div>
@@ -1452,9 +1442,9 @@
                      <div>
                         <h3 class="text-lg font-semibold mb-3">Comunidade</h3>
                         <ul class="space-y-2">
-                             <li><a href="#" class="text-gray-400 hover:text-white text-sm opacity-50 cursor-not-allowed">Fórum do Curso (Breve)</a></li>
+                             <li><a href="climada_course_community.html" class="text-gray-400 hover:text-white text-sm">Fórum do Curso</a></li>
                              <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contribuir</a></li>
-                             <li><a href="mailto:vitor.domingues@environpact.com?subject=Contato%20Curso%20CLIMADA" class="text-gray-400 hover:text-white text-sm">Contato</a></li>
+                             <li><a href="#" class="text-gray-400 hover:text-white text-sm">Contato</a></li>
                          </ul>
                     </div>
                 </div>
@@ -1462,11 +1452,11 @@
 
             <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-400 text-xs">
-                    &copy; 2024 Curso CLIMADA. Conteúdo adaptado da documentação oficial do CLIMADA.
+                    © 2024 Curso CLIMADA. Conteúdo adaptado da documentação oficial do CLIMADA.
                 </p>
 
                 <div class="flex space-x-4 mt-4 md:mt-0">
-                    <a href="https://github.com/CLIMADA-project" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white" aria-label="GitHub CLIMADA Project">
+                    <a href="https://github.com/CLIMADA-project" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white">
                         <i class="fab fa-github text-lg"></i>
                     </a>
                      <!-- Adicione outros links sociais se aplicável -->
@@ -1477,219 +1467,182 @@
 
     <script>
         // Function to toggle mobile menu
-        const mobileMenuButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-            });
-        }
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        });
 
         // Function to toggle submenus on mobile
         function toggleSubMenu(id) {
             const subMenu = document.getElementById(id);
-            const button = document.querySelector(`[aria-controls="${id}"]`);
-            if (!subMenu || !button) return;
-
-            const isExpanded = button.getAttribute('aria-expanded') === 'true';
-            button.setAttribute('aria-expanded', !isExpanded);
-            subMenu.classList.toggle('hidden', isExpanded); // Toggle based on previous state
-
-            // Close other submenus (optional, keeps only one open)
             const allSubMenus = document.querySelectorAll('[id$="SubMenu"]');
             allSubMenus.forEach(menu => {
                 if (menu.id !== id && !menu.classList.contains('hidden')) {
-                    const otherButton = document.querySelector(`[aria-controls="${menu.id}"]`);
                     menu.classList.add('hidden');
-                    if(otherButton) otherButton.setAttribute('aria-expanded', 'false');
                 }
             });
+            subMenu.classList.toggle('hidden');
         }
 
-        // Toggle section visibility and ARIA state (Robust version)
+        // Function to toggle collapsible sections
         function toggleSection(id) {
-             const sectionContainer = document.getElementById(id); // Get the container div
-             if (!sectionContainer) {
-                  console.warn("Container not found for section toggle:", id);
-                  return;
-              }
-             const sectionContent = sectionContainer.querySelector('.section-content'); // Find content inside container
-             const header = sectionContainer.querySelector('.section-header');
-             if (!sectionContent || !header) {
-                 console.warn("Content or header not found for section toggle:", id);
-                 return;
-              }
+            const sectionContainer = document.getElementById(id);
+            const sectionContent = document.getElementById('content-' + id.split('-')[1] + '-' + id.split('-')[2]);
+            const header = sectionContainer.querySelector('.section-header');
+            const isExpanded = header.getAttribute('aria-expanded') === 'true';
 
-             const isExpanded = header.getAttribute('aria-expanded') === 'true';
-             header.setAttribute('aria-expanded', !isExpanded);
-             sectionContainer.classList.toggle('section-expanded', !isExpanded); // Toggle class on container
+            header.setAttribute('aria-expanded', !isExpanded);
+            sectionContainer.classList.toggle('section-expanded', !isExpanded);
 
+            // Update progress bar based on expanded sections
+            updateProgress();
+
+             // Scroll into view if expanding
              if (!isExpanded) {
-                 // Expand
-                 requestAnimationFrame(() => { // Ensure styles are applied before calc
-                     sectionContent.style.maxHeight = sectionContent.scrollHeight + "px";
-                     sectionContent.style.paddingTop = '15px'; // Add padding on expand
-                     sectionContent.style.paddingBottom = '15px';
-                  });
-             } else {
-                 // Collapse
-                 sectionContent.style.paddingTop = '0'; // Remove padding first
-                 sectionContent.style.paddingBottom = '0';
-                 sectionContent.style.maxHeight = '0px'; // Then collapse height
+                 setTimeout(() => {
+                     sectionContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                 }, 300); // Delay slightly for animation start
              }
-             updateProgress(); // Update progress when section is toggled
-         }
-
+        }
 
          // Smooth scroll and toggle
          function smoothScrollAndToggle(id) {
             const section = document.getElementById(id);
             if (section) {
-                 const header = section.querySelector('.section-header');
-                 if (!header) return;
-                 const isExpanded = header.getAttribute('aria-expanded') === 'true';
+                const header = section.querySelector('.section-header');
+                 // Check if already expanded. If not, toggle will handle scroll.
+                 // If already expanded, just scroll.
+                if (header.getAttribute('aria-expanded') === 'true') {
+                     section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    toggleSection(id); // Toggle will handle scroll after delay
+                }
 
-                 // Scroll into view first
-                 const navbarHeight = 64;
-                 const elementPosition = section.getBoundingClientRect().top;
-                 const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 10;
-                 window.scrollTo({ top: offsetPosition, behavior: "smooth" });
-
-
-                 // If not expanded, toggle it after a short delay
-                 if (!isExpanded) {
-                     setTimeout(() => {
-                          if (header.getAttribute('aria-expanded') === 'false') { // Double check
-                             toggleSection(id);
-                          }
-                     }, 400);
-                 }
-                 // Update active link immediately
+                 // Update active sidebar link immediately
                  updateActiveSidebarLink('#' + id);
             }
         }
 
-        // Function to check quiz answers (Handles only one attempt)
+
+        // Function to check quiz answers
         function checkAnswer(element) {
-             const parentDiv = element.closest('[data-question]');
-             if (!parentDiv || parentDiv.dataset.answered === 'true') return;
+            const parentDiv = element.parentElement;
+            const isCorrect = element.getAttribute('data-correct') === 'true';
+            const allOptions = parentDiv.querySelectorAll('.quiz-option');
+            const feedback = parentDiv.querySelector('.quiz-feedback');
+
+             // Allow selection only once per question block
+             if (parentDiv.dataset.answered === 'true') return;
              parentDiv.dataset.answered = 'true';
 
-             const isCorrect = element.getAttribute('data-correct') === 'true';
-             const allOptions = parentDiv.querySelectorAll('.quiz-option');
-             const feedback = parentDiv.querySelector('.quiz-feedback');
+            // Remove previous classes and disable clicking
+            allOptions.forEach(option => {
+                option.classList.remove('correct', 'incorrect');
+                 option.style.cursor = 'default'; // Disable further clicks visually
+                 option.onclick = null; // Remove onclick handler
+            });
 
-             allOptions.forEach(option => {
-                 option.style.cursor = 'default';
-                 option.onclick = null;
-                 option.tabIndex = -1;
-                 option.classList.remove('correct', 'incorrect');
-                 if (option === element) {
-                     option.classList.add(isCorrect ? 'correct' : 'incorrect');
-                     option.setAttribute('aria-checked', 'true');
-                 } else if (option.getAttribute('data-correct') === 'true' && !isCorrect) {
-                     option.classList.add('correct');
-                 }
-             });
+            // Add appropriate class
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+                // Find and highlight the correct answer
+                allOptions.forEach(option => {
+                    if (option.getAttribute('data-correct') === 'true') {
+                        option.classList.add('correct');
+                    }
+                });
+            }
 
-             if (feedback) feedback.classList.remove('hidden');
+            // Show feedback
+            if (feedback) {
+                feedback.classList.remove('hidden');
+            }
+
+            // Update progress based on answered quizzes
              updateProgress();
-         }
+        }
 
         // Function to update progress bar
         function updateProgress() {
-            const totalSections = 3;
+            const totalSections = 3; // Number of main collapsible sections
             const expandedSections = document.querySelectorAll('.section-expanded').length;
-            const totalQuizzes = 2;
-             const answeredQuizzes = document.querySelectorAll('.quiz-container [data-answered="true"]').length;
+            const totalQuizzes = 2; // Number of quiz questions in this module
+            const answeredQuizzes = document.querySelectorAll('.quiz-container [data-answered="true"]').length;
 
+            // Weighting: 70% for sections viewed, 30% for quizzes answered
             const sectionProgress = (expandedSections / totalSections) * 0.7;
             const quizProgress = (answeredQuizzes / totalQuizzes) * 0.3;
+
             const progressPercent = Math.round((sectionProgress + quizProgress) * 100);
 
+            // Update main progress bar and text
             const mainProgressBar = document.querySelector('.progress-bar .progress-value');
             const mainProgressText = document.getElementById('progress-text');
             if (mainProgressBar) mainProgressBar.style.width = `${progressPercent}%`;
             if (mainProgressText) mainProgressText.textContent = `${progressPercent}% do Módulo 1 concluído`;
 
-            const sidebarProgressBar = document.getElementById('sidebar-progress-bar');
-            const sidebarProgressText = document.getElementById('sidebar-progress-text');
-            if (sidebarProgressBar) sidebarProgressBar.style.width = `${progressPercent}%`;
-            if (sidebarProgressText) sidebarProgressText.textContent = `${progressPercent}% Concluído`;
+            // Update sidebar progress bar and text
+             const sidebarProgressBar = document.getElementById('sidebar-progress-bar');
+             const sidebarProgressText = document.getElementById('sidebar-progress-text');
+             if (sidebarProgressBar) sidebarProgressBar.style.width = `${progressPercent}%`;
+             if (sidebarProgressText) sidebarProgressText.textContent = `${progressPercent}% Concluído`;
         }
 
-         // Update active sidebar link based on scroll or hash
-         function updateActiveSidebarLink(targetHash = null) {
-             let currentHash = targetHash || window.location.hash;
-              if (!currentHash && window.scrollY < 100) {
-                 currentHash = '#section1-1'; // Default to first if near top
-              }
-              else if (!currentHash) {
+         // Update active sidebar link based on scroll position or hash
+        function updateActiveSidebarLink(targetHash = null) {
+            let currentHash = targetHash || window.location.hash;
+            if (!currentHash) {
+                 // If no hash, try to determine based on scroll position
                  const sections = ['section1-1', 'section1-2', 'section1-3'];
-                 let activeSectionId = sections[0];
-                 let minVisibleTop = Infinity;
+                 let activeSectionId = sections[0]; // Default to first
                  for (const id of sections) {
                      const element = document.getElementById(id);
                      if (element) {
                          const rect = element.getBoundingClientRect();
-                         if (rect.top >= 0 && rect.top < window.innerHeight * 0.6 && rect.top < minVisibleTop) {
-                              minVisibleTop = rect.top;
+                         // Consider active if top part of section is visible near top of viewport
+                         if (rect.top <= 100 && rect.bottom >= 100) {
                              activeSectionId = id;
-                         } else if (rect.top < 85 && rect.bottom > 85) {
-                             activeSectionId = id;
+                             break;
                          }
                      }
                  }
                  currentHash = '#' + activeSectionId;
-              }
+             }
 
-              const sidebarLinks = document.querySelectorAll('.sidebar-link');
-              sidebarLinks.forEach(link => {
-                  link.classList.remove('active');
-                  if (link.getAttribute('href') === currentHash) {
-                      link.classList.add('active');
-                  }
-             });
-         }
+             const sidebarLinks = document.querySelectorAll('.sidebar-link');
+             sidebarLinks.forEach(link => {
+                 link.classList.remove('active');
+                 if (link.getAttribute('href') === currentHash) {
+                     link.classList.add('active');
+                 }
+            });
+        }
 
 
         // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
-              const hash = window.location.hash;
-              let targetSectionId = 'section1-1'; // Default
-              if (hash) {
-                   const potentialId = hash.substring(1);
-                   if (document.getElementById(potentialId)) {
-                       targetSectionId = potentialId;
-                   }
-               }
-              // Use setTimeout to ensure smooth scroll and toggle works correctly on load
-              setTimeout(() => {
-                    const targetHeader = document.querySelector(`#${targetSectionId} .section-header`);
-                    if (targetHeader && targetHeader.getAttribute('aria-expanded') === 'false') {
-                        toggleSection(targetSectionId); // Expand if needed
-                    }
-                    // Scroll to the section if hash was present
-                    if (hash) {
-                         const sectionElement = document.getElementById(targetSectionId);
-                         if(sectionElement) {
-                            const navbarHeight = 64;
-                            const elementPosition = sectionElement.getBoundingClientRect().top;
-                            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight - 10;
-                            window.scrollTo({ top: offsetPosition, behavior: "auto" }); // Auto scroll on load
-                         }
-                    }
-                    updateActiveSidebarLink('#' + targetSectionId); // Set initial active link
-               }, 100);
+             // Open first section by default if no hash specified
+             if (!window.location.hash) {
+                 toggleSection('section1-1');
+             } else {
+                // If there's a hash, expand the corresponding section
+                const targetId = window.location.hash.substring(1);
+                const sectionToExpand = document.getElementById(targetId);
+                if(sectionToExpand && sectionToExpand.classList.contains('section-container')) {
+                    toggleSection(targetId);
+                }
+             }
 
+            // Initialize progress
+            updateProgress();
 
-             updateProgress(); // Initial progress
+            // Highlight active sidebar link based on hash or scroll
+             updateActiveSidebarLink();
+             window.addEventListener('scroll', () => updateActiveSidebarLink()); // Update on scroll
+             window.addEventListener('hashchange', () => updateActiveSidebarLink()); // Update on hash change
 
-             // Listeners for scroll and hash change
-              window.addEventListener('scroll', () => updateActiveSidebarLink(), { passive: true });
-              window.addEventListener('hashchange', () => updateActiveSidebarLink());
         });
     </script>
 </body>
