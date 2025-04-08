@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard do Aluno - Curso CLIMADA</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            background-color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        .module-progress {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e2e8f0;
+        }
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+            background-color: #3b82f6;
+        }
+        .nav-link {
+            transition: color 0.2s;
+        }
+        .nav-link:hover {
+            color: #3b82f6;
+        }
+        .calendar-day {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+        .calendar-day:hover {
+            background-color: #e2e8f0;
+            cursor: pointer;
+        }
+        .has-event {
+            background-color: #dbeafe;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #ef4444;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        .sidebar {
+            background-color: #1e3a8a;
+            color: white;
+        }
+        .sidebar-link {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: #2563eb;
+        }
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="sidebar w-64 p-6 hidden lg:block">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold">CLIMADA</h2>
+                <p class="text-sm text-blue-200">Plataforma de Aprendizado</p>
+            </div>
+            
+            <nav>
+                <a href="index.html" class="sidebar-link">
+                    <i class="fas fa-flag mr-3"></i>
+                    <span>Homepage do Curso</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center active">
+                    <i class="fas fa-home mr-3"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center">
+                    <i class="fas fa-book-open mr-3"></i>
+                    <span>Meus Cursos</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center">
+                    <i class="fas fa-calendar-alt mr-3"></i>
+                    <span>Calendário</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center">
+                    <i class="fas fa-file-alt mr-3"></i>
+                    <span>Materiais</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center">
+                    <i class="fas fa-cog mr-3"></i>
+                    <span>Configurações</span>
+                </a>
+                <a href="#" class="sidebar-link flex items-center">
+                    <i class="fas fa-question-circle mr-3"></i>
+                    <span>Ajuda</span>
+                </a>
+            </nav>
+            
+            <div class="mt-auto pt-6">
+                <div class="p-4 bg-blue-900 rounded-lg">
+                    <h3 class="font-medium mb-2">Precisa de ajuda?</h3>
+                    <p class="text-sm text-blue-200 mb-3">Entre em contato com nosso suporte</p>
+                    <a href="mailto:vitor.alves@environpact.com?subject=Ajuda&body=Olá meu rei! Eu preciso de suporte com..." class="text-sm bg-blue-600 text-white py-2 px-3 rounded-md inline-block hover:bg-blue-700 transition">Contato</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 p-4 lg:p-8">
+            <!-- Header -->
+            <header class="flex justify-between items-center mb-8">
+                <div class="lg:hidden">
+                    <button class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="relative ml-auto">
+                    <button class="mr-4 relative text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    
+                    <div class="inline-flex items-center">
+                        <img src="https://cdn.jsdelivr.net/gh/Xiefeng69/images-for-test@main/student-profile.jpg" alt="Perfil do Aluno" class="profile-img mr-2">
+                        <div class="hidden md:block">
+                            <h3 class="font-medium">Environ Impacter</h3>
+                            <p class="text-xs text-gray-500">environpact@environpact.com</p>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Welcome Section -->
+            <div class="mb-8">
+                <h1 class="text-2xl md:text-3xl font-bold mb-2">Olá, Impacter!</h1>
+                <p class="text-gray-600">Bem-vinda de volta ao seu curso "Precificação de Riscos Climáticos com CLIMADA"</p>
+            </div>
+
+            <!-- Course Progress Overview -->
+            <div class="mb-8">
+                <div class="bg-white rounded-lg p-6 card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Progresso do Curso</h2>
+                        <span class="text-lg font-bold text-blue-600">17%</span>
+                    </div>
+                    
+                    <div class="module-progress mb-6">
+                        <div class="progress-bar" style="width: 47%"></div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                        <div class="text-center p-3 rounded-lg border border-gray-200">
+                            <div class="inline-block p-3 rounded-full bg-blue-100 text-blue-400 mb-2">
+                                <i class="fas fa-spinner fa-spin"></i>
+                            </div>
+                            <h3 class="font-medium">Módulo 1</h3>
+                            <p class="text-sm text-gray-500">Em andamento</p>
+                        </div>
+                        
+                        <div class="text-center p-3 rounded-lg border border-gray-200">
+                            <div class="inline-block p-3 rounded-full bg-gray-100 text-gray-400 mb-2">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="font-medium">Módulo 2</h3>
+                            <p class="text-sm text-gray-500">Bloqueado</p>
+                        </div>
+                        
+                        <div class="text-center p-3 rounded-lg border border-gray-200">
+                            <div class="inline-block p-3 rounded-full bg-gray-100 text-gray-400 mb-2">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="font-medium">Módulo 3</h3>
+                            <p class="text-sm text-gray-500">Bloqueado</p>
+                        </div>
+                        
+                        <div class="text-center p-3 rounded-lg border border-gray-200">
+                            <div class="inline-block p-3 rounded-full bg-gray-100 text-gray-400 mb-2">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="font-medium">Módulo 4</h3>
+                            <p class="text-sm text-gray-500">Bloqueado</p>
+                        </div>
+                        
+                        <div class="text-center p-3 rounded-lg border border-gray-200">
+                            <div class="inline-block p-3 rounded-full bg-gray-100 text-gray-400 mb-2">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <h3 class="font-medium">Módulo 5</h3>
+                            <p class="text-sm text-gray-500">Bloqueado</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Sections -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Detailed Progress -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg p-6 card mb-6">
+                        <h2 class="text-xl font-semibold mb-4">Progresso Detalhado</h2>
+                        <canvas id="moduleProgressChart" height="250"></canvas>
+                    </div>
+                    
+                    <!-- Skills Progress -->
+                    <div class="bg-white rounded-lg p-6 card">
+                        <h2 class="text-xl font-semibold mb-4">Desenvolvimento de Habilidades</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Análise de Dados Climáticos</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="module-progress">
+                                    <div class="progress-bar bg-green-500" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Modelagem de Risco</span>
+                                    <span>60%</span>
+                                </div>
+                                <div class="module-progress">
+                                    <div class="progress-bar bg-blue-500" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Programação em Python</span>
+                                    <span>82%</span>
+                                </div>
+                                <div class="module-progress">
+                                    <div class="progress-bar bg-purple-500" style="width: 82%"></div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between mb-1">
+                                    <span class="font-medium">Análise Financeira</span>
+                                    <span>45%</span>
+                                </div>
+                                <div class="module-progress">
+                                    <div class="progress-bar bg-yellow-500" style="width: 45%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Upcoming Tasks and Activities -->
+                <div>
+                    <div class="bg-white rounded-lg p-6 card mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-semibold">Próximas Atividades</h2>
+                            <a href="#" class="text-blue-600 text-sm hover:underline">Ver todas</a>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start p-3 bg-blue-50 rounded-lg">
+                                <div class="bg-blue-600 text-white p-2 rounded-md mr-3">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Exercício Prático 4.2</h3>
+                                    <p class="text-sm text-gray-600 mb-1">Implementação de Funções de Impacto</p>
+                                    <p class="text-xs text-red-600">Vence em 2 dias</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-purple-50 rounded-lg">
+                                <div class="bg-purple-600 text-white p-2 rounded-md mr-3">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Leitura Complementar</h3>
+                                    <p class="text-sm text-gray-600 mb-1">Vulnerabilidade de Embarcações Offshore</p>
+                                    <p class="text-xs text-yellow-600">Recomendado</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-green-50 rounded-lg">
+                                <div class="bg-green-600 text-white p-2 rounded-md mr-3">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Webinar ao Vivo</h3>
+                                    <p class="text-sm text-gray-600 mb-1">Análise Prática de Casos</p>
+                                    <p class="text-xs text-gray-600">15 de Maio, 19:00</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start p-3 bg-yellow-50 rounded-lg">
+                                <div class="bg-yellow-600 text-white p-2 rounded-md mr-3">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Discussão em Grupo</h3>
+                                    <p class="text-sm text-gray-600 mb-1">Calibração de Funções de Impacto</p>
+                                    <p class="text-xs text-gray-600">18 de Maio, 17:30</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Time Spent Learning -->
+                    <div class="bg-white rounded-lg p-6 card">
+                        <h2 class="text-xl font-semibold mb-4">Tempo de Estudo</h2>
+                        <canvas id="timeSpentChart" height="200"></canvas>
+                        <div class="mt-4 text-center">
+                            <p class="text-sm text-gray-600">Esta semana</p>
+                            <p class="text-2xl font-bold text-blue-600">12h 45min</p>
+                            <p class="text-sm text-green-600">+2h15min em relação à semana anterior</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Materials and Calendar -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                <!-- Recent Materials -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg p-6 card">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-xl font-semibold">Materiais Recentes</h2>
+                            <a href="#" class="text-blue-600 text-sm hover:underline">Ver todos</a>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center border-b border-gray-100 pb-4">
+                                <div class="bg-blue-100 text-blue-800 p-3 rounded-md mr-4">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-medium">Funções de Impacto para Embarcações</h3>
+                                    <p class="text-sm text-gray-600">Unidade 4.2 - Acessado ontem</p>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="flex items-center border-b border-gray-100 pb-4">
+                                <div class="bg-green-100 text-green-800 p-3 rounded-md mr-4">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-medium">Vídeo: Calibração de Modelos de Impacto</h3>
+                                    <p class="text-sm text-gray-600">Unidade 4.1 - Acessado há 2 dias</p>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="flex items-center border-b border-gray-100 pb-4">
+                                <div class="bg-purple-100 text-purple-800 p-3 rounded-md mr-4">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-medium">Notebook: Modelagem de Exposição</h3>
+                                    <p class="text-sm text-gray-600">Unidade 3.4 - Acessado há 4 dias</p>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="bg-yellow-100 text-yellow-800 p-3 rounded-md mr-4">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-medium">Artigo: Métodos de Validação de Funções</h3>
+                                    <p class="text-sm text-gray-600">Material complementar - Acessado há 5 dias</p>
+                                </div>
+                                <a href="#" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Calendar -->
+                <div>
+                    <div class="bg-white rounded-lg p-6 card">
+                        <h2 class="text-xl font-semibold mb-4">Calendário do Curso</h2>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-4">
+                                <button class="text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3 class="font-medium">Maio 2025</h3>
+                                <button class="text-gray-500 hover:text-gray-700">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-7 gap-1 text-center mb-2">
+                                <div class="text-xs font-medium text-gray-500">D</div>
+                                <div class="text-xs font-medium text-gray-500">S</div>
+                                <div class="text-xs font-medium text-gray-500">T</div>
+                                <div class="text-xs font-medium text-gray-500">Q</div>
+                                <div class="text-xs font-medium text-gray-500">Q</div>
+                                <div class="text-xs font-medium text-gray-500">S</div>
+                                <div class="text-xs font-medium text-gray-500">S</div>
+                            </div>
+                            
+                            <div class="grid grid-cols-7 gap-1">
+                                <div class="calendar-day text-gray-400">28</div>
+                                <div class="calendar-day text-gray-400">29</div>
+                                <div class="calendar-day text-gray-400">30</div>
+                                <div class="calendar-day">1</div>
+                                <div class="calendar-day">2</div>
+                                <div class="calendar-day">3</div>
+                                <div class="calendar-day">4</div>
+                                
+                                <div class="calendar-day">5</div>
+                                <div class="calendar-day">6</div>
+                                <div class="calendar-day">7</div>
+                                <div class="calendar-day">8</div>
+                                <div class="calendar-day">9</div>
+                                <div class="calendar-day">10</div>
+                                <div class="calendar-day">11</div>
+                                
+                                <div class="calendar-day">12</div>
+                                <div class="calendar-day has-event">13</div>
+                                <div class="calendar-day">14</div>
+                                <div class="calendar-day has-event">15</div>
+                                <div class="calendar-day">16</div>
+                                <div class="calendar-day">17</div>
+                                <div class="calendar-day">18</div>
+                                
+                                <div class="calendar-day">19</div>
+                                <div class="calendar-day">20</div>
+                                <div class="calendar-day has-event">21</div>
+                                <div class="calendar-day">22</div>
+                                <div class="calendar-day">23</div>
+                                <div class="calendar-day">24</div>
+                                <div class="calendar-day">25</div>
+                                
+                                <div class="calendar-day">26</div>
+                                <div class="calendar-day">27</div>
+                                <div class="calendar-day">28</div>
+                                <div class="calendar-day has-event">29</div>
+                                <div class="calendar-day">30</div>
+                                <div class="calendar-day">31</div>
+                                <div class="calendar-day text-gray-400">1</div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="font-medium text-sm mb-3">Próximos Eventos</h3>
+                            
+                            <div class="space-y-3">
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 rounded-full bg-blue-600 mt-1.5 mr-2"></div>
+                                    <div>
+                                        <p class="text-sm font-medium">Entrega de Exercício</p>
+                                        <p class="text-xs text-gray-600">13 de Maio, 23:59</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 rounded-full bg-green-600 mt-1.5 mr-2"></div>
+                                    <div>
+                                        <p class="text-sm font-medium">Webinar ao Vivo</p>
+                                        <p class="text-xs text-gray-600">15 de Maio, 19:00</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start">
+                                    <div class="w-2 h-2 rounded-full bg-purple-600 mt-1.5 mr-2"></div>
+                                    <div>
+                                        <p class="text-sm font-medium">Prova do Módulo 4</p>
+                                        <p class="text-xs text-gray-600">21 de Maio, 14:00</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications and Resources -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Notifications -->
+                <div class="bg-white rounded-lg p-6 card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Notificações</h2>
+                        <a href="#" class="text-blue-600 text-sm hover:underline">Marcar todas como lidas</a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start p-3 bg-blue-50 rounded-lg">
+                            <div class="text-blue-600 mr-3 mt-1">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Novo Material Disponível</h3>
+                                <p class="text-sm text-gray-600 mb-1">O material da Unidade 4.3 já está disponível para acesso</p>
+                                <p class="text-xs text-gray-500">Hoje, 10:23</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 bg-green-50 rounded-lg">
+                            <div class="text-green-600 mr-3 mt-1">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Exercício Avaliado</h3>
+                                <p class="text-sm text-gray-600 mb-1">Seu Exercício 3.4 foi avaliado. Nota: 9.5/10</p>
+                                <p class="text-xs text-gray-500">Ontem, 15:45</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start p-3 rounded-lg">
+                            <div class="text-gray-600 mr-3 mt-1">
+                                <i class="fas fa-comment-alt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-medium">Novo Comentário</h3>
+                                <p class="text-sm text-gray-600 mb-1">Seu professor comentou na sua entrega do Exercício 3.2</p>
+                                <p class="text-xs text-gray-500">2 dias atrás, 16:30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Supplementary Resources -->
+                <div class="bg-white rounded-lg p-6 card">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold">Recursos Complementares</h2>
+                        <a href="#" class="text-blue-600 text-sm hover:underline">Ver todos</a>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-red-600 text-white p-2 rounded-md mr-3">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">Documentação do CLIMADA</h3>
+                                <p class="text-sm text-gray-600">Manual completo da plataforma</p>
+                            </div>
+                            <a href="#" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-blue-600 text-white p-2 rounded-md mr-3">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">Repositório GitHub</h3>
+                                <p class="text-sm text-gray-600">Código fonte do CLIMADA</p>
+                            </div>
+                            <a href="#" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-green-600 text-white p-2 rounded-md mr-3">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">Artigos Científicos</h3>
+                                <p class="text-sm text-gray-600">Coletânea de publicações</p>
+                            </div>
+                            <a href="#" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <div class="bg-purple-600 text-white p-2 rounded-md mr-3">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium">Webinars Gravados</h3>
+                                <p class="text-sm text-gray-600">Palestras e demonstrações</p>
+                            </div>
+                            <a href="#" class="text-blue-600 hover:text-blue-800">
+                                <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Profile Settings -->
+            <div class="bg-white rounded-lg p-6 card mb-8">
+                <h2 class="text-xl font-semibold mb-6">Configurações de Perfil</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <img src="https://cdn.jsdelivr.net/gh/Xiefeng69/images-for-test@main/student-profile.jpg" alt="Perfil do Aluno" class="w-16 h-16 rounded-full mr-4">
+                            <div>
+                                <h3 class="font-medium">Environ Impacter</h3>
+                                <p class="text-sm text-gray-600">environpact@environpact.com</p>
+                                <button class="text-blue-600 text-sm hover:underline mt-1">Alterar foto</button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                                <input type="text" value="Environ Impacter" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" value="environpact@environpact.com" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+                                <input type="tel" value="+55 11 98765-4321" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-medium mb-3">Preferências de Notificação</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <label class="text-sm">Notificações por Email</label>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="email-notif" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="email-notif" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <label class="text-sm">Lembretes de Prazo</label>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="deadline-notif" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="deadline-notif" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <label class="text-sm">Notificações de Fórum</label>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="forum-notif" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="forum-notif" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center justify-between">
+                                <label class="text-sm">Atualizações de Conteúdo</label>
+                                <div class="relative inline-block w-10 mr-2 align-middle select-none">
+                                    <input type="checkbox" id="content-notif" checked class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"/>
+                                    <label for="content-notif" class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6">
+                            <h3 class="font-medium mb-3">Idioma e Preferências</h3>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Idioma</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option selected>Português (Brasil)</option>
+                                        <option>English</option>
+                                        <option>Español</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Fuso Horário</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option selected>América/São Paulo (GMT-3)</option>
+                                        <option>América/New York (GMT-4)</option>
+                                        <option>Europe/London (GMT+1)</option>
+                                        <option>Asia/Tokyo (GMT+9)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-end">
+                    <button class="bg-gray-200 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-300 mr-2">Cancelar</button>
+                    <button class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">Salvar Alterações</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="text-center text-gray-500 text-sm py-6">
+                <p>&copy; 2025 Plataforma de Aprendizado CLIMADA. Todos os direitos reservados.</p>
+                <div class="mt-2">
+                    <a href="#" class="text-gray-500 hover:text-gray-700 mx-2">Termos de Uso</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 mx-2">Política de Privacidade</a>
+                    <a href="#" class="text-gray-500 hover:text-gray-700 mx-2">Ajuda</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Module Progress Chart
+            const moduleProgressCtx = document.getElementById('moduleProgressChart').getContext('2d');
+            const moduleProgressChart = new Chart(moduleProgressCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Módulo 1', 'Módulo 2', 'Módulo 3', 'Módulo 4', 'Módulo 5', 'Módulo 6', 'Módulo 7', 'Módulo 8', 'Módulo 9', 'Módulo 10'],
+                    datasets: [{
+                        label: 'Progresso (%)',
+                        data: [100, 100, 100, 35, 0, 0, 0, 0, 0, 0],
+                        backgroundColor: [
+                            '#3b82f6', '#3b82f6', '#3b82f6', '#93c5fd', '#e5e7eb', '#e5e7eb', 
+                            '#e5e7eb', '#e5e7eb', '#e5e7eb', '#e5e7eb'
+                        ],
+                        borderWidth: 0,
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Time Spent Chart
+            const timeSpentCtx = document.getElementById('timeSpentChart').getContext('2d');
+            const timeSpentChart = new Chart(timeSpentCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                    datasets: [{
+                        label: 'Horas de Estudo',
+                        data: [1.5, 2.0, 3.5, 1.0, 2.5, 1.25, 1.0],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#3b82f6',
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'h';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Toggle switch style
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleCheckboxes = document.querySelectorAll('.toggle-checkbox');
+            toggleCheckboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    checkbox.nextElementSibling.classList.add('bg-blue-600');
+                    checkbox.nextElementSibling.classList.remove('bg-gray-300');
+                }
+                
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        this.nextElementSibling.classList.add('bg-blue-600');
+                        this.nextElementSibling.classList.remove('bg-gray-300');
+                    } else {
+                        this.nextElementSibling.classList.remove('bg-blue-600');
+                        this.nextElementSibling.classList.add('bg-gray-300');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
